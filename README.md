@@ -12,7 +12,7 @@
     - [Skill points](#skill-points)
 
 # Overview
-You are a prisoner on the Pioneer Prison Camp, slowly drifting on a huge spaceship in empty space. Your only hope? A tennis championship of course! You'll need to defeat [Insert good amount here] of the hardest tennis-god inmates in order to earn your freedom. Upgrade your skillset, your racket, and try to earn your righteous freedom. 
+WRITE A STORY DUMBASS
 
 # Gameplay
 ## Matches

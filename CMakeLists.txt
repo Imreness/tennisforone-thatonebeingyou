@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSION ON)
 
 add_executable(TFOTOBY code/main.cpp)
 target_include_directories(TFOTOBY PRIVATE "h/")
+target_include_directories(TFOTOBY PRIVATE "code/")
 #include("assetpacker/CMakeLists.txt")
 
 #set_target_properties(TFOTOBY PROPERTIES RUNTIME_OUTPUT_DIRECTORY "game/")
@@ -28,10 +29,16 @@ add_library(Engine STATIC
     h/imgui/imgui_impl_opengl3.h
     h/imgui/imgui_impl_opengl3.cpp    
     h/imgui/imgui_impl_glfw.h   
-    h/imgui/imgui_impl_glfw.cpp  
+    h/imgui/imgui_impl_glfw.cpp
+
+    code/core/configloader.hpp
+    code/core/configloader.cpp
+    code/core/game.hpp
+    code/core/game.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")
+target_include_directories(Engine PRIVATE "code/")
 
 target_link_libraries(TFOTOBY Engine)
 
