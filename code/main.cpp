@@ -1,19 +1,17 @@
 #include <iostream>
-#include <glad.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <assimp/Importer.hpp>
 int main(){
 
-    Assimp::Importer porter;
-
+    std::printf("we coo?\n");
     GLFWwindow* window;
 
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
@@ -35,6 +33,8 @@ int main(){
 
     glEnable(GL_CULL_FACE);  
     glClearColor( 0.4f, 0.3f, 0.4f, 0.0f );
+
+    std::printf("yeah, we coo\n");
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))

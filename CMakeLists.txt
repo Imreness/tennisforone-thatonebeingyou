@@ -2,14 +2,16 @@ cmake_minimum_required(VERSION 3.16.0)
 project(TFOTOBY VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSION ON)
 
 add_executable(TFOTOBY code/main.cpp)
-target_include_directories(TFOTOBY PRIVATE "h/glad/")
+target_include_directories(TFOTOBY PRIVATE "h/")
 #include("assetpacker/CMakeLists.txt")
 
 #set_target_properties(TFOTOBY PROPERTIES RUNTIME_OUTPUT_DIRECTORY "game/")
+
+
 
 add_library(Engine STATIC
     h/glad/glad.h
@@ -33,6 +35,8 @@ target_include_directories(Engine PRIVATE "h/")
 
 target_link_libraries(TFOTOBY Engine)
 
+
+
 if(CMAKE_SYSTEM_NAME STREQUAL Windows)
     if(CMAKE_BUILD_TYPE STREQUAL Debug)
         target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/assimp-vc141-mtd.lib)
@@ -53,10 +57,21 @@ if(CMAKE_SYSTEM_NAME STREQUAL Windows)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL Linux)
-    find_package(glfw3 REQUIRED)
-    find_package(spdlog REQUIRED)
-    find_package(assimp REQUIRED)
-    find_package(Bullet REQUIRED)
+    if(CMAKE_BUILD_TYPE STREQUAL Debug)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/d_libglfw3.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/d_libspdlogd.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/d_libLinearMath.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/d_libBulletDynamics.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/d_libBulletCollision.a)
+        target_link_libraries(TFOTOBY GL dl pthread X11 z)
+    endif()
 
-    target_link_libraries(TFOTOBY glfw dl GL pthread Xrandr Xi assimp X11 spdlog)
+    if(CMAKE_BUILD_TYPE STREQUAL Release OR CMAKE_BUILD_TYPE STREQUAL RelWithDebInfo)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/libglfw3.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/libspdlog.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/libLinearMath.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/libBulletDynamics.a)
+        target_link_libraries(TFOTOBY ${CMAKE_SOURCE_DIR}/l/libBulletCollision.a)
+        target_link_libraries(TFOTOBY GL dl pthread X11 z)
+    endif()
 endif()
