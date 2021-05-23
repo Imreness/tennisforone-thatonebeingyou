@@ -1,17 +1,14 @@
 #include <core/game.hpp>
-#include <core/configloader.hpp>
 #include <iostream>
 #include <fstream>
 
-Game::Game(const char* title){
-    //init config
-    configStruct currconfig = config::loadConfig("game.conf");
+void Game::initspdlog(){
+    m_currConfig = config::loadConfig("game.conf");
 
-    //setup logger
 	auto logfile = spdlog::basic_logger_mt("log", "gamelog.log");
 
 	spdlog::set_default_logger(logfile);
-	spdlog::set_level(currconfig.debuglevel);
+	spdlog::set_level(m_currConfig.debuglevel);
 
 	spdlog::flush_every(std::chrono::seconds(1));
 
@@ -21,7 +18,9 @@ Game::Game(const char* title){
 	ofs.open("gamelog.log", std::ofstream::out | std::ofstream::trunc);
 	ofs.close();
 
+}
 
+void Game::initGLFW(const char* title){
     //Init GLFW and the window itself
     if(!glfwInit()){
         spdlog::error("Error initalizing GLFW!");
@@ -35,7 +34,7 @@ Game::Game(const char* title){
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     //Init window here
-    m_mainWindow = glfwCreateWindow(currconfig.windowWidth, currconfig.windowHeight, title, NULL, NULL);
+    m_mainWindow = glfwCreateWindow(m_currConfig.windowWidth, m_currConfig.windowHeight, title, NULL, NULL);
     if(!m_mainWindow){
         glfwTerminate();
         spdlog::error("Error while creating the game window!");
@@ -43,12 +42,9 @@ Game::Game(const char* title){
         abort();
     }
     glfwMakeContextCurrent(m_mainWindow);
+}
 
-
-
-
-
-
+void Game::initOpenGL(){
     //Init OpenGL
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         spdlog::error("Error initalizing OpenGL!");
@@ -58,8 +54,18 @@ Game::Game(const char* title){
 
     //backside of polygons wont be rendered. quite useful optimization.
     glEnable(GL_CULL_FACE);
+}
+
+Game::Game(const char* windowtitle){
+
+    initspdlog();
+
+    initGLFW(windowtitle);
+
+    initOpenGL();
 
     //Init the first game state
+    spdlog::info("Initilizing game...");
 
 }
 

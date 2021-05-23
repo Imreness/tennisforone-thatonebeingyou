@@ -1,2 +1,0 @@
-- Put more debug infos into the game.cpp/hpp
-- MAKE EVERYTHING A GODDAMN FUNCTION

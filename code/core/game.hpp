@@ -2,13 +2,22 @@
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
+#include <core/configloader.hpp>
 
 class Game{
 private:
 
+    configStruct m_currConfig;
+
     GLFWwindow* m_mainWindow;
 
     bool m_shouldRun = true;
+
+    //init functions
+    void initspdlog();
+    void initGLFW(const char*);
+    void initOpenGL();
+
 
 public:
 
