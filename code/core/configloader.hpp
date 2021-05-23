@@ -4,13 +4,12 @@
 struct configStruct{
     int windowWidth;
     int windowHeight;
+    spdlog::level::level_enum debuglevel;
 };
 
-struct Configurator{
-    configStruct currentConfig;
-
-    void loadConfig(const char*);
+namespace config{
+    configStruct loadConfig(const char*);
 
     //TODO - implement this with the settings menu
-    void saveConfig(const char*);
+    configStruct saveConfig(const char*);
 };

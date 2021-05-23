@@ -3,12 +3,15 @@
 #include <iostream>
 #include <fstream>
 
-Game::Game(const char* title, spdlog::level::level_enum loglevel){
+Game::Game(const char* title){
+    //init config
+    configStruct currconfig = config::loadConfig("game.conf");
+
     //setup logger
 	auto logfile = spdlog::basic_logger_mt("log", "gamelog.log");
 
 	spdlog::set_default_logger(logfile);
-	spdlog::set_level(loglevel);
+	spdlog::set_level(currconfig.debuglevel);
 
 	spdlog::flush_every(std::chrono::seconds(1));
 
@@ -17,17 +20,6 @@ Game::Game(const char* title, spdlog::level::level_enum loglevel){
 	std::ofstream ofs;
 	ofs.open("gamelog.log", std::ofstream::out | std::ofstream::trunc);
 	ofs.close();
-
-
-
-
-
-    Configurator config;
-    //Get the config variables from the game.conf
-    config.loadConfig("game.conf");
-
-
-
 
 
     //Init GLFW and the window itself
@@ -43,7 +35,7 @@ Game::Game(const char* title, spdlog::level::level_enum loglevel){
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     //Init window here
-    m_mainWindow = glfwCreateWindow(config.currentConfig.windowWidth, config.currentConfig.windowHeight, title, NULL, NULL);
+    m_mainWindow = glfwCreateWindow(currconfig.windowWidth, currconfig.windowHeight, title, NULL, NULL);
     if(!m_mainWindow){
         glfwTerminate();
         spdlog::error("Error while creating the game window!");

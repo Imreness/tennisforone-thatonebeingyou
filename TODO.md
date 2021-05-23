@@ -1,3 +1,2 @@
-- Make log level config defined
 - Put more debug infos into the game.cpp/hpp
-- test builds
+- MAKE EVERYTHING A GODDAMN FUNCTION

@@ -13,7 +13,7 @@ private:
 public:
 
     //make debug level config defined
-    Game(const char*, spdlog::level::level_enum);
+    Game(const char*);
 
     void update();
 
