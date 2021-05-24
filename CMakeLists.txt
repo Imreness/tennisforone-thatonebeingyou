@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSION ON)
 add_executable(TFOTOBY code/main.cpp)
 target_include_directories(TFOTOBY PRIVATE "h/")
 target_include_directories(TFOTOBY PRIVATE "code/")
-#include("assetpacker/CMakeLists.txt")
+include("assetpacker/CMakeLists.txt")
 
 #set_target_properties(TFOTOBY PROPERTIES RUNTIME_OUTPUT_DIRECTORY "game/")
 

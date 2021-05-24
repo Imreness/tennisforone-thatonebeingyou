@@ -6,6 +6,6 @@ build/*
 !build/assets/
 !build/debugshader/
 !build/levels/
-!build/assetpacker/levels_wip/
+!build/assetpacker/assets/
 build/assetpacker/*
-!build/assetpacker/levels_wip/
+!build/assetpacker/assets/
