@@ -1,0 +1,2 @@
+- write a more detailed gameplayloop doc
+- create the gamestates

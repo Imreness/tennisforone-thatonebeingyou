@@ -8,8 +8,13 @@
       - [Normal shot](#normal-shot)
       - [Slice shot](#slice-shot)
       - [Powershot](#powershot)
+    - [Running distance](#running-distance)
   - [Between Matches](#between-matches)
     - [Skill points](#skill-points)
+      - [Power skil](#power-skil)
+      - [Running distance skill](#running-distance-skill)
+      - [Dexterity](#dexterity)
+      - [Racket size (???)](#racket-size-)
 
 # Overview
 WRITE A STORY DUMBASS
@@ -28,7 +33,20 @@ Normal shots are the ones where the racket simply hits the ball without any furt
 #### Slice shot
 With a certain key, the player can initiate a *Slice Shot*. A Slice shot leaves the racket in a Semi-frozen state, where it sort of tries to go to the cursor, but is bound towards the point in which the racket was when the slice key was pressed. Uppon another press of the key (and given that the cursor is far enough away.), the racket will quickly ([although quickness depends on skill level](#skill-points)) snap to the cursor. But, if the conditions are not met, and the cursors is not far enough away, the racket will simply return to its default state. If the ball is hit during the snap-event, where the "slicing" rakcet is still travelling to the cursor, the ball's direction will grealty change, given the angle, and will also get a speed boost, although not a significant amount. This shot is mainly used to bounce the ball around, confusing slower player.
 #### Powershot
-The most powerful shot type. The player first needs to fill up their power bar in order to use this. Hitting balls regurarly gives a certain amount of fillage to the bar, slice-shots give a lot more, 1.5 times as much. If the bar is filled, pressing the power shot button freeze the racket in place. In this state, the bar begins to drain. If the player presses the button while the bar is not fully drained, the move will be canceled, and the ***drained*** power bar remains. If, however, the bar is fully depleted, another press of the button will swing the racket. If the ball is hit during this swing, the ball's trajectory wont change as much, however, the ball will gain a significant speed boost. 
+The most powerful shot type. The player first needs to fill up their power bar in order to use this. Hitting balls regurarly gives a certain amount of fillage to the bar, slice-shots give a lot more, 1.5 times as much. If the bar is filled, pressing the power shot button freeze the racket in place. In this state, the bar begins to drain. If the player presses the button while the bar is not fully drained, the move will be canceled, and the ***drained*** power bar remains. If, however, the bar is fully depleted, another press of the button will swing the racket. If the ball is hit during this swing, the ball's trajectory wont change as much, however, the ball will gain a significant speed boost.
+
+### Running distance
+Running distance is a distance which you run. Very descripive, I know. The ball doesnt just shoot past your racket if you miss it. You move back *with* the ball for a certain amount of time. The amount is set by a skill. The game checks one of the coordinates (probably Z) to see how back is the racket OR the ball. If the game sees that the ball will NOT collide with the racket, it'll move the racket back, as far as the skill permits it. At the end of said skill, time will gradually slow down, to a set amount, giving the player, not necesarilly more time to react, since the racket moves proportionally to the slowed down time, but more time to do small adjustments. Otherwise, if it sees it colliding, it'll simply stop pushing the racket back, allowing the player to hit the ball. After serving, the racket will swiftly go back to the original position, *smoothly*. AI will not have this feature. This is just to account for our ape brain.  
+
+The running distance is only active ***while*** the player is not doing any special shots.
 
 ## Between Matches
 ### Skill points
+#### Power skil
+The most universally undestandable skill. Have more power, have a faster ball. It will not change the trajectory of the ball, only its bouncing-back velocity
+#### Running distance skill
+Simply permits the [running distance system](#running-distance) to have more distance, thus more time to react. It will not modify the slow-down effect, which activates at the end of the running distance, actuation point, scale, speed or ratio.
+#### Dexterity
+The speed of which the racket follows the cursor.
+#### Racket size (???)
+Still on the table. I want the game to be easily masterable, not needing of such things. But the size increase wont be huge, just marginally better, which may help players who keep mising the ball by a few mm.

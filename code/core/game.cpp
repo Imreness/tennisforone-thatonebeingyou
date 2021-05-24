@@ -90,7 +90,6 @@ bool Game::shouldRun(){
 }
 
 Game::~Game(){
-    std::printf("CALLED\n");
-    //deconstruct the current gamestate
+    //TODO - deconstruct the current gamestate
     glfwTerminate();
 }
