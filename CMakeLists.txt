@@ -35,6 +35,9 @@ add_library(Engine STATIC
     code/core/configloader.cpp
     code/core/game.hpp
     code/core/game.cpp
+    code/core/gamestate.hpp
+    code/gamestates/menuState.hpp
+    code/gamestates/menuState.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")

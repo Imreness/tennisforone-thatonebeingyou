@@ -1,2 +1,4 @@
-- write a more detailed gameplayloop doc
-- create the gamestates
+- include base graphics things
+- assetpacker UI packing function
+- UI asset includer part
+- create a UI library

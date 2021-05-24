@@ -5,7 +5,7 @@
 void Game::initspdlog(){
     m_currConfig = config::loadConfig("game.conf");
 
-	auto logfile = spdlog::basic_logger_mt("log", "gamelog.log");
+	auto logfile = spdlog::basic_logger_mt("log", "game.log");
 
 	spdlog::set_default_logger(logfile);
 	spdlog::set_level(m_currConfig.debuglevel);
@@ -15,12 +15,13 @@ void Game::initspdlog(){
 	spdlog::debug("Started game constructor");
 
 	std::ofstream ofs;
-	ofs.open("gamelog.log", std::ofstream::out | std::ofstream::trunc);
+	ofs.open("game.log", std::ofstream::out | std::ofstream::trunc);
 	ofs.close();
 
 }
 
 void Game::initGLFW(const char* title){
+    spdlog::debug("Initalizing GLFW");
     //Init GLFW and the window itself
     if(!glfwInit()){
         spdlog::error("Error initalizing GLFW!");
@@ -66,22 +67,19 @@ Game::Game(const char* windowtitle){
 
     //Init the first game state
     spdlog::info("Initilizing game...");
+    
+    m_currState = new menuState();
+    m_currState->init(m_mainWindow);
 
+    
+    spdlog::info("Running game");
 }
 
 void Game::update(){
-    /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glClearColor(0.1, 0.1 ,0.1 , 1.);
+    m_currState->process();
 
-    /* Swap front and back buffers */
-    glfwSwapBuffers(m_mainWindow);
-
-    /* Poll for and process events */
-    glfwPollEvents();
-
-    m_shouldRun = !glfwWindowShouldClose(m_mainWindow);
+    m_shouldRun = m_currState->shouldRun();
 
 }
 
@@ -90,6 +88,7 @@ bool Game::shouldRun(){
 }
 
 Game::~Game(){
-    //TODO - deconstruct the current gamestate
+    m_currState->cleanup();
+    delete m_currState;
     glfwTerminate();
 }

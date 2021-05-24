@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <core/configloader.hpp>
+#include <gamestates/menuState.hpp>
 
 class Game{
 private:
@@ -12,6 +13,10 @@ private:
     GLFWwindow* m_mainWindow;
 
     bool m_shouldRun = true;
+
+    gameState* m_currState;
+
+
 
     //init functions
     void initspdlog();
