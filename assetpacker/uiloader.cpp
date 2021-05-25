@@ -22,7 +22,9 @@ namespace uipacker{
         realpath.append("/");
 
         std::ofstream outputfile;
-        outputfile.open(path.append(".ui"), std::ios::out | std::ios::binary);
+        std::string outputpath("../assets/");
+        outputpath.append(path).append(".ui");
+        outputfile.open(outputpath.c_str(), std::ios::out | std::ios::binary);
 
         uint8_t fileamount = 0;
         for (const auto & file : std::filesystem::directory_iterator(realpath.c_str())){
