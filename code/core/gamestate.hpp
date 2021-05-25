@@ -1,3 +1,5 @@
+#ifndef GAMESTATEBASECLASS
+#define GAMESTATEBASECLASS
 #include <GLFW/glfw3.h>
 
 class gameState{
@@ -16,3 +18,5 @@ public:
     virtual bool shouldRun() = 0;
 
 };
+
+#endif

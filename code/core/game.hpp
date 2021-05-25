@@ -1,3 +1,5 @@
+#ifndef GAMECLASS
+#define GAMECLASS
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
@@ -36,3 +38,5 @@ public:
     ~Game();
 
 };
+
+#endif

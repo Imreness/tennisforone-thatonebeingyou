@@ -46,6 +46,8 @@ namespace uipacker{
             outputfile.write((char*)&textureX, sizeof(uint16_t));
             outputfile.write((char*)&textureY, sizeof(uint16_t));
             outputfile.write((char*)data , textureX*textureY*4);
+
+            delete[] data;
         }
 
         outputfile.close();

@@ -1,3 +1,5 @@
+#ifndef CONFIGLOADER
+#define CONFIGLOADER
 #include <fstream>
 #include <spdlog/spdlog.h>
 
@@ -13,3 +15,5 @@ namespace config{
     //TODO - implement this with the settings menu
     configStruct saveConfig(const char*);
 };
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef MENUSTATE
+#define MENUSTATE
 #include <core/gamestate.hpp>
 
 class menuState : public gameState{
@@ -13,3 +15,5 @@ public:
     virtual bool shouldRun();
 
 };
+
+#endif

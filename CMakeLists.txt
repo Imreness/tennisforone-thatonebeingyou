@@ -38,6 +38,10 @@ add_library(Engine STATIC
     code/core/gamestate.hpp
     code/gamestates/menuState.hpp
     code/gamestates/menuState.cpp
+    code/core/shader.hpp
+    code/core/shader.cpp    
+    code/core/texture.hpp    
+    code/core/texture.cpp    
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")
