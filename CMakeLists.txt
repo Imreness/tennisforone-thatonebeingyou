@@ -41,7 +41,11 @@ add_library(Engine STATIC
     code/core/shader.hpp
     code/core/shader.cpp    
     code/core/texture.hpp    
-    code/core/texture.cpp    
+    code/core/texture.cpp
+    code/ui/uiManager.hpp
+    code/ui/uiManager.cpp
+    code/core/assetLoader.hpp
+    code/core/assetLoader.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")

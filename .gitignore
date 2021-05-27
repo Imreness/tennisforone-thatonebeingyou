@@ -4,7 +4,7 @@ build/*
 !build/assetpacker/
 !build/game.conf
 !build/assets/
-!build/debugshader/
+!build/shaders/
 !build/levels/
 !build/assetpacker/assets/
 build/assetpacker/*

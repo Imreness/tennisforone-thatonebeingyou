@@ -1,6 +1,7 @@
 #ifndef MENUSTATE
 #define MENUSTATE
 #include <core/gamestate.hpp>
+#include <core/assetLoader.hpp>
 
 class menuState : public gameState{
 private:

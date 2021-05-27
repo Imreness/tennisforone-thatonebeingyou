@@ -1,7 +1,6 @@
 #ifndef TEXTUREOBJ
 #define TEXTUREOBJ
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
 #include <fstream>
 
@@ -16,7 +15,7 @@ private:
 	unsigned int m_loadOrder;
 
 public:
-	Texture(int width, int height, unsigned char* data, unsigned int loadOrder);
+	Texture(int width, int height, char* data, unsigned int loadOrder);
 
 	void Use();
 };

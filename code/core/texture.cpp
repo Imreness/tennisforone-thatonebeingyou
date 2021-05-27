@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 
-Texture::Texture(int width, int height, unsigned char* data, unsigned int loadOrder = 0)
+Texture::Texture(int width, int height, char* data, unsigned int loadOrder = 0)
 	: m_loadOrder(loadOrder)
 {
 	glGenTextures(1, &m_ID);

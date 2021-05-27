@@ -1,5 +1,6 @@
 #ifndef GAMESTATEBASECLASS
 #define GAMESTATEBASECLASS
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 class gameState{
