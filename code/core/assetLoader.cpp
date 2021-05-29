@@ -1,10 +1,10 @@
 #include <core/assetLoader.hpp>
 #include <fstream>
 
-std::unordered_map<std::string, Texture> loadUiPackage(const char* path){
+std::unordered_map<std::string, Texture> assetLoader::loadUiPackage(const char* path){
     std::unordered_map<std::string, Texture> textures;
 
-    std::string fullpath("assets/"); fullpath.append(path);
+    std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".ui");
 
     std::ifstream file;
 	file.open(fullpath.c_str(), std::ios::in | std::ios::binary);
@@ -23,10 +23,12 @@ std::unordered_map<std::string, Texture> loadUiPackage(const char* path){
 
         uint16_t textureWidth = 0;
         uint16_t textureHeight = 0;
-        char* textureWidthChar;
-        char* textureHeightChar;
-        file.read(textureWidthChar, sizeof(uint16_t)); file.read(textureHeightChar, sizeof(uint16_t));
-        textureWidth = *(uint16_t*)textureWidthChar; textureHeight = *(uint16_t*)textureHeightChar;
+        char* textureWidthChar = new char[sizeof(uint16_t)];
+        char* textureHeightChar = new char[sizeof(uint16_t)];
+        file.read(textureWidthChar, sizeof(uint16_t));
+        file.read(textureHeightChar, sizeof(uint16_t));
+        textureWidth = *(uint16_t*)textureWidthChar;
+        textureHeight = *(uint16_t*)textureHeightChar;
         delete[] textureHeightChar;
         delete[] textureWidthChar;
 

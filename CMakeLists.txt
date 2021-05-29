@@ -36,16 +36,19 @@ add_library(Engine STATIC
     code/core/game.hpp
     code/core/game.cpp
     code/core/gamestate.hpp
+    code/core/assetLoader.hpp
+    code/core/assetLoader.cpp
     code/gamestates/menuState.hpp
     code/gamestates/menuState.cpp
+    code/core/graphicsEngine.hpp
+    code/core/graphicsEngine.cpp
     code/core/shader.hpp
     code/core/shader.cpp    
     code/core/texture.hpp    
     code/core/texture.cpp
     code/ui/uiManager.hpp
     code/ui/uiManager.cpp
-    code/core/assetLoader.hpp
-    code/core/assetLoader.cpp
+    code/ui/uiTypes.hpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")
