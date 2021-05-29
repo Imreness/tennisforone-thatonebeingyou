@@ -1,3 +1,4 @@
 - include base graphics things
 - UI asset includer part
 - create a UI library
+- implement shutdown of various gamestate initalized stuff like graphics engine

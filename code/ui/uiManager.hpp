@@ -7,7 +7,6 @@
 
 class uiManager{
 public:
-
     std::unordered_map<std::string, Texture> m_textures;
 
 };

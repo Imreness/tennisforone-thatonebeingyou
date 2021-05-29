@@ -55,6 +55,7 @@ void Game::initOpenGL(){
 
     //backside of polygons wont be rendered. quite useful optimization.
     glEnable(GL_CULL_FACE);
+    glViewport(0,0,m_currConfig.windowWidth,m_currConfig.windowHeight);
 }
 
 Game::Game(const char* windowtitle){

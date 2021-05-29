@@ -37,6 +37,7 @@ namespace uipacker{
 
             std::string filename(file.path().c_str());
             int textureX, textureY, channels;
+            stbi_set_flip_vertically_on_load(true);
             unsigned char* data = stbi_load(filename.c_str(), &(textureX), &(textureY), &channels, 4);
 
             std::string shortfilename_placeholder = filename.substr(filename.find_last_of('/')+1);

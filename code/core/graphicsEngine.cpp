@@ -4,6 +4,23 @@ void graphicsEngine::setTargetWindow(GLFWwindow* window){
     m_targetWindow = window;
 }
 
+void graphicsEngine::initUi(){
+    //init the UI quad
+	glCreateBuffers(1, &m_uiVBO);
+
+	glCreateVertexArrays(1, &m_uiVAO);
+
+	glBindVertexArray(m_uiVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_uiQuad) , &m_uiQuad, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)(2 * sizeof(float)));
+}
+
 void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
     if(hasGeo){
         std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
@@ -18,6 +35,14 @@ void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
         Shader shader{vertexName, fragmentName};
         m_shaders.insert({std::string(shaderName), shader});
     }
+}
+
+void graphicsEngine::renderUi(uiManager &ui){
+    Shader &uiShader = m_shaders.at("ui");
+    glBindVertexArray(m_uiVAO);
+    uiShader.Use();
+    ui.m_textures.at("lotus").Use();
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void graphicsEngine::renderStart(){
