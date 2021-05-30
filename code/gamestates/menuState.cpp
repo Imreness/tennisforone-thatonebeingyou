@@ -1,5 +1,6 @@
 #include <gamestates/menuState.hpp>
 #include <spdlog/spdlog.h>
+#include <core/configloader.hpp>
 
 void menuState::init(GLFWwindow* referencewindow){
     spdlog::info("Launching main menu...");
@@ -19,8 +20,11 @@ void menuState::initGraphics(){
 }
 void menuState::initUI(){
     spdlog::info("Initalizing UI");
+    configStruct conf = config::loadConfig("game.conf");
+    m_uiManager.m_screenHeight = conf.windowHeight;    
+    m_uiManager.m_screenWidth = conf.windowWidth;    
 
-    m_uiManager.m_textures = assetLoader::loadUiPackage("mainmenu");
+    m_uiManager.setup("mainmenu");
     m_graphics.initUi();
 }
 
@@ -33,6 +37,10 @@ void menuState::render(){
 }
 
 void menuState::process(){
+    double x,y;
+    glfwGetCursorPos(m_window, &x, &y);
+    m_uiManager.update((int)x,(int)y);
+
     render();
 }
 

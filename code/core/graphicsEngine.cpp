@@ -1,4 +1,5 @@
 #include <core/graphicsEngine.hpp>
+#include <glm/glm.hpp>
 
 void graphicsEngine::setTargetWindow(GLFWwindow* window){
     m_targetWindow = window;
@@ -41,8 +42,18 @@ void graphicsEngine::renderUi(uiManager &ui){
     Shader &uiShader = m_shaders.at("ui");
     glBindVertexArray(m_uiVAO);
     uiShader.Use();
-    ui.m_textures.at("lotus").Use();
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    for (auto &button : ui.m_buttons){
+        if(button.first == ui.m_hovered_button){
+            ui.m_textures.at(button.second.m_hoverTexture).Use();
+        }
+        else{
+            ui.m_textures.at(button.second.m_normalTexture).Use();
+        }
+
+        uiShader.setUniform("model", &(button.second.m_model[0][0]));
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 }
 
 void graphicsEngine::renderStart(){

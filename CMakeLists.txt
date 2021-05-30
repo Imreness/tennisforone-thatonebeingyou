@@ -49,6 +49,8 @@ add_library(Engine STATIC
     code/ui/uiManager.hpp
     code/ui/uiManager.cpp
     code/ui/uiTypes.hpp
+    code/ui/uiButton.hpp
+    code/ui/uiButton.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")

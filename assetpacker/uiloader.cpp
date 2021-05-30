@@ -41,7 +41,7 @@ namespace uipacker{
             unsigned char* data = stbi_load(filename.c_str(), &(textureX), &(textureY), &channels, 4);
 
             std::string shortfilename_placeholder = filename.substr(filename.find_last_of('/')+1);
-            std::string realshortname = shortfilename_placeholder.substr(0 , (shortfilename_placeholder.length() - shortfilename_placeholder.find('.'))+1);
+            std::string realshortname = shortfilename_placeholder.substr(0 , (shortfilename_placeholder.length() - 4));
 
             outputfile.write(realshortname.c_str(), sizeof(char)*15);
             outputfile.write((char*)&textureX, sizeof(uint16_t));
