@@ -5,11 +5,34 @@ void uiManager::setup(std::string name){
     if(name == "mainmenu"){
         m_textures = assetLoader::loadUiPackage("mainmenu");
 
-        m_hovered_button = "startgame";
+        m_hovered_button = "";
 
-        uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
-        button.scale(glm::vec2(2, 2));
-        m_buttons.insert({"startgame", button});
+
+        {
+            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
+            button.scale(glm::vec2(6, 5));
+            button.move(glm::vec2(0, 0.0));
+            m_buttons.insert({"startgame", button});
+        }
+        {
+            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
+            button.scale(glm::vec2(5, 7));
+            button.move(glm::vec2(0, -0.3));
+            m_buttons.insert({"dicksize", button});
+        }
+        {
+            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
+            button.scale(glm::vec2(9, 7));
+            button.move(glm::vec2(.2, 0.3));
+            m_buttons.insert({"biga", button});
+        }
+        {
+            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
+            button.scale(glm::vec2(4, 5));
+            button.move(glm::vec2(-.4, -0.3));
+            m_buttons.insert({"igabiga", button});
+        }
+
     }
 }
 

@@ -51,7 +51,8 @@ void graphicsEngine::renderUi(uiManager &ui){
             ui.m_textures.at(button.second.m_normalTexture).Use();
         }
 
-        uiShader.setUniform("model", &(button.second.m_model[0][0]));
+        uiShader.setUniform("model", button.second.m_model);
+        uiShader.setUniform("mover", button.second.m_mover);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 }
