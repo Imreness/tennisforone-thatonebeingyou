@@ -89,7 +89,6 @@ bool Game::shouldRun(){
 }
 
 Game::~Game(){
-    m_currState->cleanup();
     delete m_currState;
     glfwTerminate();
 }

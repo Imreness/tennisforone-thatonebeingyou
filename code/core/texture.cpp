@@ -33,3 +33,8 @@ void Texture::Use()
 	glActiveTexture((GLenum)(33984 + m_loadOrder));
 	glBindTexture(GL_TEXTURE_2D, m_ID);
 }
+
+Texture::~Texture(){
+	spdlog::debug("Deleting Texture...");
+	glDeleteTextures(1 , &m_ID);
+}

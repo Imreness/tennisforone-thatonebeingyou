@@ -30,3 +30,6 @@ void uiButton::move(glm::vec2 mover){
     m_bottomleft    = m_bottomleft  + glm::vec2(mover.x * (m_screenWidth), mover.y * (m_screenHeight));
     m_bottomright   = m_bottomright + glm::vec2(mover.x * (m_screenWidth), mover.y * (m_screenHeight));
 }
+
+uiButton::~uiButton(){
+}

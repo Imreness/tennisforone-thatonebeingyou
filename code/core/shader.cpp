@@ -102,6 +102,7 @@ Shader::Shader(const std::string_view vertexPath, const std::string_view fragmen
 	std::string   vertexString, fragmentString, geometryString;
 
 	vertexFile.open(vertexPath.data());
+	
 	fragmentFile.open(fragmentPath.data());
 	geometryFile.open(geometryPath.data());
 

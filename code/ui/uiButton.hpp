@@ -27,6 +27,8 @@ struct uiButton{
 
     void move(glm::vec2);
 
+    ~uiButton();
+
 };
 
 #endif

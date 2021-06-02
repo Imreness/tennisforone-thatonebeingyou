@@ -14,9 +14,9 @@ public:
 
     virtual void process() = 0;
 
-    virtual void cleanup() = 0;
-
     virtual bool shouldRun() = 0;
+
+    virtual ~gameState(){}
 
 };
 

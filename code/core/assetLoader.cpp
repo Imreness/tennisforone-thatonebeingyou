@@ -1,8 +1,7 @@
 #include <core/assetLoader.hpp>
 #include <fstream>
 
-std::unordered_map<std::string, Texture> assetLoader::loadUiPackage(const char* path){
-    std::unordered_map<std::string, Texture> textures;
+void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textures,const char* path){
 
     std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".ui");
 
@@ -35,9 +34,6 @@ std::unordered_map<std::string, Texture> assetLoader::loadUiPackage(const char* 
         char* data = new char[textureWidth*textureHeight*4];
         file.read(data, textureWidth*textureHeight*4);
 
-        textures.insert({name , Texture(textureWidth,textureHeight,data,0)});
+        textures.insert({name , new Texture(textureWidth,textureHeight,data,0)});
     }
-
-    return textures;
-
 }

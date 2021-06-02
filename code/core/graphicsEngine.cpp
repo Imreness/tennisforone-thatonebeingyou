@@ -27,32 +27,32 @@ void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
         std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
         std::string geoName("shaders/"); geoName.append(shaderName); geoName.append(".geo");
-        Shader shader{vertexName, fragmentName, geoName};
+        Shader* shader = new Shader{vertexName, fragmentName, geoName};
         m_shaders.insert({std::string(shaderName), shader});
     }
     else{
         std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
-        Shader shader{vertexName, fragmentName};
+        Shader* shader = new Shader{vertexName, fragmentName};
         m_shaders.insert({std::string(shaderName), shader});
     }
 }
 
 void graphicsEngine::renderUi(uiManager &ui){
-    Shader &uiShader = m_shaders.at("ui");
+    Shader* uiShader = m_shaders.at("ui");
     glBindVertexArray(m_uiVAO);
-    uiShader.Use();
+    uiShader->Use();
 
     for (auto &button : ui.m_buttons){
         if(button.first == ui.m_hovered_button){
-            ui.m_textures.at(button.second.m_hoverTexture).Use();
+            ui.m_textures.at(button.second.m_hoverTexture)->Use();
         }
         else{
-            ui.m_textures.at(button.second.m_normalTexture).Use();
+            ui.m_textures.at(button.second.m_normalTexture)->Use();
         }
 
-        uiShader.setUniform("model", button.second.m_model);
-        uiShader.setUniform("mover", button.second.m_mover);
+        uiShader->setUniform("model", button.second.m_model);
+        uiShader->setUniform("mover", button.second.m_mover);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 }
@@ -65,4 +65,14 @@ void graphicsEngine::renderStart(){
 void graphicsEngine::renderEnd(){
     glfwSwapBuffers(m_targetWindow);
     glfwPollEvents();
+}
+
+graphicsEngine::~graphicsEngine(){
+    glDeleteVertexArrays(1, &m_uiVAO);
+    glDeleteBuffers(1, &m_uiVBO);
+
+    for(const auto& thing : m_shaders){
+        delete thing.second;
+    }
+    m_shaders.clear();
 }

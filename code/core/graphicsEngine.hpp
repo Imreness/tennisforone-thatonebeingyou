@@ -11,7 +11,7 @@ private:
 
     GLFWwindow* m_targetWindow;
 
-    std::unordered_map<std::string, Shader> m_shaders;
+    std::unordered_map<std::string, Shader*> m_shaders;
 
 
 
@@ -37,6 +37,8 @@ public:
 
     void renderStart();
     void renderEnd();
+
+    ~graphicsEngine();
 };
 
 #endif

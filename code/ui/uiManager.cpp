@@ -3,7 +3,7 @@
 
 void uiManager::setup(std::string name){
     if(name == "mainmenu"){
-        m_textures = assetLoader::loadUiPackage("mainmenu");
+        assetLoader::loadUiPackage(m_textures, name.c_str());
 
         m_hovered_button = "";
 
@@ -56,4 +56,11 @@ void uiManager::update(int mouseX, int mouseY){
     }
 
     m_hovered_button = "";
+}
+
+uiManager::~uiManager(){
+    for(const auto& thing : m_textures){
+        delete thing.second;
+    }
+    m_textures.clear();
 }

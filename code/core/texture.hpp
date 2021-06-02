@@ -18,6 +18,8 @@ public:
 	Texture(int width, int height, char* data, unsigned int loadOrder);
 
 	void Use();
+
+	~Texture();
 };
 
 #endif

@@ -7,7 +7,7 @@
 
 namespace assetLoader{
 
-    std::unordered_map<std::string, Texture> loadUiPackage(const char*);
+    void loadUiPackage(std::unordered_map<std::string, Texture*>& ,const char*);
 
 }
 

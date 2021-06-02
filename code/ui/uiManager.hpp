@@ -7,7 +7,7 @@
 
 class uiManager{
 public:
-    std::unordered_map<std::string, Texture> m_textures;
+    std::unordered_map<std::string, Texture*> m_textures;
 
     std::string m_hovered_button;
     std::unordered_map<std::string, uiButton> m_buttons;
@@ -18,6 +18,8 @@ public:
     void update(int , int);
 
     void setup(std::string);
+
+    ~uiManager();
 
 };
 

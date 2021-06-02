@@ -21,9 +21,9 @@ public:
 
     virtual void process();
 
-    virtual void cleanup();
-
     virtual bool shouldRun();
+
+    virtual ~menuState();
 
 };
 

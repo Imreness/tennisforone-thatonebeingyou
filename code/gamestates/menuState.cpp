@@ -44,10 +44,10 @@ void menuState::process(){
     render();
 }
 
-void menuState::cleanup(){
-
-}
-
 bool menuState::shouldRun(){
     return !glfwWindowShouldClose(m_window);
+}
+
+menuState::~menuState(){
+    
 }
