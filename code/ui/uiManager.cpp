@@ -7,30 +7,29 @@ void uiManager::setup(std::string name){
 
         m_hovered_button = "";
 
-
         {
-            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
-            button.scale(glm::vec2(6, 5));
-            button.move(glm::vec2(0, 0.0));
-            m_buttons.insert({"startgame", button});
+            uiButton button{m_screenWidth, m_screenHeight, "play_hover", "play_normal"};
+            button.scale(glm::vec2(6, 6));
+            button.move(glm::vec2(0, 0));
+            m_buttons.insert({"play", button});
         }
         {
-            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
-            button.scale(glm::vec2(5, 7));
-            button.move(glm::vec2(0, -0.3));
-            m_buttons.insert({"dicksize", button});
+            uiButton button{m_screenWidth, m_screenHeight, "settings_hover", "settings_normal"};
+            button.scale(glm::vec2(6, 6));
+            button.move(glm::vec2(0, -0.2));
+            m_buttons.insert({"settings", button});
         }
         {
-            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
-            button.scale(glm::vec2(9, 7));
-            button.move(glm::vec2(.2, 0.3));
-            m_buttons.insert({"biga", button});
+            uiButton button{m_screenWidth, m_screenHeight, "exit_hover", "exit_normal"};
+            button.scale(glm::vec2(6, 6));
+            button.move(glm::vec2(0, -0.4));
+            m_buttons.insert({"exit", button});
         }
         {
-            uiButton button{m_screenWidth, m_screenHeight, "lotus", "lion"};
-            button.scale(glm::vec2(4, 5));
-            button.move(glm::vec2(-.4, -0.3));
-            m_buttons.insert({"igabiga", button});
+            uiPanel panel{m_screenWidth, m_screenHeight, "logo"};
+            panel.scale(glm::vec2(6, 4));
+            panel.move(glm::vec2(0, 0.3));
+            m_panels.insert({"logo", panel});
         }
 
     }

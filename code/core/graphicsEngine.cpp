@@ -55,6 +55,14 @@ void graphicsEngine::renderUi(uiManager &ui){
         uiShader->setUniform("mover", button.second.m_mover);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
+
+    for (auto &panel : ui.m_panels){
+        ui.m_textures.at(panel.second.m_normalTexture)->Use();
+
+        uiShader->setUniform("model", panel.second.m_model);
+        uiShader->setUniform("mover", panel.second.m_mover);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 }
 
 void graphicsEngine::renderStart(){

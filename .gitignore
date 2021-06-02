@@ -3,7 +3,6 @@
 build/*
 !build/assetpacker/
 !build/game.conf
-!build/assets/
 !build/shaders/
 !build/levels/
 !build/assetpacker/assets/

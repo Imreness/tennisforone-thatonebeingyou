@@ -12,6 +12,8 @@ public:
     std::string m_hovered_button;
     std::unordered_map<std::string, uiButton> m_buttons;
 
+    std::unordered_map<std::string, uiPanel> m_panels;
+
     int m_screenWidth = 0;
     int m_screenHeight = 0;
 
