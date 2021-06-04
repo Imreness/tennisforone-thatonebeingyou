@@ -35,7 +35,12 @@ void Game::initGLFW(const char* title){
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     //Init window here
-    m_mainWindow = glfwCreateWindow(m_currConfig.windowWidth, m_currConfig.windowHeight, title, NULL, NULL);
+    if(m_currConfig.fullscreen){
+        m_mainWindow = glfwCreateWindow(m_currConfig.windowWidth, m_currConfig.windowHeight, title, glfwGetPrimaryMonitor(), NULL);
+    }
+    else{
+        m_mainWindow = glfwCreateWindow(m_currConfig.windowWidth, m_currConfig.windowHeight, title, NULL, NULL);
+    }
     if(!m_mainWindow){
         glfwTerminate();
         spdlog::error("Error while creating the game window!");

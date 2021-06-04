@@ -11,6 +11,14 @@ configStruct config::loadConfig(const char* path){
     //it might be a bad idea just to require the config items to be in a certain order but hey,
     //this works and it works fast. Its not a big deal to expect that the end user wont screw the config file up, right?
 
+    //get log verboseness
+    std::getline(file, line);
+    std::string valueString;
+    valueString = line.substr(line.find(' ') + 1);
+    if(valueString == "DEBUG"){ currentConfig.debuglevel = spdlog::level::debug;}
+    else if(valueString == "NORMAL"){ currentConfig.debuglevel = spdlog::level::info;}
+
+
     //get the window WIDTH and HEIGHT
     std::getline(file, line);
     int value = std::stoi(line.substr(line.find(' ')));
@@ -20,14 +28,13 @@ configStruct config::loadConfig(const char* path){
     value = std::stoi(line.substr(line.find(' ')));
     currentConfig.windowHeight = value;
 
-
-    //get the debug level
+    //get fullscreen value
     std::getline(file, line);
-    std::string valueString;
-    valueString = line.substr(line.find(' '));
-    if(valueString == "DEBUG"){ currentConfig.debuglevel = spdlog::level::debug;}
-    else if(valueString == "NORMAL"){ currentConfig.debuglevel = spdlog::level::info;}
-
+    valueString.clear(); 
+    valueString = line.substr(line.find(' ') + 1);
+    std::printf("filler");
+    if(valueString == "YES"){ currentConfig.fullscreen = true;}
+    else if(valueString == "NO"){ currentConfig.fullscreen = false;}
 
     file.close();
 

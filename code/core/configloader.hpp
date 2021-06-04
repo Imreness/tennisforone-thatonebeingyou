@@ -6,6 +6,7 @@
 struct configStruct{
     int windowWidth;
     int windowHeight;
+    bool fullscreen;
     spdlog::level::level_enum debuglevel;
 };
 
