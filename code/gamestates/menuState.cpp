@@ -18,6 +18,7 @@ void menuState::initGraphics(){
 
     initUI();
 }
+
 void menuState::initUI(){
     spdlog::info("Initalizing UI");
     configStruct conf = config::loadConfig("game.conf");
@@ -27,6 +28,13 @@ void menuState::initUI(){
     m_uiManager.setup("mainmenu");
     m_graphics.initUi();
 }
+
+void menuState::processUIClick(){
+    if(m_uiManager.m_hovered_button == "exit" && glfwGetMouseButton(m_window, 0) == GLFW_PRESS){
+        glfwSetWindowShouldClose(m_window, 1);
+    }
+}
+
 
 void menuState::render(){
     m_graphics.renderStart();
@@ -40,6 +48,7 @@ void menuState::process(){
     double x,y;
     glfwGetCursorPos(m_window, &x, &y);
     m_uiManager.update((int)x,(int)y);
+    processUIClick();
 
     render();
 }

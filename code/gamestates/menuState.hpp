@@ -9,11 +9,12 @@ private:
     uiManager m_uiManager;
     graphicsEngine m_graphics;
 
-    void initGraphics();
+    //ui
     void initUI();
-
+    void processUIClick();
 
     //rendering
+    void initGraphics();
     void render();
 
 public:

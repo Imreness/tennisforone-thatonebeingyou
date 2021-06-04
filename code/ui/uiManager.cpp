@@ -9,25 +9,19 @@ void uiManager::setup(std::string name){
 
         {
             uiButton button{m_screenWidth, m_screenHeight, "play_hover", "play_normal"};
-            button.scale(glm::vec2(6, 6));
+            button.scale(glm::vec2(4, 6));
             button.move(glm::vec2(0, 0));
             m_buttons.insert({"play", button});
         }
         {
-            uiButton button{m_screenWidth, m_screenHeight, "settings_hover", "settings_normal"};
-            button.scale(glm::vec2(6, 6));
-            button.move(glm::vec2(0, -0.2));
-            m_buttons.insert({"settings", button});
-        }
-        {
             uiButton button{m_screenWidth, m_screenHeight, "exit_hover", "exit_normal"};
-            button.scale(glm::vec2(6, 6));
+            button.scale(glm::vec2(4, 6));
             button.move(glm::vec2(0, -0.4));
             m_buttons.insert({"exit", button});
         }
         {
             uiPanel panel{m_screenWidth, m_screenHeight, "logo"};
-            panel.scale(glm::vec2(6, 4));
+            panel.scale(glm::vec2(4, 6));
             panel.move(glm::vec2(0, 0.3));
             m_panels.insert({"logo", panel});
         }

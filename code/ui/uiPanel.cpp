@@ -8,7 +8,7 @@ uiPanel::uiPanel(int screenWidth, int screenHeight,
 }
 
 void uiPanel::scale(glm::vec2 scaler){
-    m_model = glm::scale(m_model, glm::vec3(1 / scaler.x, 1 / scaler.y, 1));
+    m_model = glm::scale(m_model, glm::vec3((1 / scaler.x) / ((float)m_screenWidth / m_screenHeight), 1 / scaler.y, 1));
     m_scaledMover = scaler;
 }
 
