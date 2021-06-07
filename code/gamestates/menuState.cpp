@@ -33,6 +33,9 @@ void menuState::processUIClick(){
     if(m_uiManager.m_hovered_button == "exit" && glfwGetMouseButton(m_window, 0) == GLFW_PRESS){
         glfwSetWindowShouldClose(m_window, 1);
     }
+    else if(m_uiManager.m_hovered_button == "play" && glfwGetMouseButton(m_window, 0) == GLFW_PRESS){
+        m_startGame = true;
+    }
 }
 
 
@@ -55,6 +58,15 @@ void menuState::process(){
 
 bool menuState::shouldRun(){
     return !glfwWindowShouldClose(m_window);
+}
+
+nextStateEnum menuState::nextState(){
+    if(m_startGame){
+        return nextStateEnum::GAME;
+    }
+    else{
+        return nextStateEnum::NOTHING;
+    }
 }
 
 menuState::~menuState(){

@@ -1,2 +1,4 @@
-- settings menu
-- clickable buttons
+- basic playstate
+- hopefully no memory leaks
+- 3D model and texture packing
+- basic racket movement

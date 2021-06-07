@@ -3,6 +3,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+enum class nextStateEnum{
+    NOTHING,
+    GAME,
+    MENU
+};
+
 class gameState{
 protected:
 
@@ -15,6 +21,8 @@ public:
     virtual void process() = 0;
 
     virtual bool shouldRun() = 0;
+
+    virtual nextStateEnum nextState() = 0;
 
     virtual ~gameState(){}
 

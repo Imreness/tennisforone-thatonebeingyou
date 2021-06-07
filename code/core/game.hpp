@@ -6,6 +6,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <core/configloader.hpp>
 #include <gamestates/menuState.hpp>
+#include <gamestates/playState.hpp>
 
 class Game{
 private:
@@ -24,6 +25,8 @@ private:
     void initspdlog();
     void initGLFW(const char*);
     void initOpenGL();
+
+    void switchState(nextStateEnum);
 
 
 public:

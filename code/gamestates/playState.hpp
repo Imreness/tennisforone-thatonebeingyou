@@ -1,19 +1,12 @@
-#ifndef MENUSTATE
-#define MENUSTATE
+#ifndef PLAYSTATE
+#define PLAYSTATE
 #include <core/gamestate.hpp>
 #include <core/assetLoader.hpp>
 #include <core/graphicsEngine.hpp>
 
-class menuState : public gameState{
+class playState : public gameState{
 private:
-    uiManager m_uiManager;
     graphicsEngine m_graphics;
-
-    bool m_startGame = false;
-
-    //ui
-    void initUI();
-    void processUIClick();
 
     //rendering
     void initGraphics();
@@ -28,7 +21,7 @@ public:
 
     virtual nextStateEnum nextState();
 
-    virtual ~menuState();
+    virtual ~playState();
 
 };
 

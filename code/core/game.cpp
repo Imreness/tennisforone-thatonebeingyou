@@ -87,6 +87,11 @@ void Game::update(){
 
     m_shouldRun = m_currState->shouldRun();
 
+    nextStateEnum nextState = m_currState->nextState();
+    if(nextState != nextStateEnum::NOTHING){
+        switchState(nextState);
+    }
+
 }
 
 bool Game::shouldRun(){
@@ -96,4 +101,22 @@ bool Game::shouldRun(){
 Game::~Game(){
     delete m_currState;
     glfwTerminate();
+}
+
+void Game::switchState(nextStateEnum state){
+    switch (state){
+        case nextStateEnum::GAME:
+            delete m_currState;
+            m_currState = new playState();
+            m_currState->init(m_mainWindow);
+            break;
+        
+        case nextStateEnum::MENU:
+            delete m_currState;
+            m_currState = new menuState();
+            m_currState->init(m_mainWindow);
+
+            break;
+
+    }
 }

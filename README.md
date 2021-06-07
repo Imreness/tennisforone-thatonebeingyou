@@ -1,6 +1,6 @@
 # Tennis For One - That One Being You
 - [Tennis For One - That One Being You](#tennis-for-one---that-one-being-you)
-- [Overview](#overview)
+- [Story](#story)
 - [Gameplay](#gameplay)
   - [Matches](#matches)
     - [Controls](#controls)
@@ -14,10 +14,14 @@
       - [Power skil](#power-skil)
       - [Running distance skill](#running-distance-skill)
       - [Dexterity](#dexterity)
-      - [Racket size (???)](#racket-size-)
+- [Specific engine parts](#specific-engine-parts)
+  - [Cinematic](#cinematic)
 
-# Overview
-WRITE A STORY DUMBASS
+# Story
+You are the last person on earth. A nuclear fallout has killed every single living being on the planet. While seeking shelter, you come across a rec facility, with a top of the line Zer 0-G Tennis court, with a built in AI. With a decent chunk of supplies left, you make camp in the facility, hoping to survive for a long while.
+
+After finishing the game and beating the 3 AI levels, the AI terminates the player. A cinematic will play, revealign that the AI caused the fallout, because a supreme leader beat it at tennis.
+
 
 # Gameplay
 ## Matches
@@ -48,5 +52,7 @@ The most universally undestandable skill. Have more power, have a faster ball. I
 Simply permits the [running distance system](#running-distance) to have more distance, thus more time to react. It will not modify the slow-down effect, which activates at the end of the running distance, actuation point, scale, speed or ratio.
 #### Dexterity
 The speed of which the racket follows the cursor.
-#### Racket size (???)
-Still on the table. I want the game to be easily masterable, not needing of such things. But the size increase wont be huge, just marginally better, which may help players who keep mising the ball by a few mm.
+
+# Specific engine parts
+## Cinematic
+A set of camera positions are saved into the level file. Apart from the .blend file, the asset packer packs an intro.cin(ematic) and an outr.cin file aswell. these texts files determine which camera position is shown and for how long.
