@@ -32,7 +32,6 @@ configStruct config::loadConfig(const char* path){
     std::getline(file, line);
     valueString.clear(); 
     valueString = line.substr(line.find(' ') + 1);
-    std::printf("filler");
     if(valueString == "YES"){ currentConfig.fullscreen = true;}
     else if(valueString == "NO"){ currentConfig.fullscreen = false;}
 
