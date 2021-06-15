@@ -9,6 +9,12 @@ void playState::init(GLFWwindow* referencewindow){
     initGraphics();
 }
 
+void playState::calculateDeltaTime(){
+    float currTime = glfwGetTime();
+    deltaTime = currTime - lastTime;
+    lastTime = currTime;
+}
+
 void playState::initGraphics(){
     spdlog::info("Initalizing graphics engine");
     m_graphics.setTargetWindow(m_window);
@@ -29,6 +35,8 @@ void playState::render(){
 }
 
 void playState::process(){
+    calculateDeltaTime();
+
     render();
 }
 

@@ -11,11 +11,18 @@ private:
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
 
+    //deltaTime
+    float lastTime;
+    float deltaTime;
+
     //rendering
     void initGraphics();
     void render();
 
+    void calculateDeltaTime();
+
 public:
+
     virtual void init(GLFWwindow*);
 
     virtual void process();
