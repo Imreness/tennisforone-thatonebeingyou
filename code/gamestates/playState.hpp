@@ -8,6 +8,9 @@ class playState : public gameState{
 private:
     graphicsEngine m_graphics;
 
+    std::vector<Texture*> m_textures;
+    std::unordered_map<std::string, Model*> m_models;
+
     //rendering
     void initGraphics();
     void render();

@@ -124,12 +124,12 @@ namespace assetloader{
             file.write((uint32_t)(nodeMesh->mNumVertices));
 
             for(int i = 0; i < nodeMesh->mNumVertices; i++){
-                file.write((double_t)nodeMesh->mVertices[i].x);
-                file.write((double_t)nodeMesh->mVertices[i].y);
-                file.write((double_t)nodeMesh->mVertices[i].z);
+                file.write((float_t)nodeMesh->mVertices[i].x);
+                file.write((float_t)nodeMesh->mVertices[i].y);
+                file.write((float_t)nodeMesh->mVertices[i].z);
 
-                file.write((double_t)nodeMesh->mTextureCoords[0][i].x);
-                file.write(-(double_t)(nodeMesh->mTextureCoords[0][i].y));
+                file.write((float_t)nodeMesh->mTextureCoords[0][i].x);
+                file.write(-(float_t)(nodeMesh->mTextureCoords[0][i].y));
             }
 
             file.write((uint32_t)(nodeMesh->mNumFaces));

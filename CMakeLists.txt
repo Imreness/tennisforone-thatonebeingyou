@@ -48,6 +48,8 @@ add_library(Engine STATIC
     code/core/shader.cpp    
     code/core/texture.hpp    
     code/core/texture.cpp
+    code/core/model.cpp
+    code/core/model.hpp
     code/ui/uiManager.hpp
     code/ui/uiManager.cpp
     code/ui/uiTypes.hpp

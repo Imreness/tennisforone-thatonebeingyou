@@ -14,10 +14,16 @@ void playState::initGraphics(){
     m_graphics.setTargetWindow(m_window);
 
     m_graphics.loadShader("debug");
+
+    assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
 }
 
 void playState::render(){
     m_graphics.renderStart();
+
+    for(const auto& object : m_models){
+        object.second->render();
+    }
 
     m_graphics.renderEnd();
 }
