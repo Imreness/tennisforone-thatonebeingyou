@@ -4,9 +4,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <vector>
+#include <core/binaryfile.hpp>
 
-//NAME IS ALWAYS 15 BYTES LONG
-//.ui files look like this:
+// NAME IS ALWAYS 15 BYTES LONG
+// .ui files look like this:
 // UINT8                          - amount of textures
 // ----------------------------------------------------- repeats from this
 // UINT8 * 15                     - name
@@ -21,17 +22,17 @@ namespace uipacker{
         realpath.append(path);
         realpath.append("/");
 
-        std::ofstream outputfile;
+        binaryFile outputfile;
         std::string outputpath("../assets/");
         outputpath.append(path).append(".ui");
-        outputfile.open(outputpath.c_str(), std::ios::out | std::ios::binary);
+        outputfile.open(outputpath.c_str(), true);
 
         uint8_t fileamount = 0;
         for (const auto & file : std::filesystem::directory_iterator(realpath.c_str())){
             fileamount++;
         }
 
-        outputfile.write((char*)&fileamount, sizeof(uint8_t));
+        outputfile.write(fileamount);
 
         for (const auto & file : std::filesystem::directory_iterator(realpath.c_str())){
 
@@ -43,10 +44,10 @@ namespace uipacker{
             std::string shortfilename_placeholder = filename.substr(filename.find_last_of('/')+1);
             std::string realshortname = shortfilename_placeholder.substr(0 , (shortfilename_placeholder.length() - 4));
 
-            outputfile.write(realshortname.c_str(), sizeof(char)*15);
-            outputfile.write((char*)&textureX, sizeof(uint16_t));
-            outputfile.write((char*)&textureY, sizeof(uint16_t));
-            outputfile.write((char*)data , textureX*textureY*4);
+            outputfile.writeChars(realshortname.c_str(), 15);
+            outputfile.write((uint16_t)textureX);
+            outputfile.write((uint16_t)textureY);
+            outputfile.writeChars(data, textureX*textureY*4);
 
             delete[] data;
         }

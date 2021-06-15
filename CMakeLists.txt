@@ -38,6 +38,8 @@ add_library(Engine STATIC
     code/core/gamestate.hpp
     code/core/assetLoader.hpp
     code/core/assetLoader.cpp
+    code/core/binaryfile.hpp
+    code/core/binaryfile.cpp
     code/gamestates/menuState.hpp
     code/gamestates/menuState.cpp
     code/core/graphicsEngine.hpp

@@ -1,14 +1,19 @@
 add_executable(assetpacker assetpacker/main_asset.cpp)
 target_include_directories(assetpacker PRIVATE "h/")
 target_include_directories(assetpacker PRIVATE "assetpacker/")
+target_include_directories(assetpacker PRIVATE "code/")
 set_target_properties(assetpacker PROPERTIES RUNTIME_OUTPUT_DIRECTORY "assetpacker/")
 
 add_library(assetengine STATIC
     assetpacker/uiloader.cpp
+    assetpacker/assetloader.cpp
+    code/core/binaryfile.hpp
+    code/core/binaryfile.cpp
 )
 set_target_properties(assetengine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(assetengine PRIVATE "h/")
 target_include_directories(assetengine PRIVATE "assetpacker/")
+target_include_directories(assetengine PRIVATE "code/")
 
 target_link_libraries(assetpacker assetengine)
 

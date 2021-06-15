@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <uiloader.cpp>
+#include <assetloader.cpp>
 
 int main(){
     bool shouldQuit = false;
@@ -11,7 +11,7 @@ int main(){
         std::getline(std::cin , command);
 
         if(command == "help"){
-            std::printf("Current Commands: exit, makeui\n");
+            std::printf("Current Commands: exit, makeui, makeassets\n");
         }
         else if(command == "exit"){
             std::printf("Bye!\n");
@@ -22,6 +22,9 @@ int main(){
             std::string path;
             std::getline(std::cin, path);
             uipacker::makeui(path);
+        }
+        else if(command == "makeassets"){
+            assetloader::pack();
         }
 
 
