@@ -6,6 +6,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <objects/debugCamera.hpp>
+#include <objects/gameObject.hpp>
+
 class graphicsEngine{
 private:
 
@@ -34,6 +37,8 @@ public:
 
 
     void renderUi(uiManager&);
+
+    void renderObjects(DebugCamera*, std::vector<GameObject>&);
 
     void renderStart();
     void renderEnd();

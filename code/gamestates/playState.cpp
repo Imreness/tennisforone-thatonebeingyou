@@ -11,31 +11,44 @@ void playState::init(GLFWwindow* referencewindow){
 
 void playState::calculateDeltaTime(){
     float currTime = glfwGetTime();
-    deltaTime = currTime - lastTime;
-    lastTime = currTime;
+    m_deltaTime = currTime - m_lastTime;
+    m_lastTime = currTime;
 }
 
 void playState::initGraphics(){
     spdlog::info("Initalizing graphics engine");
     m_graphics.setTargetWindow(m_window);
-
     m_graphics.loadShader("debug");
 
+    glEnable(GL_DEPTH_TEST);
+
+    m_debugCam = new DebugCamera(m_window);
+
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
+    initObjects();
+}
+
+void playState::initObjects(){
+    for(const auto& object : m_models){
+        m_gameObjects.push_back(GameObject(object.second));
+    }
+    m_gameObjects.push_back(GameObject(m_models.at("harold"), glm::vec3(5,0,0)));
 }
 
 void playState::render(){
     m_graphics.renderStart();
 
-    for(const auto& object : m_models){
-        object.second->render();
-    }
+    m_graphics.renderObjects(m_debugCam, m_gameObjects);    
 
     m_graphics.renderEnd();
 }
 
 void playState::process(){
     calculateDeltaTime();
+
+    m_debugCam->update(m_deltaTime);
+
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     render();
 }
@@ -46,6 +59,7 @@ bool playState::shouldRun(){
 
 nextStateEnum playState::nextState(){
     if(glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS){
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         return nextStateEnum::MENU;
     }
     else{
@@ -54,5 +68,5 @@ nextStateEnum playState::nextState(){
 }
 
 playState::~playState(){
-    
+    delete m_debugCam;
 }

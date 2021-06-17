@@ -1,5 +1,5 @@
 #ifndef THREEDEEMODELS
-#define TRHEEDEEMODELS
+#define THREEDEEMODELS
 #include <vector>
 #include <fstream>
 
