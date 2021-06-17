@@ -75,6 +75,6 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
             vertDat.indicies.push_back(file.read<uint32_t>());
         }
 
-        models.insert({nameString, new Model(vertDat)});
+        models.insert({nameString, new Model(textureID,vertDat)});
     }
 }

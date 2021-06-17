@@ -129,7 +129,7 @@ namespace assetloader{
                 file.write((float_t)nodeMesh->mVertices[i].z);
 
                 file.write((float_t)nodeMesh->mTextureCoords[0][i].x);
-                file.write(-(float_t)(nodeMesh->mTextureCoords[0][i].y));
+                file.write((float_t)(nodeMesh->mTextureCoords[0][i].y));
             }
 
             file.write((uint32_t)(nodeMesh->mNumFaces));

@@ -2,6 +2,7 @@
 #define THREEDEEMODELS
 #include <vector>
 #include <fstream>
+#include <core/texture.hpp>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -26,8 +27,10 @@ private:
 
 public:
 
+	unsigned int m_texID;
 
-	Model(VertexData m_data, VertexLayout layout = VertexLayout::NORMAL);
+
+	Model(unsigned int texID, VertexData m_data, VertexLayout layout = VertexLayout::NORMAL);
 
 	void render();
 

@@ -2,6 +2,7 @@
 #define GRAPHICSENGINE
 #include <ui/uiManager.hpp>
 #include <core/shader.hpp>
+#include <core/texture.hpp>
 #include <ui/uiManager.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -38,7 +39,7 @@ public:
 
     void renderUi(uiManager&);
 
-    void renderObjects(DebugCamera*, std::vector<GameObject>&);
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::vector<GameObject>&);
 
     void renderStart();
     void renderEnd();

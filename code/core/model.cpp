@@ -1,7 +1,7 @@
 #include <core/model.hpp>
 
-Model::Model(VertexData data, VertexLayout layout) :
-	m_data{std::move(data)}
+Model::Model(unsigned int texID,VertexData data, VertexLayout layout) :
+	m_texID{texID},m_data{std::move(data)}
 {
 	glCreateBuffers(1, &m_VBO);
 	glCreateBuffers(1, &m_EBO);

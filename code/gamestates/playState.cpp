@@ -32,13 +32,12 @@ void playState::initObjects(){
     for(const auto& object : m_models){
         m_gameObjects.push_back(GameObject(object.second));
     }
-    m_gameObjects.push_back(GameObject(m_models.at("harold"), glm::vec3(5,0,0)));
 }
 
 void playState::render(){
     m_graphics.renderStart();
 
-    m_graphics.renderObjects(m_debugCam, m_gameObjects);    
+    m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);    
 
     m_graphics.renderEnd();
 }
