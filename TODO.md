@@ -1,4 +1,2 @@
-- basic playstate
-- hopefully no memory leaks
-- 3D model and texture packing
-- basic racket movement
+create proper debug racket assets
+create basic racket movement

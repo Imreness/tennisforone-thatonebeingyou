@@ -7,6 +7,9 @@ void playState::init(GLFWwindow* referencewindow){
 
     m_window = referencewindow;
     initGraphics();
+
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 }
 
 void playState::calculateDeltaTime(){
@@ -37,7 +40,9 @@ void playState::initObjects(){
 void playState::render(){
     m_graphics.renderStart();
 
-    m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);    
+    if(m_debugMode){
+        m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
+    }
 
     m_graphics.renderEnd();
 }
@@ -45,11 +50,29 @@ void playState::render(){
 void playState::process(){
     calculateDeltaTime();
 
-    m_debugCam->update(m_deltaTime);
+    if(m_debugMode){
+        m_debugCam->update(m_deltaTime);
+    }
 
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    processInput();
 
     render();
+}
+
+void playState::processInput()
+{
+    if(glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_PRESS && m_debugModeJustSwitched == false){
+        m_debugModeJustSwitched = true;
+        if(m_debugMode){
+            m_debugMode = false;
+        }
+        else{
+            m_debugMode = true;
+        }
+    }
+    else if (glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_RELEASE){
+        m_debugModeJustSwitched = false;
+    }
 }
 
 bool playState::shouldRun(){

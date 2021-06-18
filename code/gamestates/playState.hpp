@@ -20,6 +20,9 @@ private:
     //miiiight not be the best of ideas tho
     DebugCamera* m_debugCam;
 
+    bool m_debugMode = false;
+    bool m_debugModeJustSwitched = false;
+
     //deltaTime
     float m_lastTime;
     float m_deltaTime;
@@ -28,6 +31,8 @@ private:
     void initGraphics();
     void initObjects();
     void render();
+
+    void processInput();
 
     void calculateDeltaTime();
 
