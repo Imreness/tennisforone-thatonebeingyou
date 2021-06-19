@@ -63,6 +63,8 @@ add_library(Engine STATIC
     code/objects/debugCamera.cpp
     code/objects/gameObject.hpp
     code/objects/gameObject.cpp
+    code/objects/railsCamera.hpp
+    code/objects/railsCamera.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")

@@ -9,6 +9,7 @@
 
 #include <objects/debugCamera.hpp>
 #include <objects/gameObject.hpp>
+#include <objects/railsCamera.hpp>
 
 class graphicsEngine{
 private:
@@ -40,6 +41,7 @@ public:
     void renderUi(uiManager&);
 
     void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::vector<GameObject>&);
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::vector<GameObject>&);
 
     void renderStart();
     void renderEnd();

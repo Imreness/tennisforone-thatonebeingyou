@@ -14,11 +14,10 @@ private:
     std::unordered_map<std::string, Model*> m_models;
 
     std::vector<GameObject> m_gameObjects;
-    //assetmanager-esk behaviour. I dont feel like i need to write a wrapper for this one
-    
 
-    //miiiight not be the best of ideas tho
+
     DebugCamera* m_debugCam;
+    RailsCamera* m_gameCam;
 
     bool m_debugMode = false;
     bool m_debugModeJustSwitched = false;

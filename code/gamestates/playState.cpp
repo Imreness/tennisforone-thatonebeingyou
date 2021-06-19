@@ -26,6 +26,8 @@ void playState::initGraphics(){
     glEnable(GL_DEPTH_TEST);
 
     m_debugCam = new DebugCamera(m_window);
+    m_gameCam = new RailsCamera(m_window);
+    m_gameCam->m_moveSpeed = 1;
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
     initObjects();
@@ -43,6 +45,9 @@ void playState::render(){
     if(m_debugMode){
         m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
     }
+    else{
+        m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
+    }
 
     m_graphics.renderEnd();
 }
@@ -52,6 +57,9 @@ void playState::process(){
 
     if(m_debugMode){
         m_debugCam->update(m_deltaTime);
+    }
+    else{
+        m_gameCam->update(m_deltaTime);
     }
 
     processInput();
@@ -72,6 +80,14 @@ void playState::processInput()
     }
     else if (glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_RELEASE){
         m_debugModeJustSwitched = false;
+    }
+
+
+    if(glfwGetKey(m_window, GLFW_KEY_G) == GLFW_PRESS){
+        m_gameCam->moveTo(glm::vec3(0.1, 1 , 0), glm::vec3(0, 0 , 0));
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_J) == GLFW_PRESS){
+        m_gameCam->moveTo(glm::vec3(-1, 0.43 , 0), glm::vec3(0, 0.43 , 0));
     }
 }
 
