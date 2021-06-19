@@ -8,8 +8,8 @@ RailsCamera::RailsCamera(GLFWwindow* window){
 
 	m_position = glm::vec3(-1, 0.43 , 0); m_up = glm::vec3(0., 1., 0.);
 
-    m_view = glm::lookAt(m_position, glm::vec3(0), m_up);
-    m_targetView = glm::lookAt(m_position, glm::vec3(0), m_up);
+    m_view = glm::lookAt(m_position, glm::vec3(0, m_position.y, 0), m_up);
+    m_targetView = glm::lookAt(m_position, glm::vec3(0, m_position.y, 0), m_up);
 }
 
 void RailsCamera::update(double delta){

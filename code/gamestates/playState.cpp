@@ -35,7 +35,7 @@ void playState::initGraphics(){
 
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
-    m_gameObjects.insert({"playerShock" , GameObject{m_models.at("shock")}});
+    //m_gameObjects.insert({"playerShock" , GameObject{m_models.at("shock")}});
 }
 
 void playState::render(){
@@ -82,12 +82,12 @@ void playState::processInput()
     }
 
 
-    if(glfwGetKey(m_window, GLFW_KEY_G) == GLFW_PRESS){
-        m_gameCam->moveTo(glm::vec3(0.1, 1 , 0), glm::vec3(0, 0 , 0));
-    }
-    if(glfwGetKey(m_window, GLFW_KEY_J) == GLFW_PRESS){
-        m_gameCam->moveTo(glm::vec3(-1, 0.43 , 0), glm::vec3(0, 0.43 , 0));
-    }
+    // if(glfwGetKey(m_window, GLFW_KEY_G) == GLFW_PRESS){
+    //     m_gameCam->moveTo(glm::vec3(0.1, 1 , 0), glm::vec3(0, 0 , 0));
+    // }
+    // if(glfwGetKey(m_window, GLFW_KEY_J) == GLFW_PRESS){
+    //     m_gameCam->moveTo(glm::vec3(-1, 0.43 , 0), glm::vec3(0, 0.43 , 0));
+    // }
 }
 
 bool playState::shouldRun(){
