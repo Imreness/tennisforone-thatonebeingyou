@@ -70,27 +70,27 @@ void graphicsEngine::renderStart(){
     glClearColor(0.1, 0.1 ,0.1 , 1.);
 }
 
-void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::vector<GameObject>& objects){
+void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects){
     Shader* currShader = m_shaders.at("debug");
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
-    for(int i = 0; i < objects.size(); i++){
-        currShader->setUniform("model", objects.at(i).m_modelMat);
-        textures.at(objects.at(i).m_refModel->m_texID)->Use();
-        objects.at(i).m_refModel->render();
+    for(auto& object : objects){
+        currShader->setUniform("model", object.second.m_modelMat);
+        textures.at(object.second.m_refModel->m_texID)->Use();
+        object.second.m_refModel->render();
     }
 }
 
-void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::vector<GameObject>& objects){
+void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects){
     Shader* currShader = m_shaders.at("debug");
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
-    for(int i = 0; i < objects.size(); i++){
-        currShader->setUniform("model", objects.at(i).m_modelMat);
-        textures.at(objects.at(i).m_refModel->m_texID)->Use();
-        objects.at(i).m_refModel->render();
+    for(auto& object : objects){
+        currShader->setUniform("model", object.second.m_modelMat);
+        textures.at(object.second.m_refModel->m_texID)->Use();
+        object.second.m_refModel->render();
     }
 }
 

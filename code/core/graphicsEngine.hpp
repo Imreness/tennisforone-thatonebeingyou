@@ -40,8 +40,8 @@ public:
 
     void renderUi(uiManager&);
 
-    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::vector<GameObject>&);
-    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::vector<GameObject>&);
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
 
     void renderStart();
     void renderEnd();

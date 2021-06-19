@@ -13,7 +13,7 @@ private:
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
 
-    std::vector<GameObject> m_gameObjects;
+    std::unordered_map<std::string, GameObject> m_gameObjects;
 
 
     DebugCamera* m_debugCam;

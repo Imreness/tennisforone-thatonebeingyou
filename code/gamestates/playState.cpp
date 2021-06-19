@@ -34,9 +34,8 @@ void playState::initGraphics(){
 }
 
 void playState::initObjects(){
-    for(const auto& object : m_models){
-        m_gameObjects.push_back(GameObject(object.second));
-    }
+    m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
+    m_gameObjects.insert({"playerShock" , GameObject{m_models.at("shock")}});
 }
 
 void playState::render(){
