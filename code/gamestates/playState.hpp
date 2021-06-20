@@ -6,6 +6,8 @@
 
 #include <objects/gameObject.hpp>
 
+#include <objects/playerRacket.hpp>
+
 class playState : public gameState{
 private:
     graphicsEngine m_graphics;
@@ -15,9 +17,10 @@ private:
 
     std::unordered_map<std::string, GameObject> m_gameObjects;
 
-
     DebugCamera* m_debugCam;
     RailsCamera* m_gameCam;
+
+    playerRacket* m_playerRacket;
 
     bool m_debugMode = false;
     bool m_debugModeJustSwitched = false;

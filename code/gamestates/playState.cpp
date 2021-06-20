@@ -35,7 +35,7 @@ void playState::initGraphics(){
 
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
-    //m_gameObjects.insert({"playerShock" , GameObject{m_models.at("shock")}});
+    m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
 }
 
 void playState::render(){
@@ -105,5 +105,7 @@ nextStateEnum playState::nextState(){
 }
 
 playState::~playState(){
-    delete m_debugCam;
+   delete m_debugCam;
+   delete m_playerRacket;
+   delete m_gameCam;
 }
