@@ -3,6 +3,7 @@
 #include <core/gamestate.hpp>
 #include <core/assetLoader.hpp>
 #include <core/graphicsEngine.hpp>
+#include <core/inputManager.hpp>
 
 #include <objects/gameObject.hpp>
 
@@ -11,6 +12,8 @@
 class playState : public gameState{
 private:
     graphicsEngine m_graphics;
+    InputManager m_input;
+
 
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
@@ -34,6 +37,7 @@ private:
     void initObjects();
     void render();
 
+    void initInput();
     void processInput();
 
     void calculateDeltaTime();

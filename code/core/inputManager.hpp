@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include <string>
 
-struct key{
-    bool m_justPressed;
+struct keyStruct{
+    bool m_justPressed = false;
     bool m_isSticky;
 
     int m_key;    
@@ -14,16 +14,20 @@ struct key{
 
 class InputManager{
 private:
-    std::unordered_map<std::string, key> m_keys;
+    std::unordered_map<std::string, keyStruct> m_keys;
+
+    GLFWwindow* m_window;
 
 public:
     InputManager(){}
+
+    void init(GLFWwindow* window);
 
     void registerKey(std::string name,int key, bool isSticky = false);
 
     bool isPressed(std::string name);
 
-    void changeKey(std::string name, int newkey);
+    void deleteKey(std::string name);
 
 };
 

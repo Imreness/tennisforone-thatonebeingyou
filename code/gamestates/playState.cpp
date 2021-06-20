@@ -9,7 +9,7 @@ void playState::init(GLFWwindow* referencewindow){
     initGraphics();
 
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
+    initInput();
 }
 
 void playState::calculateDeltaTime(){
@@ -66,10 +66,15 @@ void playState::process(){
     render();
 }
 
+void playState::initInput(){
+    m_input.init(m_window);
+
+    m_input.registerKey("debugMode", GLFW_KEY_F1, true);
+}
+
 void playState::processInput()
 {
-    if(glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_PRESS && m_debugModeJustSwitched == false){
-        m_debugModeJustSwitched = true;
+    if(m_input.isPressed("debugMode")){
         if(m_debugMode){
             m_debugMode = false;
         }
@@ -77,17 +82,6 @@ void playState::processInput()
             m_debugMode = true;
         }
     }
-    else if (glfwGetKey(m_window, GLFW_KEY_F1) == GLFW_RELEASE){
-        m_debugModeJustSwitched = false;
-    }
-
-
-    // if(glfwGetKey(m_window, GLFW_KEY_G) == GLFW_PRESS){
-    //     m_gameCam->moveTo(glm::vec3(0.1, 1 , 0), glm::vec3(0, 0 , 0));
-    // }
-    // if(glfwGetKey(m_window, GLFW_KEY_J) == GLFW_PRESS){
-    //     m_gameCam->moveTo(glm::vec3(-1, 0.43 , 0), glm::vec3(0, 0.43 , 0));
-    // }
 }
 
 bool playState::shouldRun(){
