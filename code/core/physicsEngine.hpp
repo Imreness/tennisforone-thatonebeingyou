@@ -19,6 +19,10 @@ private:
 
 public:
 
+	PhysicsEngine(){}
+
+	void init(GLFWwindow* window);
+
 };
 
 #endif
