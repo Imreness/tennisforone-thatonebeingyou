@@ -8,6 +8,9 @@ void playState::init(GLFWwindow* referencewindow){
     m_window = referencewindow;
     initGraphics();
 
+    m_physics.init(m_window);
+    m_physicsDebug = new PhysicsDebugDrawer(m_graphics.m_shaders.at("bulletDebug"), m_debugCam.);
+
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
 }
@@ -22,6 +25,8 @@ void playState::initGraphics(){
     spdlog::info("Initalizing graphics engine");
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("debug");
+    m_graphics.loadShader("bulletDebug");
+
 
     glEnable(GL_DEPTH_TEST);
 
@@ -53,6 +58,8 @@ void playState::render(){
 
 void playState::process(){
     calculateDeltaTime();
+
+    m_physics.update(m_deltaTime);
 
     if(m_debugMode){
         m_debugCam->update(m_deltaTime);

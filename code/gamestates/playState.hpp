@@ -4,6 +4,7 @@
 #include <core/assetLoader.hpp>
 #include <core/graphicsEngine.hpp>
 #include <core/inputManager.hpp>
+#include <core/physicsEngine.hpp>
 
 #include <objects/gameObject.hpp>
 
@@ -13,6 +14,8 @@ class playState : public gameState{
 private:
     graphicsEngine m_graphics;
     InputManager m_input;
+    PhysicsEngine m_physics;
+    PhysicsDebugDrawer* m_physicsDebug;
 
 
     std::vector<Texture*> m_textures;
