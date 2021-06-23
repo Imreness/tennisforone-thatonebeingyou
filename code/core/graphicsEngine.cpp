@@ -38,6 +38,10 @@ void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
     }
 }
 
+Shader* graphicsEngine::getShader(std::string name){
+    return m_shaders.at(name); 
+}
+
 void graphicsEngine::renderUi(uiManager &ui){
     Shader* uiShader = m_shaders.at("ui");
     glBindVertexArray(m_uiVAO);

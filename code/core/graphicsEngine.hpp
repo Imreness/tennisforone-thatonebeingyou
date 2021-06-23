@@ -37,6 +37,7 @@ public:
 
     void loadShader(const char*, bool = false);
 
+    Shader* getShader(std::string name);
 
     void renderUi(uiManager&);
 

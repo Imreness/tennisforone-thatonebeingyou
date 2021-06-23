@@ -9,7 +9,7 @@ void playState::init(GLFWwindow* referencewindow){
     initGraphics();
 
     m_physics.init(m_window);
-    m_physicsDebug = new PhysicsDebugDrawer(m_graphics.m_shaders.at("bulletDebug"), m_debugCam.);
+    m_physicsDebug = new PhysicsDebugDrawer(m_graphics.getShader("bulletDebug"), &(m_debugCam->m_view), &(m_debugCam->m_proj));
 
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
