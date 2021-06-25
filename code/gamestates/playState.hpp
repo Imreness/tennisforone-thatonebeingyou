@@ -15,7 +15,6 @@ private:
     graphicsEngine m_graphics;
     InputManager m_input;
     PhysicsEngine m_physics;
-    PhysicsDebugDrawer* m_physicsDebug;
 
 
     std::vector<Texture*> m_textures;

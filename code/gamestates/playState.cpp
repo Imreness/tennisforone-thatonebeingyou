@@ -9,7 +9,6 @@ void playState::init(GLFWwindow* referencewindow){
     initGraphics();
 
     m_physics.init(m_window);
-    m_physicsDebug = new PhysicsDebugDrawer(m_graphics.getShader("bulletDebug"), &(m_debugCam->m_view), &(m_debugCam->m_proj));
 
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
@@ -26,7 +25,6 @@ void playState::initGraphics(){
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("debug");
     m_graphics.loadShader("bulletDebug");
-
 
     glEnable(GL_DEPTH_TEST);
 
