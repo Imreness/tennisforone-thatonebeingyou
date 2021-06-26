@@ -12,17 +12,31 @@
 
 #include <core/shader.hpp>
 
+struct collisionObject{
+	reactphysics3d::CollisionBody* m_body;
+	reactphysics3d::Collider* m_col;
+};
+
+
 class PhysicsEngine
 {
 private:
 	GLFWwindow *m_window;
+
+	reactphysics3d::PhysicsCommon m_physicsCommon;
+	reactphysics3d::PhysicsWorld* m_world;
+
+	std::unordered_map<std::string, collisionObject*> m_colObjects;
 
 public:
 	PhysicsEngine() {}
 
 	void init(GLFWwindow *window);
 
-	void update(float delta);
+	void createColObject(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
+	void addBoxCollider(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{1., 1., 1.}  ,reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
+
+	~PhysicsEngine();
 };
 
 //class PhysicsDebugDrawer : public btIDebugDraw

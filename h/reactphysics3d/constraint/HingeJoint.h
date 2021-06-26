@@ -210,9 +210,6 @@ class HingeJoint : public Joint {
         /// Return the intensity of the current torque applied for the joint motor
         decimal getMotorTorque(decimal timeStep) const;
 
-        /// Return the current hinge angle
-        decimal getAngle() const;
-
         /// Return a string representation
         virtual std::string to_string() const override;
 };

@@ -6,9 +6,11 @@ void playState::init(GLFWwindow* referencewindow){
     spdlog::info("Launching play state...");
 
     m_window = referencewindow;
+    m_physics.init(m_window);
+
     initGraphics();
 
-    m_physics.init(m_window);
+    initObjects(); 
 
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
@@ -33,12 +35,14 @@ void playState::initGraphics(){
     m_gameCam->m_moveSpeed = 1;
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
-    initObjects();
 }
 
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
+
+    m_physics.createColObject("downbox");
+    m_physics.addBoxCollider("downbox", reactphysics3d::Vector3(1,1,1), reactphysics3d::Vector3(0, 2,0));
 }
 
 void playState::render(){
@@ -56,8 +60,6 @@ void playState::render(){
 
 void playState::process(){
     calculateDeltaTime();
-
-    m_physics.update(m_deltaTime);
 
     if(m_debugMode){
         m_debugCam->update(m_deltaTime);
