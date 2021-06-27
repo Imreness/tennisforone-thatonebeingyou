@@ -15,7 +15,7 @@
 #include <core/shader.hpp>
 
 struct collisionObject{
-	reactphysics3d::RigidBody* m_body;
+	reactphysics3d::CollisionBody* m_body;
 	reactphysics3d::Collider* m_col;
 };
 

@@ -13,7 +13,7 @@ void playState::init(GLFWwindow* referencewindow){
 
     initObjects(); 
 
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
 }
 
@@ -43,10 +43,10 @@ void playState::initObjects(){
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
 
     m_physics.createColObject("downbox");
-    m_physics.addBoxCollider("downbox", reactphysics3d::Vector3(1,1,1), reactphysics3d::Vector3(0, 2,0));
+    m_physics.addBoxCollider("downbox", reactphysics3d::Vector3(0.5,0.5,0.5), reactphysics3d::Vector3(0, -1,0));
 
     m_physics.createColObject("upbox");
-    m_physics.addBoxCollider("upbox", reactphysics3d::Vector3(1,1,1), reactphysics3d::Vector3(0, 4,0));
+    m_physics.addBoxCollider("upbox", reactphysics3d::Vector3(0.5,0.5,0.5), reactphysics3d::Vector3(0, 2,0));
 }
 
 void playState::render(){
@@ -55,6 +55,7 @@ void playState::render(){
     if(m_debugMode){
         m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
 
+        m_physics.update(m_deltaTime);
         m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
     }
     else{
@@ -67,7 +68,6 @@ void playState::render(){
 void playState::process(){
     calculateDeltaTime();
 
-    m_physics.update(m_deltaTime);
 
     //std::printf("%b", m_physics.)
 
