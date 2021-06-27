@@ -7,6 +7,7 @@ void playState::init(GLFWwindow* referencewindow){
 
     m_window = referencewindow;
     m_physics.init(m_window);
+    m_physics.initDebugDrawer();
 
     initGraphics();
 
@@ -43,6 +44,9 @@ void playState::initObjects(){
 
     m_physics.createColObject("downbox");
     m_physics.addBoxCollider("downbox", reactphysics3d::Vector3(1,1,1), reactphysics3d::Vector3(0, 2,0));
+
+    m_physics.createColObject("upbox");
+    m_physics.addBoxCollider("upbox", reactphysics3d::Vector3(1,1,1), reactphysics3d::Vector3(0, 4,0));
 }
 
 void playState::render(){
@@ -50,6 +54,8 @@ void playState::render(){
 
     if(m_debugMode){
         m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
+
+        m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
     }
     else{
         m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
@@ -60,6 +66,10 @@ void playState::render(){
 
 void playState::process(){
     calculateDeltaTime();
+
+    m_physics.update(m_deltaTime);
+
+    //std::printf("%b", m_physics.)
 
     if(m_debugMode){
         m_debugCam->update(m_deltaTime);
