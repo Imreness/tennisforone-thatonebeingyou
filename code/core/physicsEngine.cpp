@@ -36,7 +36,6 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
     //god speed man, god speed
     reactphysics3d::DebugRenderer m_debugRenderer = m_world->getDebugRenderer();
     m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-    m_world->update(m_timestep);
     m_debugRenderer.computeDebugRenderingPrimitives(*m_world);
 
     std::vector<float> m_linesVertices;
