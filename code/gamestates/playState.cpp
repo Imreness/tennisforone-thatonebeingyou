@@ -51,6 +51,9 @@ void playState::initObjects(){
     m_physics.createColObject("racket");
     m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.1, 0.5,0));
 
+    m_physics.createColObject("backboard");
+    m_physics.addBoxCollider("backboard", reactphysics3d::Vector3(0.05 , 1 , 2), reactphysics3d::Vector3(-.01 , 0.9, 0));
+
 }
 
 void playState::render(){
