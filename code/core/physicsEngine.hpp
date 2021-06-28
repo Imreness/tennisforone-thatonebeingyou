@@ -19,6 +19,12 @@ struct collisionObject{
 	reactphysics3d::Collider* m_col;
 };
 
+struct Raycasthit{
+	bool m_isHit;
+	std::string m_name;
+	glm::vec3 m_hitpos;
+};
+
 
 class PhysicsEngine
 {
@@ -48,6 +54,8 @@ public:
 	void debugRender(glm::mat4& view , glm::mat4& proj, Shader* shader);
 
 	void update(float deltaTime);
+
+	Raycasthit testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj);
 
 	void createColObject(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 	void addBoxCollider(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{1., 1., 1.}  ,reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());

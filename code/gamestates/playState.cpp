@@ -13,7 +13,6 @@ void playState::init(GLFWwindow* referencewindow){
 
     initObjects(); 
 
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
 }
 
@@ -34,7 +33,7 @@ void playState::initGraphics(){
     m_debugCam = new DebugCamera(m_window);
     m_gameCam = new RailsCamera(m_window);
     m_gameCam->m_moveSpeed = 1;
-    m_gameCam->moveTo(glm::vec3(-2.2, 0.8, 0), glm::vec3(0,0.9,0), 0);
+    m_gameCam->moveTo(glm::vec3(-2.4, 0.8, 0), glm::vec3(0,0.9,0), 0);
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
 }
@@ -91,6 +90,7 @@ void playState::initInput(){
     m_input.init(m_window);
 
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
+    m_input.registerKey("debugray", 0, true, true);
 }
 
 void playState::processInput()
@@ -98,10 +98,23 @@ void playState::processInput()
     if(m_input.isPressed("debugMode")){
         if(m_debugMode){
             m_debugMode = false;
+            glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
         else{
+            glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             m_debugMode = true;
         }
+    }
+
+    if(m_input.isPressed("debugray")){
+        processPlayerRacket();
+    }
+}
+
+void playState::processPlayerRacket(){
+    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("backboard", m_gameCam->m_view, m_gameCam->m_proj);
+    if(hit.m_isHit){
+        std::printf("HIT\n");
     }
 }
 

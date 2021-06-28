@@ -42,6 +42,8 @@ private:
     void initInput();
     void processInput();
 
+    void processPlayerRacket();
+
     void calculateDeltaTime();
 
 public:

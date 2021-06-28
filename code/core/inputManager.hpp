@@ -8,6 +8,7 @@
 struct keyStruct{
     bool m_justPressed = false;
     bool m_isSticky;
+    bool m_isMouse;
 
     int m_key;    
 };
@@ -23,7 +24,7 @@ public:
 
     void init(GLFWwindow* window);
 
-    void registerKey(std::string name,int key, bool isSticky = false);
+    void registerKey(std::string name,int key,bool isSticky = false, bool isMouse = false);
 
     bool isPressed(std::string name);
 

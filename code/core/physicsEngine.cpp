@@ -24,6 +24,9 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
 
     reactphysics3d::DebugRenderer m_debugRenderer = m_world->getDebugRenderer();
     m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
+    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
+    m_debugRenderer.setContactPointSphereRadius(5);
+    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true);
     m_debugRenderer.computeDebugRenderingPrimitives(*m_world);
 
     std::vector<float> m_linesVertices;
@@ -100,6 +103,57 @@ void PhysicsEngine::update(float deltaTime){
         m_world->update(m_timestep);
     }
     m_accumulator += deltaTime;
+}
+
+Raycasthit PhysicsEngine::testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj){
+    collisionObject* currObject = m_colObjects.at(name);
+
+    int windowWidth, windowHeight; 
+    double mouseX, mouseY;
+
+    glfwGetCursorPos(m_window, &mouseX, &mouseY);
+	glfwGetWindowSize(m_window, &windowWidth, &windowHeight);
+
+	//Get the mouse as Normalized Device coordinates (clamped between 0 and 1)
+	glm::vec4 RayStart_NDC(
+		(mouseX / windowWidth - 0.5f) * 2.f,
+		((mouseY / windowHeight - 0.5f) * 2.f) * -1.f,
+		-1.f,
+		1.f
+	);
+	glm::vec4 RayEnd_NDC(
+		(mouseX / windowWidth - 0.5f) * 2.f,
+		((mouseY / windowHeight - 0.5f) * 2.f) * -1.f,
+		0.f,
+		1.f
+	);
+
+	
+	//When we multiply the NDC values with M (Projection and View), we reverse the application of said matrixes,
+	//So we get the proper World values of the cursor
+	glm::mat4 M = glm::inverse(proj * view);
+
+	glm::vec4 RayStart_world = M * RayStart_NDC; RayStart_world /= RayStart_world.w;
+	glm::vec4 RayEnd_world   = M * RayEnd_NDC  ; RayEnd_world  /= RayEnd_world.w;
+
+    glm::vec3 raydirection(RayEnd_world - RayStart_world);
+    
+
+    reactphysics3d::Vector3 rayStart(RayStart_world.x, RayStart_world.y, RayStart_world.z);
+    reactphysics3d::Vector3 rayEnd(raydirection.x * 500, raydirection.y * 500, raydirection.z * 500);
+
+    reactphysics3d::Ray ray(rayStart, rayEnd);
+
+    Raycasthit raycastinfo;
+    reactphysics3d::RaycastInfo info;
+
+    raycastinfo.m_isHit = currObject->m_col->raycast(ray, info);
+
+    if(raycastinfo.m_isHit){
+        raycastinfo.m_hitpos = glm::vec3(info.worldPoint.x, info.worldPoint.y, info.worldPoint.z);
+    }
+    
+    return raycastinfo;
 }
 
 
