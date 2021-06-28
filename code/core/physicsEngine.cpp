@@ -43,15 +43,18 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
         m_linesVertices.push_back(m_debugRenderer.getLines()[i].point2.z);
     }
 
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, m_linesVertices.size() * sizeof(float), &m_linesVertices, GL_DYNAMIC_DRAW);
+    if(m_linesVertices.size() > 0){
+        glBindVertexArray(m_VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+        glBufferData(GL_ARRAY_BUFFER, m_linesVertices.size() * sizeof(float), &(m_linesVertices.at(0)), GL_DYNAMIC_DRAW);
 
-    shader->Use();
-    shader->setUniform("view", view);
-    shader->setUniform("proj", proj);
+        shader->Use();
+        shader->setUniform("view", view);
+        shader->setUniform("proj", proj);
 
-    glDrawArrays(GL_LINE_STRIP, 0, linesAmount*2);
+        glDrawArrays(GL_LINE_STRIP, 0, linesAmount*2);
+    }
+
 
 
     std::vector<float> m_trianglesVertices;
@@ -72,19 +75,20 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
 
     }
 
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, m_trianglesVertices.size() * sizeof(float), &(m_trianglesVertices.at(0)), GL_DYNAMIC_DRAW);
+    if(m_trianglesVertices.size() > 0){
+        glBindVertexArray(m_VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+        glBufferData(GL_ARRAY_BUFFER, m_trianglesVertices.size() * sizeof(float), &(m_trianglesVertices.at(0)), GL_DYNAMIC_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+    	glEnableVertexAttribArray(0);
+    	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
 
-    shader->Use();
-    shader->setUniform("view", view);
-    shader->setUniform("proj", proj);
+        shader->Use();
+        shader->setUniform("view", view);
+        shader->setUniform("proj", proj);
 
-    glDrawArrays(GL_TRIANGLES, 0, trianglesAmount*3);
-
+        glDrawArrays(GL_TRIANGLES, 0, trianglesAmount*3);    
+    }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
