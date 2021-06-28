@@ -55,7 +55,15 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
         glDrawArrays(GL_LINE_STRIP, 0, linesAmount*2);
     }
 
+    glBindVertexArray(m_VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), &(m_raydebugdata[0]), GL_DYNAMIC_DRAW);
 
+    shader->Use();
+    shader->setUniform("view", view);
+    shader->setUniform("proj", proj);
+
+    glDrawArrays(GL_LINE_STRIP, 0, 2 );   
 
     std::vector<float> m_trianglesVertices;
 
@@ -109,7 +117,7 @@ void PhysicsEngine::update(float deltaTime){
     m_accumulator += deltaTime;
 }
 
-Raycasthit PhysicsEngine::testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj){
+Raycasthit PhysicsEngine::testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj, bool setDebugRayData){
     collisionObject* currObject = m_colObjects.at(name);
 
     int windowWidth, windowHeight; 
@@ -141,10 +149,21 @@ Raycasthit PhysicsEngine::testMouseRayAgainstCollisionObject(std::string name, g
 	glm::vec4 RayEnd_world   = M * RayEnd_NDC  ; RayEnd_world  /= RayEnd_world.w;
 
     glm::vec3 raydirection(RayEnd_world - RayStart_world);
+    raydirection = glm::normalize(raydirection);
     
+
 
     reactphysics3d::Vector3 rayStart(RayStart_world.x, RayStart_world.y, RayStart_world.z);
     reactphysics3d::Vector3 rayEnd(raydirection.x * 500, raydirection.y * 500, raydirection.z * 500);
+
+    if(setDebugRayData){
+       m_raydebugdata[0] = rayStart.x;
+       m_raydebugdata[1] = rayStart.y;
+       m_raydebugdata[2] = rayStart.z;
+       m_raydebugdata[3] = rayEnd.x;
+       m_raydebugdata[4] = rayEnd.y;
+       m_raydebugdata[5] = rayEnd.z;
+    }
 
     reactphysics3d::Ray ray(rayStart, rayEnd);
 

@@ -28,7 +28,7 @@ private:
     playerRacket* m_playerRacket;
 
     bool m_debugMode = false;
-    bool m_debugModeJustSwitched = false;
+    bool m_debugDrawingInGame = false;
 
     //deltaTime
     float m_lastTime;

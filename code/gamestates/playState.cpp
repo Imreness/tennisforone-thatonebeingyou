@@ -66,6 +66,9 @@ void playState::render(){
     }
     else{
         m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
+        if(m_debugDrawingInGame){
+            m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
+        }
     }
 
     m_graphics.renderEnd();
@@ -90,6 +93,7 @@ void playState::initInput(){
     m_input.init(m_window);
 
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
+    m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
     m_input.registerKey("debugray", 0, true, true);
 }
 
@@ -106,13 +110,22 @@ void playState::processInput()
         }
     }
 
+    if(m_input.isPressed("debugDrawingInGame")){
+        if(m_debugDrawingInGame){
+            m_debugDrawingInGame = false;
+        }
+        else{
+            m_debugDrawingInGame = true;
+        }
+    }
+
     if(m_input.isPressed("debugray")){
         processPlayerRacket();
     }
 }
 
 void playState::processPlayerRacket(){
-    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("backboard", m_gameCam->m_view, m_gameCam->m_proj);
+    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("backboard", m_gameCam->m_view, m_gameCam->m_proj, true);
     if(hit.m_isHit){
         std::printf("HIT\n");
     }

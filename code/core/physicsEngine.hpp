@@ -44,6 +44,8 @@ private:
 	unsigned int m_VAO;
 	unsigned int m_VBO;
 
+	float m_raydebugdata[6] = {0 , 0 , 0 , 0 , 0 , 0};
+
 public:
 	PhysicsEngine() {}
 
@@ -55,7 +57,7 @@ public:
 
 	void update(float deltaTime);
 
-	Raycasthit testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj);
+	Raycasthit testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj, bool setDebugRayData = false);
 
 	void createColObject(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 	void addBoxCollider(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{1., 1., 1.}  ,reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
