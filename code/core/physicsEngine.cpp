@@ -9,13 +9,6 @@ void PhysicsEngine::init(GLFWwindow* window){
 void PhysicsEngine::initDebugDrawer(){
     m_world->setIsDebugRenderingEnabled(true);
 
-    reactphysics3d::DebugRenderer m_debugRenderer = m_world->getDebugRenderer();
-
-    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLIDER_AABB, true);
-    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLIDER_BROADPHASE_AABB, true);
-    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
-    m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
-
     glCreateBuffers(1, &m_VBO);
 
 	glCreateVertexArrays(1, &m_VAO);

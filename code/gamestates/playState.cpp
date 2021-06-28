@@ -34,6 +34,7 @@ void playState::initGraphics(){
     m_debugCam = new DebugCamera(m_window);
     m_gameCam = new RailsCamera(m_window);
     m_gameCam->m_moveSpeed = 1;
+    m_gameCam->moveTo(glm::vec3(-2.2, 0.8, 0), glm::vec3(0,0.9,0), 0);
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
 }
@@ -42,11 +43,14 @@ void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
 
-    m_physics.createColObject("downbox");
-    m_physics.addBoxCollider("downbox", reactphysics3d::Vector3(0.5,0.5,0.5), reactphysics3d::Vector3(0, -1,0));
+    m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
 
-    m_physics.createColObject("upbox");
-    m_physics.addBoxCollider("upbox", reactphysics3d::Vector3(0.5,0.5,0.5), reactphysics3d::Vector3(0, 2,0));
+    m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
+    m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
+
+    m_physics.createColObject("racket");
+    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.1, 0.5,0));
+
 }
 
 void playState::render(){
@@ -67,9 +71,6 @@ void playState::render(){
 
 void playState::process(){
     calculateDeltaTime();
-
-
-    //std::printf("%b", m_physics.)
 
     if(m_debugMode){
         m_debugCam->update(m_deltaTime);
