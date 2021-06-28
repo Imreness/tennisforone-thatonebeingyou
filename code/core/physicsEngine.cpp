@@ -27,13 +27,8 @@ void PhysicsEngine::initDebugDrawer(){
 }
 
 void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shader){
-
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    //ok this works, now listen up.
-    //make the debug renderer a fucking pointer. do everything within that poiter.
-    //right now, this is what  you need to make it work:
-    //god speed man, god speed
     reactphysics3d::DebugRenderer m_debugRenderer = m_world->getDebugRenderer();
     m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
     m_debugRenderer.computeDebugRenderingPrimitives(*m_world);

@@ -13,7 +13,7 @@ void playState::init(GLFWwindow* referencewindow){
 
     initObjects(); 
 
-    //glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     initInput();
 }
 
