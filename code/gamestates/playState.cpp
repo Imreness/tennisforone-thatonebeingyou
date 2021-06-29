@@ -54,7 +54,7 @@ void playState::initObjects(){
     m_physics.addBoxCollider("backboard", reactphysics3d::Vector3(0.05 , 1 , 2), reactphysics3d::Vector3(-.01 , 0.9, 0));
 
     m_physics.createColObject("racketboard");
-    m_physics.addBoxCollider("racketboard", reactphysics3d::Vector3(0.0005, 1 , 2 ), reactphysics3d::Vector3(0, 0.9, 0));
+    m_physics.addBoxCollider("racketboard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
 }
 
 void playState::render(){
@@ -93,6 +93,7 @@ void playState::process(){
     }
 
     processInput();
+    processPlayerRacket();
 
     render();
 }
@@ -102,7 +103,6 @@ void playState::initInput(){
 
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
-    m_input.registerKey("debugray", 0, true, true);
 }
 
 void playState::processInput()
@@ -127,16 +127,13 @@ void playState::processInput()
         }
     }
 
-    if(m_input.isPressed("debugray")){
-        processPlayerRacket();
-    }
 }
 
 void playState::processPlayerRacket(){
     Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("racketboard", m_gameCam->m_view, m_gameCam->m_proj, true);
-    if(hit.m_isHit){
-        std::printf("HIT\t");
-    }
+    
+    m_playerRacket->move(hit.m_hitpos);
+
 }
 
 bool playState::shouldRun(){
