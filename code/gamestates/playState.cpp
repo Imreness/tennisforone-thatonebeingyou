@@ -53,25 +53,33 @@ void playState::initObjects(){
     m_physics.createColObject("backboard");
     m_physics.addBoxCollider("backboard", reactphysics3d::Vector3(0.05 , 1 , 2), reactphysics3d::Vector3(-.01 , 0.9, 0));
 
+    m_physics.createColObject("racketboard");
+    m_physics.addBoxCollider("racketboard", reactphysics3d::Vector3(0.0005, 1 , 2 ), reactphysics3d::Vector3(0, 0.9, 0));
 }
 
 void playState::render(){
-    m_graphics.renderStart();
-
-    if(m_debugMode){
-        m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
-
-        m_physics.update(m_deltaTime);
-        m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
+    if(m_renderAccumulator > m_renderTick){
+        m_graphics.renderStart();
+    
+        if(m_debugMode){
+            m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
+    
+            m_physics.update(m_deltaTime);
+            m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
+        }
+        else{
+            m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
+            if(m_debugDrawingInGame){
+                m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
+            }
+        }
+    
+        m_graphics.renderEnd();
+        m_renderAccumulator -= m_renderTick;
     }
     else{
-        m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
-        if(m_debugDrawingInGame){
-            m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
-        }
+        m_renderAccumulator += m_deltaTime;
     }
-
-    m_graphics.renderEnd();
 }
 
 void playState::process(){
@@ -125,9 +133,9 @@ void playState::processInput()
 }
 
 void playState::processPlayerRacket(){
-    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("backboard", m_gameCam->m_view, m_gameCam->m_proj, true);
+    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("racketboard", m_gameCam->m_view, m_gameCam->m_proj, true);
     if(hit.m_isHit){
-        std::printf("HIT\n");
+        std::printf("HIT\t");
     }
 }
 

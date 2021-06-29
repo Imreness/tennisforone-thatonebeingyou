@@ -30,6 +30,9 @@ private:
     bool m_debugMode = false;
     bool m_debugDrawingInGame = false;
 
+    float m_renderAccumulator = 0;
+    float m_renderTick = 1. / 60.;
+
     //deltaTime
     float m_lastTime;
     float m_deltaTime;
