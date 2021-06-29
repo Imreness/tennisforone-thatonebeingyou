@@ -5,11 +5,12 @@
 struct playerRacket{
 
     GameObject& m_refObject;
+    GameObject& m_refShock;
 
     glm::vec3 m_position;
     float m_angle;
 
-    playerRacket(GameObject& refObject);
+    playerRacket(GameObject& refObject, GameObject& refShock);
 
     void move(glm::vec3 targetpos);
 

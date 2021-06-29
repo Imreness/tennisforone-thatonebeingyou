@@ -80,10 +80,12 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
     for(auto& object : objects){
+        if(object.second.m_render){
         currShader->setUniform("model", object.second.m_modelMat);
         textures.at(object.second.m_refModel->m_texID)->Use();
         object.second.m_refModel->render();
-    }
+        }
+   }
 }
 
 void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects){
@@ -92,9 +94,11 @@ void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
     for(auto& object : objects){
+        if(object.second.m_render){
         currShader->setUniform("model", object.second.m_modelMat);
         textures.at(object.second.m_refModel->m_texID)->Use();
         object.second.m_refModel->render();
+        }
     }
 }
 

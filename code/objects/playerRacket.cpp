@@ -1,6 +1,7 @@
 #include <objects/playerRacket.hpp>
 
-playerRacket::playerRacket(GameObject& refObject) : m_refObject{refObject}{
+playerRacket::playerRacket(GameObject& refObject, GameObject& refShock) : m_refObject{refObject}, m_refShock{refShock}{
+    m_refShock.m_render = false;
 }
 
 void playerRacket::move(glm::vec3 targetpos){
@@ -15,6 +16,7 @@ void playerRacket::move(glm::vec3 targetpos){
 
     m_refObject.m_modelMat = glm::translate(m_refObject.m_modelMat, m_position);
     m_refObject.m_modelMat = glm::rotate(m_refObject.m_modelMat, glm::radians(m_angle), glm::vec3(1, 0, 0));
+    m_refShock.m_modelMat = m_refObject.m_modelMat;
 }
 
 void playerRacket::clampPos(){
@@ -40,5 +42,5 @@ void playerRacket::processRotation(){
     else{
         m_angle -= (m_position.y * 20) * m_position.z;
     }
-    std::printf("%f\n", m_angle);
+    //std::printf("%f\n", m_angle);
 }

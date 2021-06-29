@@ -40,9 +40,9 @@ void playState::initGraphics(){
 
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
-    m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
-
     m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
+
+    m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
