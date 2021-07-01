@@ -94,7 +94,6 @@ void playState::process(){
 
     processInput();
     processPlayerRacket();
-    m_playerRacket->update(m_deltaTime);
 
     render();
 }
@@ -154,6 +153,10 @@ void playState::processPlayerRacket(){
     if(hit.m_isHit){
         m_playerRacket->setTarget(hit.m_hitpos);
     }
+
+    m_playerRacket->update(m_deltaTime);
+
+    m_physics.setTransformFromMat("racket", m_gameObjects.at("playerRacket").m_modelMat);
 }
 
 bool playState::shouldRun(){

@@ -202,3 +202,21 @@ void PhysicsEngine::addBoxCollider(std::string name, reactphysics3d::Vector3 sca
 
     currObject->m_col = currObject->m_body->addCollider(boxshape, trans);
 }
+
+void PhysicsEngine::setTransform(std::string name,reactphysics3d::Vector3 pos, reactphysics3d::Quaternion rot){
+    collisionObject* currObject = m_colObjects.at(name);
+
+    currObject->m_body->setTransform(reactphysics3d::Transform(pos, rot));
+}
+
+void PhysicsEngine::setTransformFromMat(std::string name, glm::mat4& mat){
+    glm::vec3 scale;
+    glm::quat rot;
+    glm::vec3 pos;
+    glm::vec3 skew;
+    glm::vec4 perspective;
+
+    glm::decompose(mat, scale, rot, pos, skew, perspective);
+
+    setTransform(name, reactphysics3d::Vector3(pos.x, pos.y, pos.z), reactphysics3d::Quaternion(rot.x, rot.y, rot.z, rot.w));
+}
