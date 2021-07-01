@@ -94,6 +94,7 @@ void playState::process(){
 
     processInput();
     processPlayerRacket();
+    m_playerRacket->update(m_deltaTime);
 
     render();
 }
@@ -101,12 +102,23 @@ void playState::process(){
 void playState::initInput(){
     m_input.init(m_window);
 
+    glfwSetWindowUserPointer(m_window, this);
+
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
+
+    m_input.registerKey("top"           , GLFW_KEY_W, true);
+    m_input.registerKey("topright"      , GLFW_KEY_E, true);
+    m_input.registerKey("right"         , GLFW_KEY_D, true);
+    m_input.registerKey("bottomright"   , GLFW_KEY_C, true);
+    m_input.registerKey("bottom"        , GLFW_KEY_X, true);
+    m_input.registerKey("bottomleft"    , GLFW_KEY_Z, true);
+    m_input.registerKey("left"          , GLFW_KEY_A, true);
+    m_input.registerKey("topleft"       , GLFW_KEY_Q, true);
 }
 
-void playState::processInput()
-{
+void playState::processInput(){
+
     if(m_input.isPressed("debugMode")){
         if(m_debugMode){
             m_debugMode = false;
@@ -127,13 +139,37 @@ void playState::processInput()
         }
     }
 
+    if(m_input.isPressed("top")){
+        m_playerRacket->rotate(RACKETMOVEMENT::TOP,m_deltaTime);
+    }
+    else if(m_input.isPressed("topright")){
+        m_playerRacket->rotate(RACKETMOVEMENT::TOPRIGHT,m_deltaTime);
+    }
+    else if(m_input.isPressed("right")){
+        m_playerRacket->rotate(RACKETMOVEMENT::RIGHT,m_deltaTime);
+    }
+    else if(m_input.isPressed("bottomright")){
+        m_playerRacket->rotate(RACKETMOVEMENT::BOTTOMRIGHT,m_deltaTime);
+    }
+    else if(m_input.isPressed("bottom")){
+        m_playerRacket->rotate(RACKETMOVEMENT::BOTTOM,m_deltaTime);
+    }
+    else if(m_input.isPressed("bottomleft")){
+        m_playerRacket->rotate(RACKETMOVEMENT::BOTTOMLEFT,m_deltaTime);
+    }
+    else if(m_input.isPressed("left")){
+        m_playerRacket->rotate(RACKETMOVEMENT::LEFT,m_deltaTime);
+    }
+    else if(m_input.isPressed("topleft")){
+        m_playerRacket->rotate(RACKETMOVEMENT::TOPLEFT,m_deltaTime);
+    }
 }
 
 void playState::processPlayerRacket(){
     Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("racketboard", m_gameCam->m_view, m_gameCam->m_proj, true);
-    
-    m_playerRacket->move(hit.m_hitpos);
-
+    if(hit.m_isHit){
+        m_playerRacket->setTarget(hit.m_hitpos);
+    }
 }
 
 bool playState::shouldRun(){
@@ -149,6 +185,7 @@ nextStateEnum playState::nextState(){
         return nextStateEnum::NOTHING;
     }
 }
+
 
 playState::~playState(){
    delete m_debugCam;

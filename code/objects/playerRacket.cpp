@@ -2,45 +2,71 @@
 
 playerRacket::playerRacket(GameObject& refObject, GameObject& refShock) : m_refObject{refObject}, m_refShock{refShock}{
     m_refShock.m_render = false;
+    m_position = glm::vec3(0.);
+    m_targetPosition = glm::vec3(0.);
 }
 
-void playerRacket::move(glm::vec3 targetpos){
-    m_position = targetpos;
-
-    //std::printf("%f %f\n" , m_position.z , m_position.y);
-
-    clampPos();
-    processRotation();
-
-    m_refObject.m_modelMat = glm::mat4(1.);
-
-    m_refObject.m_modelMat = glm::translate(m_refObject.m_modelMat, m_position);
-    m_refObject.m_modelMat = glm::rotate(m_refObject.m_modelMat, glm::radians(m_angle), glm::vec3(1, 0, 0));
-    m_refShock.m_modelMat = m_refObject.m_modelMat;
+void playerRacket::setTarget(glm::vec3 targetPos){
+    m_targetPosition = targetPos;
 }
 
-void playerRacket::clampPos(){
-    if(m_position.z < -1.4){
-        m_position.z = -1.4;
-    }
-    else if(m_position.z > 1.4){
-        m_position.z = 1.4;
-    }
-    if(m_position.y < 0){
-        m_position.y = 0;
-    }
-    else if(m_position.y > 1.35){
-        m_position.y = 1.35;
+void playerRacket::rotate(RACKETMOVEMENT pos, double deltaTime){
+    switch (pos){
+        case RACKETMOVEMENT::TOP:
+            m_targetAngle = 0;
+            break;
+        
+        case RACKETMOVEMENT::TOPRIGHT:
+            m_targetAngle = 45;
+            break;
+
+        case RACKETMOVEMENT::RIGHT:
+            m_targetAngle = 90;
+            break;
+
+        case RACKETMOVEMENT::BOTTOMRIGHT:
+            m_targetAngle = 135;
+            break;
+
+        case RACKETMOVEMENT::BOTTOM:
+            m_targetAngle = 180;
+            break;
+
+        case RACKETMOVEMENT::TOPLEFT:
+            m_targetAngle = 315;
+            break;
+
+        case RACKETMOVEMENT::LEFT:
+            m_targetAngle = 270;
+            break;
+
+        case RACKETMOVEMENT::BOTTOMLEFT:
+            m_targetAngle = 225;
+            break;
     }
 }
 
-void playerRacket::processRotation(){
-    m_angle = (60*m_position.z);
-    if(m_angle > 0){
-        m_angle -= (m_position.y * 20) * m_position.z;
-    }
-    else{
-        m_angle -= (m_position.y * 20) * m_position.z;
-    }
-    //std::printf("%f\n", m_angle);
+void playerRacket::update(double deltaTime){
+    interpolateRotation(deltaTime);
+    interpolatePosition(deltaTime);
+
+    setModelValues(m_refObject.m_modelMat);
+    setModelValues(m_refShock.m_modelMat);
+}
+
+void playerRacket::setModelValues(glm::mat4& ref){
+    ref = glm::mat4(1.);
+
+    //std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
+
+    ref = glm::translate(ref, m_position);
+    ref = glm::rotate(ref, glm::radians(m_angle), glm::vec3(1, 0 ,0));
+}
+
+void playerRacket::interpolatePosition(double deltaTime){
+    m_position = glm::mix(m_position, m_targetPosition, deltaTime * m_movementSpeed);
+}
+
+void playerRacket::interpolateRotation(double deltaTime){
+    m_angle = glm::mix(m_angle, m_targetAngle, deltaTime * m_angleSpeed);
 }
