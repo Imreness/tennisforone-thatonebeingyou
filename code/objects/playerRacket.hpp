@@ -3,14 +3,10 @@
 #include <objects/gameObject.hpp>
 
 enum class RACKETMOVEMENT{
-    TOP,
-    TOPRIGHT,
-    RIGHT,
-    BOTTOMRIGHT,
-    BOTTOM,
-    BOTTOMLEFT,
     LEFT,
-    TOPLEFT
+    RIGHT,
+    SWITCHLEFT,
+    SWITCHRIGHT
 };
 
 struct playerRacket{
@@ -21,8 +17,8 @@ struct playerRacket{
     glm::vec3 m_targetPosition;
     float m_movementSpeed = 3;
 
-    float m_angle;
-    float m_targetAngle;
+    float m_angle = 0;
+    float m_targetAngle = 0 ;
     float m_angleSpeed = 8;
 
     playerRacket(GameObject& refObject, GameObject& refShock);
@@ -34,6 +30,8 @@ struct playerRacket{
     void rotate(RACKETMOVEMENT pos, double deltaTime);
 
 private:
+
+    void clampPosition(); 
 
     void interpolateRotation(double deltaTime);
 

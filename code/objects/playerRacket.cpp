@@ -8,40 +8,24 @@ playerRacket::playerRacket(GameObject& refObject, GameObject& refShock) : m_refO
 
 void playerRacket::setTarget(glm::vec3 targetPos){
     m_targetPosition = targetPos;
+    clampPosition();
 }
 
 void playerRacket::rotate(RACKETMOVEMENT pos, double deltaTime){
     switch (pos){
-        case RACKETMOVEMENT::TOP:
-            m_targetAngle = 0;
+        case RACKETMOVEMENT::RIGHT:
+            m_targetAngle += 45;
             break;
         
-        case RACKETMOVEMENT::TOPRIGHT:
-            m_targetAngle = 45;
-            break;
-
-        case RACKETMOVEMENT::RIGHT:
-            m_targetAngle = 90;
-            break;
-
-        case RACKETMOVEMENT::BOTTOMRIGHT:
-            m_targetAngle = 135;
-            break;
-
-        case RACKETMOVEMENT::BOTTOM:
-            m_targetAngle = 180;
-            break;
-
-        case RACKETMOVEMENT::TOPLEFT:
-            m_targetAngle = 315;
-            break;
-
         case RACKETMOVEMENT::LEFT:
-            m_targetAngle = 270;
+            m_targetAngle -= 45;
             break;
 
-        case RACKETMOVEMENT::BOTTOMLEFT:
-            m_targetAngle = 225;
+        case RACKETMOVEMENT::SWITCHLEFT:
+            m_targetAngle -= 180;
+            break;
+        case RACKETMOVEMENT::SWITCHRIGHT:
+            m_targetAngle += 180;
             break;
     }
 }
@@ -57,7 +41,7 @@ void playerRacket::update(double deltaTime){
 void playerRacket::setModelValues(glm::mat4& ref){
     ref = glm::mat4(1.);
 
-    //std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
+    std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
 
     ref = glm::translate(ref, m_position);
     ref = glm::rotate(ref, glm::radians(m_angle), glm::vec3(1, 0 ,0));
@@ -69,4 +53,21 @@ void playerRacket::interpolatePosition(double deltaTime){
 
 void playerRacket::interpolateRotation(double deltaTime){
     m_angle = glm::mix(m_angle, m_targetAngle, deltaTime * m_angleSpeed);
+}
+
+void playerRacket::clampPosition(){
+    if(m_targetPosition.y < 0.51){
+        m_targetPosition.y = 0.51;
+    }
+    else if(m_targetPosition.y > 1.3){
+        m_targetPosition.y = 1.3;
+    }
+
+    if(m_targetPosition.z < -1.4){
+        m_targetPosition.z = -1.4;
+    }
+    else if(m_targetPosition.z > 1.4){
+        m_targetPosition.z = 1.4;
+    }
+
 }
