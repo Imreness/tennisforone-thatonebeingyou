@@ -109,10 +109,8 @@ void playState::initInput(){
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
 
-    m_input.registerKey("rotateleft"    , GLFW_KEY_A, true);
-    m_input.registerKey("rotateright"   , GLFW_KEY_D, true);
-    m_input.registerKey("switchright"   , GLFW_KEY_W, true);
-    m_input.registerKey("switchleft"    , GLFW_KEY_S, true);
+    m_input.registerKey("rotateleft"    , GLFW_KEY_A);
+    m_input.registerKey("rotateright"   , GLFW_KEY_D);
 }
 
 void playState::processInput(){
@@ -142,12 +140,6 @@ void playState::processInput(){
     }
     else if(m_input.isPressed("rotateright")){
         m_playerRacket->rotate(RACKETMOVEMENT::RIGHT,m_deltaTime);
-    }
-    else if(m_input.isPressed("switchright")){
-        m_playerRacket->rotate(RACKETMOVEMENT::SWITCHRIGHT,m_deltaTime);
-    }
-    else if(m_input.isPressed("switchleft")){
-        m_playerRacket->rotate(RACKETMOVEMENT::SWITCHLEFT, m_deltaTime);
     }
 }
 

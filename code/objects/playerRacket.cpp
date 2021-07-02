@@ -12,21 +12,25 @@ void playerRacket::setTarget(glm::vec3 targetPos){
 }
 
 void playerRacket::rotate(RACKETMOVEMENT pos, double deltaTime){
-    switch (pos){
-        case RACKETMOVEMENT::RIGHT:
-            m_targetAngle += 45;
-            break;
-        
-        case RACKETMOVEMENT::LEFT:
-            m_targetAngle -= 45;
-            break;
+    if(m_rotationStep <= 0){
+        switch (pos){
+            case RACKETMOVEMENT::RIGHT:
+                m_targetAngle += 45;
+                break;
 
-        case RACKETMOVEMENT::SWITCHLEFT:
-            m_targetAngle -= 180;
-            break;
-        case RACKETMOVEMENT::SWITCHRIGHT:
-            m_targetAngle += 180;
-            break;
+            case RACKETMOVEMENT::LEFT:
+                m_targetAngle -= 45;
+                break;
+
+            case RACKETMOVEMENT::SWITCHLEFT:
+                m_targetAngle -= 180;
+                break;
+            case RACKETMOVEMENT::SWITCHRIGHT:
+                m_targetAngle += 180;
+                break;
+        }
+
+        m_rotationStep = m_rotationStepLimit; 
     }
 }
 
@@ -36,12 +40,16 @@ void playerRacket::update(double deltaTime){
 
     setModelValues(m_refObject.m_modelMat);
     setModelValues(m_refShock.m_modelMat);
+
+    if(m_rotationStep > 0){
+        m_rotationStep -= deltaTime;
+    }
 }
 
 void playerRacket::setModelValues(glm::mat4& ref){
     ref = glm::mat4(1.);
 
-    std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
+    //std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
 
     ref = glm::translate(ref, m_position);
     ref = glm::rotate(ref, glm::radians(m_angle), glm::vec3(1, 0 ,0));
