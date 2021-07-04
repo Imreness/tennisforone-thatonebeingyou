@@ -56,6 +56,18 @@ void playState::initObjects(){
     m_physics.createColObject("enemybackboard");
     m_physics.addBoxCollider("enemybackboard", reactphysics3d::Vector3(0.05, 1, 2), reactphysics3d::Vector3(7, 0.9, 0));
 
+    m_physics.createColObject("leftboard");
+    m_physics.addBoxCollider("leftboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, -2));
+
+    m_physics.createColObject("rightboard");
+    m_physics.addBoxCollider("rightboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, 2));
+
+    m_physics.createColObject("floorboard");
+    m_physics.addBoxCollider("floorboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, -.07,0));
+
+    m_physics.createColObject("ceilingboard");
+    m_physics.addBoxCollider("ceilingboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, (2 - 0.07),0));
+
     m_physics.createColObject("racketboard");
     m_physics.addBoxCollider("racketboard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
 }
