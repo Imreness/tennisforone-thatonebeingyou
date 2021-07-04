@@ -40,10 +40,13 @@ private:
     //rendering
     void initGraphics();
     void initObjects();
+
     void render();
 
     void initInput();
     void processInput();
+
+    void initPhysicsObjects();
 
     void processPlayerRacket();
 

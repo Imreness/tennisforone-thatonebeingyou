@@ -11,7 +11,8 @@ void playState::init(GLFWwindow* referencewindow){
 
     initGraphics();
 
-    initObjects(); 
+    initObjects();
+    initPhysicsObjects(); 
 
     initInput();
 }
@@ -46,7 +47,9 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
+}
 
+void playState::initPhysicsObjects(){
     m_physics.createColObject("racket");
     m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.1, 0.5,0));
 
