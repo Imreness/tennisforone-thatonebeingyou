@@ -79,7 +79,6 @@ void playState::render(){
         if(m_debugMode){
             m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
     
-            m_physics.update(m_deltaTime);
             m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
         }
         else{
@@ -109,6 +108,8 @@ void playState::process(){
 
     processInput();
     processPlayerRacket();
+
+    m_physics.update(m_deltaTime);
 
     render();
 }
