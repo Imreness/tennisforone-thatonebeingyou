@@ -47,6 +47,7 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
+    m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
 }
 
 void playState::initPhysicsObjects(){
