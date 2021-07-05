@@ -28,15 +28,13 @@ void tennisBall::resetBall(bool passToPlayer){
 
 }
 
-void tennisBall::reflect(float racketSpeed, glm::vec3 hitpos){
+void tennisBall::reflect(float racketSpeed, glm::vec3 hitpos, float distanceFromCenter){
     if(m_currCooldown < 0){
         m_currCooldown = m_cooldownMax;
 
         m_speed += racketSpeed / 10;
 
-        
-
-        m_direction = glm::reflect(m_direction, glm::vec3(1, 0,0));
+        m_direction = glm::reflect(m_direction, glm::vec3(1.,0,0));
         m_direction = glm::normalize(m_direction);
     }
 }
