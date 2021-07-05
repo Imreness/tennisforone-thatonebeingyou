@@ -203,6 +203,16 @@ void PhysicsEngine::addBoxCollider(std::string name, reactphysics3d::Vector3 sca
     currObject->m_col = currObject->m_body->addCollider(boxshape, trans);
 }
 
+void PhysicsEngine::addSphereCollider(std::string name, float radius, reactphysics3d::Vector3 position, reactphysics3d::Quaternion rotation){
+    collisionObject* currObject = m_colObjects.at(name);
+
+    reactphysics3d::SphereShape* shape = m_physicsCommon.createSphereShape(radius);
+
+    reactphysics3d::Transform trans = reactphysics3d::Transform(position, rotation);
+
+    currObject->m_col = currObject->m_body->addCollider(shape, trans);
+}
+
 void PhysicsEngine::setTransform(std::string name,reactphysics3d::Vector3 pos, reactphysics3d::Quaternion rot){
     collisionObject* currObject = m_colObjects.at(name);
 

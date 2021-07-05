@@ -62,6 +62,7 @@ public:
 
 	void createColObject(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 	void addBoxCollider(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{1., 1., 1.}  ,reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
+	void addSphereCollider(std::string, float = 1.f, reactphysics3d::Vector3 = reactphysics3d::Vector3{0., 0., 0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 
 	void setTransform(std::string, reactphysics3d::Vector3, reactphysics3d::Quaternion);
 
