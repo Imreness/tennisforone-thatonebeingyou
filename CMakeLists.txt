@@ -71,6 +71,8 @@ add_library(Engine STATIC
     code/objects/railsCamera.cpp
     code/objects/playerRacket.hpp
     code/objects/playerRacket.cpp
+    code/objects/tennisBall.hpp
+    code/objects/tennisBall.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")

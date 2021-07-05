@@ -19,6 +19,14 @@ void PhysicsEngine::initDebugDrawer(){
     glBindVertexArray(0);
 }
 
+bool PhysicsEngine::testCollisionBodies(std::string firstbody, std::string secondbody){
+    return m_world->testOverlap(m_colObjects.at(firstbody)->m_body, m_colObjects.at(secondbody)->m_body);
+}
+
+collisionObject* PhysicsEngine::getColObject(std::string name){
+    return m_colObjects.at(name);
+}
+
 void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shader){
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -169,6 +177,36 @@ Raycasthit PhysicsEngine::testMouseRayAgainstCollisionObject(std::string name, g
 
     Raycasthit raycastinfo;
     reactphysics3d::RaycastInfo info;
+
+    raycastinfo.m_isHit = currObject->m_col->raycast(ray, info);
+
+    if(raycastinfo.m_isHit){
+        raycastinfo.m_hitpos = glm::vec3(info.worldPoint.x, info.worldPoint.y, info.worldPoint.z);
+    }
+    
+    return raycastinfo;
+}
+
+Raycasthit PhysicsEngine::testRayAgainstCollisionObject(std::string name, glm::vec3 position, glm::vec3 direction, bool setDebugRayData){
+
+    reactphysics3d::Vector3 rayStart(position.x, position.y, position.z);
+    reactphysics3d::Vector3 rayEnd(direction.x * 500, direction.y * 500, direction.z * 500);
+
+    if(setDebugRayData){
+       m_raydebugdata[0] = rayStart.x;
+       m_raydebugdata[1] = rayStart.y;
+       m_raydebugdata[2] = rayStart.z;
+       m_raydebugdata[3] = rayEnd.x;
+       m_raydebugdata[4] = rayEnd.y;
+       m_raydebugdata[5] = rayEnd.z;
+    }
+
+    reactphysics3d::Ray ray(rayStart, rayEnd);
+
+    Raycasthit raycastinfo;
+    reactphysics3d::RaycastInfo info;
+
+    collisionObject* currObject = m_colObjects.at(name);
 
     raycastinfo.m_isHit = currObject->m_col->raycast(ray, info);
 

@@ -15,6 +15,12 @@ void playState::init(GLFWwindow* referencewindow){
     initPhysicsObjects(); 
 
     initInput();
+
+    initDeltaTime();
+}
+
+void playState::initDeltaTime(){
+    m_lastTime = glfwGetTime();
 }
 
 void playState::calculateDeltaTime(){
@@ -42,12 +48,14 @@ void playState::initGraphics(){
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
     m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
-
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
+
     m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
+    m_tennisBall = new tennisBall(m_gameObjects.at("ball"));
+    m_tennisBall->resetBall(true);
 }
 
 void playState::initPhysicsObjects(){
@@ -75,8 +83,8 @@ void playState::initPhysicsObjects(){
     m_physics.createColObject("ceilingboard");
     m_physics.addBoxCollider("ceilingboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, (2 - 0.07),0));
 
-    m_physics.createColObject("racketboard");
-    m_physics.addBoxCollider("racketboard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
+    m_physics.createColObject("mouseBoard");
+    m_physics.addBoxCollider("mouseBoard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
 }
 
 void playState::render(){
@@ -113,6 +121,7 @@ void playState::process(){
         m_gameCam->update(m_deltaTime);
     }
 
+    processBall();
     processInput();
     processPlayerRacket();
 
@@ -164,14 +173,25 @@ void playState::processInput(){
 }
 
 void playState::processPlayerRacket(){
-    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("racketboard", m_gameCam->m_view, m_gameCam->m_proj, true);
+    Raycasthit hit = m_physics.testMouseRayAgainstCollisionObject("mouseBoard", m_gameCam->m_view, m_gameCam->m_proj);
     if(hit.m_isHit){
         m_playerRacket->setTarget(hit.m_hitpos);
     }
 
     m_playerRacket->update(m_deltaTime);
 
-    m_physics.setTransformFromMat("racket", m_gameObjects.at("playerRacket").m_modelMat);
+    m_physics.setTransformFromMat("racket", m_playerRacket->m_refObject.m_modelMat);
+}
+
+void playState::processBall(){
+    m_tennisBall->update(m_deltaTime);
+
+    m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
+
+    if(m_physics.testCollisionBodies("ball", "racket")){
+        Raycasthit hit = m_physics.testRayAgainstCollisionObject("racket", m_tennisBall->m_position, m_tennisBall->m_direction, true);
+        m_tennisBall->reflect(1, hit.m_hitpos);
+    }
 }
 
 bool playState::shouldRun(){
@@ -192,5 +212,6 @@ nextStateEnum playState::nextState(){
 playState::~playState(){
    delete m_debugCam;
    delete m_playerRacket;
+   delete m_tennisBall;
    delete m_gameCam;
 }
