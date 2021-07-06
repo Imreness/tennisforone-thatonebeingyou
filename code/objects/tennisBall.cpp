@@ -2,7 +2,6 @@
 
 tennisBall::tennisBall(GameObject& refBall)
     : m_refBall{refBall}{
-    std::printf("ahaha\n");
 }
 
 void tennisBall::update(float deltaTime){
@@ -28,15 +27,57 @@ void tennisBall::resetBall(bool passToPlayer){
 
 }
 
-void tennisBall::reflect(float racketSpeed, glm::vec3 hitpos, glm::vec3 racketCenter){
+void tennisBall::reflect(float racketSpeed, glm::vec3 ballpos, glm::vec3 racketCenter){
     if(m_currCooldown < 0){
         m_currCooldown = m_cooldownMax;
 
-        m_speed += racketSpeed / 10;
+        m_speed += racketSpeed / 5;
 
-        std::printf("distance: %f\n", glm::distance(hitpos, racketCenter));
+        glm::vec2 flatdir = glm::vec2(ballpos.z, ballpos.y) - glm::vec2(racketCenter.z, racketCenter.y);
+        float dist = glm::distance(glm::vec2(ballpos.z, ballpos.y),glm::vec2(racketCenter.z, racketCenter.y));
+        flatdir = glm::normalize(flatdir);
 
-        m_direction = glm::reflect(m_direction, glm::vec3(1.,0,0));
+        //fixed number means the racket size is fix... not my proudest code lmao
+        dist = dist / 1;
+
+        std::printf("%f\n", dist);
+
+        glm::vec3 normalvector = glm::mix(glm::vec3(1, 0 ,0), glm::vec3(0, flatdir.y, flatdir.x), dist);
+
+        m_direction = glm::reflect(m_direction, normalvector);
         m_direction = glm::normalize(m_direction);
     }
+}
+
+void tennisBall::reflect(WallTypes hittype){
+
+    m_speed += 0.5;
+
+    glm::vec3 normalvector;
+
+    switch (hittype){
+        case WallTypes::FLOOR:
+            normalvector = glm::vec3(0, 1. , 0);
+            break;
+        case WallTypes::TOP:
+            normalvector = glm::vec3(0, -1. ,0);
+            break;
+        case WallTypes::LEFT:
+            normalvector = glm::vec3(0, 0 ,-1);
+            break;
+        case WallTypes::RIGHT:
+            normalvector = glm::vec3(0,0 ,1);
+            break;
+        case WallTypes::ENEMY:
+            normalvector = glm::vec3(-1, 0 ,0);
+            break;
+        case WallTypes::PLAYER:
+            normalvector = glm::vec3(1 , 0 ,0);
+            break;
+    }
+
+    m_direction = glm::reflect(m_direction, normalvector);
+
+    m_direction = glm::normalize(m_direction);
+
 }

@@ -190,8 +190,28 @@ void playState::processBall(){
 
     if(m_physics.testCollisionBodies("ball", "racket")){
         glm::vec3 center = glm::vec3(m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().x,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().y,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().z);
-        Raycasthit hit = m_physics.testRayAgainstCollisionObject("racket", m_tennisBall->m_position, m_tennisBall->m_direction, true);
-        m_tennisBall->reflect(1, hit.m_hitpos, center);
+        m_tennisBall->reflect(1, m_tennisBall->m_position, center);
+    }
+
+    if(m_physics.testCollisionBodies("ball", "leftboard")){
+        m_tennisBall->reflect(WallTypes::LEFT);
+    }
+    else if (m_physics.testCollisionBodies("ball", "rightboard")){
+        m_tennisBall->reflect(WallTypes::RIGHT);
+    }
+    else if (m_physics.testCollisionBodies("ball", "floorboard")){
+        m_tennisBall->reflect(WallTypes::FLOOR);
+    }
+    else if (m_physics.testCollisionBodies("ball", "ceilingboard")){
+        m_tennisBall->reflect(WallTypes::TOP);
+    }
+
+    //debug shit pls delete before game is done much love homie :*
+    else if(m_physics.testCollisionBodies("ball", "backboard")){
+        m_tennisBall->reflect(WallTypes::PLAYER);
+    }
+    else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
+        m_tennisBall->reflect(WallTypes::ENEMY);
     }
 }
 
