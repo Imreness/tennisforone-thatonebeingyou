@@ -28,11 +28,13 @@ void tennisBall::resetBall(bool passToPlayer){
 
 }
 
-void tennisBall::reflect(float racketSpeed, glm::vec3 hitpos, float distanceFromCenter){
+void tennisBall::reflect(float racketSpeed, glm::vec3 hitpos, glm::vec3 racketCenter){
     if(m_currCooldown < 0){
         m_currCooldown = m_cooldownMax;
 
         m_speed += racketSpeed / 10;
+
+        std::printf("distance: %f\n", glm::distance(hitpos, racketCenter));
 
         m_direction = glm::reflect(m_direction, glm::vec3(1.,0,0));
         m_direction = glm::normalize(m_direction);

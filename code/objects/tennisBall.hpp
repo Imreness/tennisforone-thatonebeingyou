@@ -17,7 +17,7 @@ struct tennisBall{
     void update(float deltaTime);
 
     void reflect();
-    void reflect(float racketSpeed, glm::vec3 hitpos, float distanceFromCenter);
+    void reflect(float racketSpeed, glm::vec3 hitpos, glm::vec3 racketCenter);
 
     void resetBall(bool passToPlayer);    
 };

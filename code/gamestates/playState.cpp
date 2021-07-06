@@ -189,9 +189,9 @@ void playState::processBall(){
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
 
     if(m_physics.testCollisionBodies("ball", "racket")){
-        Raycasthit hit = m_physics.testRayAgainstCollisionObject("racket", m_tennisBall->m_position, m_tennisBall->m_direction, true);
         glm::vec3 center = glm::vec3(m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().x,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().y,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().z);
-        m_tennisBall->reflect(1, hit.m_hitpos, glm::distance(hit.m_hitpos, center));
+        Raycasthit hit = m_physics.testRayAgainstCollisionObject("racket", m_tennisBall->m_position, m_tennisBall->m_direction, true);
+        m_tennisBall->reflect(1, hit.m_hitpos, center);
     }
 }
 
