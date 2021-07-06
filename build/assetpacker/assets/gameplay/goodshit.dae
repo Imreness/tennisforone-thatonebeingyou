@@ -5,12 +5,39 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.93.1 commit date:2021-06-22, commit time:05:57, hash:1b8d33b18c2f</authoring_tool>
     </contributor>
-    <created>2021-07-05T08:43:46</created>
-    <modified>2021-07-05T08:43:46</modified>
+    <created>2021-07-06T13:17:48</created>
+    <modified>2021-07-06T13:17:48</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
+    <effect id="shadow-effect">
+      <profile_COMMON>
+        <newparam sid="shadow_png-surface">
+          <surface type="2D">
+            <init_from>shadow_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="shadow_png-sampler">
+          <sampler2D>
+            <source>shadow_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="shadow_png-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
     <effect id="ball-effect">
       <profile_COMMON>
         <newparam sid="ball_jpg-surface">
@@ -67,14 +94,14 @@
     </effect>
     <effect id="House-effect">
       <profile_COMMON>
-        <newparam sid="bricks_jpg-surface">
+        <newparam sid="snow_jpg-surface">
           <surface type="2D">
-            <init_from>bricks_jpg</init_from>
+            <init_from>snow_jpg</init_from>
           </surface>
         </newparam>
-        <newparam sid="bricks_jpg-sampler">
+        <newparam sid="snow_jpg-sampler">
           <sampler2D>
-            <source>bricks_jpg-surface</source>
+            <source>snow_jpg-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -83,7 +110,7 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <texture texture="bricks_jpg-sampler" texcoord="UVMap"/>
+              <texture texture="snow_jpg-sampler" texcoord="UVMap"/>
             </diffuse>
             <index_of_refraction>
               <float sid="ior">1.45</float>
@@ -151,20 +178,26 @@
     <image id="ball_jpg" name="ball_jpg">
       <init_from>ball.jpg</init_from>
     </image>
-    <image id="bricks_jpg" name="bricks_jpg">
-      <init_from>bricks.jpg</init_from>
-    </image>
     <image id="edge_png" name="edge_png">
       <init_from>edge.png</init_from>
     </image>
     <image id="rackettexture_png" name="rackettexture_png">
       <init_from>rackettexture.png</init_from>
     </image>
+    <image id="shadow_png" name="shadow_png">
+      <init_from>shadow.png</init_from>
+    </image>
     <image id="shock_png" name="shock_png">
       <init_from>shock.png</init_from>
     </image>
+    <image id="snow_jpg" name="snow_jpg">
+      <init_from>snow.jpg</init_from>
+    </image>
   </library_images>
   <library_materials>
+    <material id="shadow-material" name="shadow">
+      <instance_effect url="#shadow-effect"/>
+    </material>
     <material id="ball-material" name="ball">
       <instance_effect url="#ball-effect"/>
     </material>
@@ -182,6 +215,48 @@
     </material>
   </library_materials>
   <library_geometries>
+    <geometry id="Plane_001-mesh" name="Plane.001">
+      <mesh>
+        <source id="Plane_001-mesh-positions">
+          <float_array id="Plane_001-mesh-positions-array" count="12">-0.1071696 0 0.1071696 0.1071696 0 0.1071696 -0.1071696 0 -0.1071696 0.1071696 0 -0.1071696</float_array>
+          <technique_common>
+            <accessor source="#Plane_001-mesh-positions-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Plane_001-mesh-normals">
+          <float_array id="Plane_001-mesh-normals-array" count="3">0 1 0</float_array>
+          <technique_common>
+            <accessor source="#Plane_001-mesh-normals-array" count="1" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Plane_001-mesh-map-0">
+          <float_array id="Plane_001-mesh-map-0-array" count="12">1 0 0 1 0 0 1 0 1 1 0 1</float_array>
+          <technique_common>
+            <accessor source="#Plane_001-mesh-map-0-array" count="6" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Plane_001-mesh-vertices">
+          <input semantic="POSITION" source="#Plane_001-mesh-positions"/>
+        </vertices>
+        <triangles material="shadow-material" count="2">
+          <input semantic="VERTEX" source="#Plane_001-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Plane_001-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Plane_001-mesh-map-0" offset="2" set="0"/>
+          <p>1 0 0 2 0 1 0 0 2 1 0 3 3 0 4 2 0 5</p>
+        </triangles>
+      </mesh>
+    </geometry>
     <geometry id="Sphere-mesh" name="Sphere">
       <mesh>
         <source id="Sphere-mesh-positions">
@@ -247,7 +322,7 @@
           </technique_common>
         </source>
         <source id="Cube_001-mesh-map-0">
-          <float_array id="Cube_001-mesh-map-0-array" count="72">1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0.375 0.5 0.125 0.75 0.125 0.5 1.000076 2.25902e-5 7.61e-5 1.000023 7.61e-5 2.25902e-5 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 0.375 0.5 0.375 0.75 0.125 0.75 1.000076 2.25902e-5 1.000076 1.000023 7.61e-5 1.000023</float_array>
+          <float_array id="Cube_001-mesh-map-0-array" count="72">1.002461 -0.002460777 -0.06151956 0.9975392 -0.06151956 -0.002460777 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0.375 0.5 0.125 0.75 0.125 0.5 1.000076 2.25902e-5 7.61e-5 1.000023 7.61e-5 2.25902e-5 1.002461 -0.002460777 1.002461 0.9975392 -0.06151956 0.9975392 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 1 0 1 0.375 0.5 0.375 0.75 0.125 0.75 1.000076 2.25902e-5 1.000076 1.000023 7.61e-5 1.000023</float_array>
           <technique_common>
             <accessor source="#Cube_001-mesh-map-0-array" count="36" stride="2">
               <param name="S" type="float"/>
@@ -395,6 +470,18 @@
   </library_geometries>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
+      <node id="Plane" name="Plane" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#Plane_001-mesh" name="Plane">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="shadow-material" target="#shadow-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
       <node id="ball" name="ball" type="NODE">
         <matrix sid="transform">1 0 0 0.08127967 0 1 0 0.4649507 0 0 1 0 0 0 0 1</matrix>
         <instance_geometry url="#Sphere-mesh" name="ball">

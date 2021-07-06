@@ -16,7 +16,7 @@ struct playerRacket{
     glm::vec3 m_position;
     glm::vec3 m_targetPosition;
     float m_movementSpeed = 3;
-    const float m_rotationStepLimit = 0.05;
+    const float m_rotationStepLimit = 0.1;
     float m_rotationStep = 0;
 
     float m_angle = 0;

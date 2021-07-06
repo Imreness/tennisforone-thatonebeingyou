@@ -53,9 +53,11 @@ void playState::initObjects(){
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
 
+    m_gameObjects.insert({"shadow", GameObject{m_models.at("Plane")}});
     m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
-    m_tennisBall = new tennisBall(m_gameObjects.at("ball"));
+    m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"));
     m_tennisBall->resetBall(true);
+
 }
 
 void playState::initPhysicsObjects(){
@@ -140,6 +142,8 @@ void playState::initInput(){
 
     m_input.registerKey("rotateleft"    , GLFW_KEY_A);
     m_input.registerKey("rotateright"   , GLFW_KEY_D);
+
+    m_input.registerKey("debugResetBall", GLFW_KEY_KP_5, true);
 }
 
 void playState::processInput(){
@@ -170,6 +174,10 @@ void playState::processInput(){
     else if(m_input.isPressed("rotateright")){
         m_playerRacket->rotate(RACKETMOVEMENT::RIGHT,m_deltaTime);
     }
+
+    if(m_input.isPressed("debugResetBall")){
+        m_tennisBall->resetBall(true);
+    }
 }
 
 void playState::processPlayerRacket(){
@@ -184,6 +192,11 @@ void playState::processPlayerRacket(){
 }
 
 void playState::processBall(){
+    Raycasthit shadowray = m_physics.testRayAgainstCollisionObject("floorboard", m_tennisBall->m_position, glm::vec3(0, -1, 0));
+
+    float shadowdistance = glm::distance(shadowray.m_hitpos, m_tennisBall->m_position);
+    
+    m_tennisBall->calculateShadowScale(shadowdistance);
     m_tennisBall->update(m_deltaTime);
 
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
@@ -208,7 +221,7 @@ void playState::processBall(){
 
     //debug shit pls delete before game is done much love homie :*
     else if(m_physics.testCollisionBodies("ball", "backboard")){
-        m_tennisBall->reflect(WallTypes::PLAYER);
+        //m_tennisBall->reflect(WallTypes::PLAYER);
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
         m_tennisBall->reflect(WallTypes::ENEMY);
