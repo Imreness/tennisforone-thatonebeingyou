@@ -50,24 +50,22 @@ void tennisBall::calculateShadowScale(float distanceFromGround){
     mat = glm::scale(mat, glm::vec3(shadowscale));
 }
 
-void tennisBall::reflect(float racketSpeed, glm::vec3 ballpos, glm::vec3 racketCenter){
+//racketdir is NOT normalized
+void tennisBall::reflect(glm::vec3 racketDir){
     if(m_currCooldown < 0){
         m_currCooldown = m_cooldownMax;
 
-        m_speed += racketSpeed;
+        float racketVelocity = glm::length(racketDir);
 
-        glm::vec2 flatdir = glm::vec2(ballpos.z, ballpos.y) - glm::vec2(racketCenter.z, racketCenter.y);
-        float dist = glm::distance(glm::vec2(ballpos.z, ballpos.y),glm::vec2(racketCenter.z, racketCenter.y));
-        flatdir = glm::normalize(flatdir);
+        m_speed += racketVelocity * m_ballSpeedMultiplier;
 
-        //fixed number means the racket size is fix... not my proudest code lmao
-        dist = dist / 1.5;
+        glm::vec3 racketDirNormalized = glm::normalize(racketDir);
 
-        std::printf("%f\n", dist);
+        std::printf("%f\n", racketVelocity);
 
-        glm::vec3 normalvector = glm::mix(glm::vec3(1, 0 ,0), glm::vec3(0, flatdir.y, flatdir.x), dist);
+        glm::vec3 ballreflector = glm::mix(glm::vec3(1, 0 ,0), racketDirNormalized, racketVelocity / 10);
 
-        m_direction = glm::reflect(m_direction, normalvector);
+        m_direction = glm::reflect(m_direction, ballreflector);
         m_direction = glm::normalize(m_direction);
     }
 }

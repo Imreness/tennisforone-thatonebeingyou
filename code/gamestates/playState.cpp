@@ -202,8 +202,7 @@ void playState::processBall(){
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
 
     if(m_physics.testCollisionBodies("ball", "racket")){
-        glm::vec3 center = glm::vec3(m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().x,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().y,  m_physics.getColObject("racket")->m_col->getLocalToWorldTransform().getPosition().z);
-        m_tennisBall->reflect(1, m_tennisBall->m_position, center);
+        m_tennisBall->reflect(m_playerRacket->m_targetPosition - m_playerRacket->m_position);
     }
 
     if(m_physics.testCollisionBodies("ball", "leftboard")){

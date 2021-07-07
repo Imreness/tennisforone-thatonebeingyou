@@ -18,8 +18,9 @@ struct tennisBall{
     glm::vec3 m_position;
     glm::vec3 m_direction;
     float m_speed = 2;
-    const float m_maxSpeed = 5;
-    const float m_minSpeed = 2;
+    float m_maxSpeed = 3;
+    float m_minSpeed = 1;
+    float m_ballSpeedMultiplier = 5;
 
     float m_currCooldown= 0;
     float m_cooldownMax = 0.1;
@@ -29,7 +30,7 @@ struct tennisBall{
     void update(float deltaTime);
 
     void reflect(WallTypes hittype);
-    void reflect(float racketSpeed, glm::vec3 ballpos, glm::vec3 racketCenter);
+    void reflect(glm::vec3 racketDir);
 
     void calculateShadowScale(float distanceFromGround);
 
