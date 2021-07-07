@@ -41,10 +41,10 @@ void tennisBall::calculateShadowScale(float distanceFromGround){
     glm::vec3 shadowpos = glm::vec3(m_position.x , 0, m_position.z);
     mat = glm::translate(mat , shadowpos);
 
-    float shadowscale = distanceFromGround / 1.7;
+    float shadowscale = distanceFromGround / 0.85;
 
-    if(shadowscale < 0.4){
-        shadowscale = 0.4;
+    if(shadowscale < 1){
+        shadowscale = 1;
     }
 
     mat = glm::scale(mat, glm::vec3(shadowscale));

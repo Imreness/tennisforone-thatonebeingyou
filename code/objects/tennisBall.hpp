@@ -18,8 +18,8 @@ struct tennisBall{
     glm::vec3 m_position;
     glm::vec3 m_direction;
     float m_speed = 2;
-    float m_maxSpeed = 3;
-    float m_minSpeed = 1;
+    float m_maxSpeed = 3.5f;
+    float m_minSpeed = 2;
     float m_ballSpeedMultiplier = 5;
 
     float m_currCooldown= 0;

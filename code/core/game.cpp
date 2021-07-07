@@ -59,6 +59,7 @@ void Game::initOpenGL(){
     }
 
     //glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
     glViewport(0,0,m_currConfig.windowWidth,m_currConfig.windowHeight);
 }
 
