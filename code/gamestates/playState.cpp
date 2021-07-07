@@ -62,7 +62,7 @@ void playState::initObjects(){
 
 void playState::initPhysicsObjects(){
     m_physics.createColObject("racket");
-    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.1, 0.5,0));
+    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
 
     m_physics.createColObject("ball");
     m_physics.addSphereCollider("ball", 0.0438);
@@ -140,8 +140,8 @@ void playState::initInput(){
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
 
-    m_input.registerKey("rotateleft"    , GLFW_KEY_A);
-    m_input.registerKey("rotateright"   , GLFW_KEY_D);
+    m_input.registerKey("rotateleft"    , GLFW_KEY_A, true);
+    m_input.registerKey("rotateright"   , GLFW_KEY_D, true);
 
     m_input.registerKey("debugResetBall", GLFW_KEY_KP_5, true);
 }

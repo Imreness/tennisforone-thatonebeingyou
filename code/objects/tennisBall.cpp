@@ -17,6 +17,9 @@ void tennisBall::update(float deltaTime){
     if(m_speed > m_maxSpeed){
         m_speed = m_maxSpeed;
     }
+    else if(m_speed < m_minSpeed){
+        m_speed = m_minSpeed;
+    }
 }
 
 void tennisBall::resetBall(bool passToPlayer){

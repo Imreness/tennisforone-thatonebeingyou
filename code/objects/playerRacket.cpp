@@ -1,7 +1,7 @@
 #include <objects/playerRacket.hpp>
 
 playerRacket::playerRacket(GameObject& refObject, GameObject& refShock) : m_refObject{refObject}, m_refShock{refShock}{
-    m_refShock.m_render = false;
+    m_refShock.m_render = true;
     m_position = glm::vec3(0.);
     m_targetPosition = glm::vec3(0.);
 }
@@ -64,18 +64,18 @@ void playerRacket::interpolateRotation(double deltaTime){
 }
 
 void playerRacket::clampPosition(){
-    if(m_targetPosition.y < 0.51){
-        m_targetPosition.y = 0.51;
+    if(m_targetPosition.y < -0.1){
+        m_targetPosition.y = -0.1;
     }
-    else if(m_targetPosition.y > 1.3){
-        m_targetPosition.y = 1.3;
+    else if(m_targetPosition.y > 1.8){
+        m_targetPosition.y = 1.8;
     }
 
-    if(m_targetPosition.z < -1.4){
-        m_targetPosition.z = -1.4;
+    if(m_targetPosition.z < -2){
+        m_targetPosition.z = -2;
     }
-    else if(m_targetPosition.z > 1.4){
-        m_targetPosition.z = 1.4;
+    else if(m_targetPosition.z > 2){
+        m_targetPosition.z = 2;
     }
 
 }
