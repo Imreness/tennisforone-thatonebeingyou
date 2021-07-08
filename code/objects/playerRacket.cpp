@@ -11,29 +11,6 @@ void playerRacket::setTarget(glm::vec3 targetPos){
     clampPosition();
 }
 
-void playerRacket::rotate(RACKETMOVEMENT pos, double deltaTime){
-    if(m_rotationStep <= 0){
-        switch (pos){
-            case RACKETMOVEMENT::RIGHT:
-                m_targetAngle += 45;
-                break;
-
-            case RACKETMOVEMENT::LEFT:
-                m_targetAngle -= 45;
-                break;
-
-            case RACKETMOVEMENT::SWITCHLEFT:
-                m_targetAngle -= 180;
-                break;
-            case RACKETMOVEMENT::SWITCHRIGHT:
-                m_targetAngle += 180;
-                break;
-        }
-
-        m_rotationStep = m_rotationStepLimit; 
-    }
-}
-
 void playerRacket::update(double deltaTime){
     interpolateRotation(deltaTime);
     interpolatePosition(deltaTime);
@@ -52,7 +29,6 @@ void playerRacket::setModelValues(glm::mat4& ref){
     //std::printf("%fX %fY %fZ\n", m_position.x, m_position.y , m_position.z);
 
     ref = glm::translate(ref, m_position);
-    ref = glm::rotate(ref, glm::radians(m_angle), glm::vec3(1, 0 ,0));
 }
 
 void playerRacket::interpolatePosition(double deltaTime){

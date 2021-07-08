@@ -29,8 +29,6 @@ struct playerRacket{
 
     void setTarget(glm::vec3 targetPos);
 
-    void rotate(RACKETMOVEMENT pos, double deltaTime);
-
 private:
 
     void clampPosition(); 
