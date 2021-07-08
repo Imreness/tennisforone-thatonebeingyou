@@ -81,9 +81,9 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("view", refcam->m_view);
     for(auto& object : objects){
         if(object.second.m_render){
-        currShader->setUniform("model", object.second.m_modelMat);
-        textures.at(object.second.m_refModel->m_texID)->Use();
-        object.second.m_refModel->render();
+            currShader->setUniform("model", object.second.m_modelMat);
+            textures.at(object.second.m_refModel->m_texID)->Use();
+            object.second.m_refModel->render();
         }
    }
 }
@@ -95,13 +95,34 @@ void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("view", refcam->m_view);
     for(auto& object : objects){
         if(object.second.m_render){
-        currShader->setUniform("model", object.second.m_modelMat);
-        textures.at(object.second.m_refModel->m_texID)->Use();
-        object.second.m_refModel->render();
+            currShader->setUniform("model", object.second.m_modelMat);
+            textures.at(object.second.m_refModel->m_texID)->Use();
+            object.second.m_refModel->render();
         }
     }
 }
 
+void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,GameObject& object){
+    Shader* currShader = m_shaders.at("debug");
+    currShader->Use();
+
+    currShader->setUniform("proj", refcam->m_proj);
+    currShader->setUniform("view", refcam->m_view);
+    currShader->setUniform("model", object.m_modelMat);
+    textures.at(object.m_refModel->m_texID)->Use();
+    object.m_refModel->render();
+}
+
+void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,GameObject& object){
+    Shader* currShader = m_shaders.at("debug");
+    currShader->Use();
+
+    currShader->setUniform("proj", refcam->m_proj);
+    currShader->setUniform("view", refcam->m_view);
+    currShader->setUniform("model", object.m_modelMat);
+    textures.at(object.m_refModel->m_texID)->Use();
+    object.m_refModel->render();
+}
 
 void graphicsEngine::renderEnd(){
     glfwSwapBuffers(m_targetWindow);

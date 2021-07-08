@@ -1,7 +1,7 @@
 #include <objects/tennisBall.hpp>
 
-tennisBall::tennisBall(GameObject& refBall, GameObject& refShadow)
-    : m_refBall{refBall}, m_refShadow{refShadow}{
+tennisBall::tennisBall(GameObject& refBall, GameObject& refShadow, GameObject& refGuide)
+    : m_refBall{refBall}, m_refShadow{refShadow}, m_refGuide{refGuide}{
 }
 
 void tennisBall::update(float deltaTime){
@@ -50,6 +50,19 @@ void tennisBall::calculateShadowScale(float distanceFromGround){
     mat = glm::scale(mat, glm::vec3(shadowscale));
 }
 
+void tennisBall::calculateGuideRing(float distanceFromBoard){
+    glm::mat4& mat = m_refGuide.m_modelMat;
+
+    if (distanceFromBoard < 0.3){
+        distanceFromBoard = 0.3;
+    }
+
+    mat = glm::mat4(1.);
+    mat = glm::translate(mat, glm::vec3(0, m_position.y, m_position.z));
+
+    mat = glm::scale(mat, glm::vec3(distanceFromBoard));
+}
+
 //racketdir is NOT normalized
 void tennisBall::reflect(glm::vec3 racketDir){
     if(m_currCooldown < 0){
@@ -61,7 +74,7 @@ void tennisBall::reflect(glm::vec3 racketDir){
 
         glm::vec3 racketDirNormalized = glm::normalize(racketDir);
 
-        std::printf("%f\n", racketVelocity);
+        //std::printf("%f\n", racketVelocity);
 
         glm::vec3 ballreflector = glm::mix(glm::vec3(1, 0 ,0), racketDirNormalized, racketVelocity / 10);
 

@@ -43,6 +43,8 @@ public:
 
     void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
     void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&);
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&);
 
     void renderStart();
     void renderEnd();

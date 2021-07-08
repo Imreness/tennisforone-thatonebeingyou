@@ -54,8 +54,11 @@ void playState::initObjects(){
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
 
     m_gameObjects.insert({"shadow", GameObject{m_models.at("Plane")}});
+    m_gameObjects.at("shadow").m_render = false;
     m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
-    m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"));
+    m_gameObjects.insert({"guidering", GameObject{m_models.at("guide")}});
+    m_gameObjects.at("guidering").m_render = false;
+    m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"), m_gameObjects.at("guidering"));
     m_tennisBall->resetBall(true);
 
 }
@@ -95,11 +98,15 @@ void playState::render(){
     
         if(m_debugMode){
             m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
+            m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects.at("shadow"));
     
             m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
         }
         else{
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
+            m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("shadow"));
+            m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("guidering"));
+
             if(m_debugDrawingInGame){
                 m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
             }
@@ -193,10 +200,13 @@ void playState::processPlayerRacket(){
 
 void playState::processBall(){
     Raycasthit shadowray = m_physics.testRayAgainstCollisionObject("floorboard", m_tennisBall->m_position, glm::vec3(0, -1, 0));
-
     float shadowdistance = glm::distance(shadowray.m_hitpos, m_tennisBall->m_position);
-    
     m_tennisBall->calculateShadowScale(shadowdistance);
+
+
+    Raycasthit guideray = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(-1, 0 ,0));
+    m_tennisBall->calculateGuideRing(glm::distance(guideray.m_hitpos, m_tennisBall->m_position));
+
     m_tennisBall->update(m_deltaTime);
 
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);

@@ -14,6 +14,7 @@ enum class WallTypes{
 struct tennisBall{
     GameObject& m_refBall;
     GameObject& m_refShadow;
+    GameObject& m_refGuide;
 
     glm::vec3 m_position;
     glm::vec3 m_direction;
@@ -25,7 +26,7 @@ struct tennisBall{
     float m_currCooldown= 0;
     float m_cooldownMax = 0.1;
 
-    tennisBall(GameObject& refBall, GameObject& refShadow);
+    tennisBall(GameObject& refBall, GameObject& refShadow, GameObject& refGuide);
 
     void update(float deltaTime);
 
@@ -33,6 +34,7 @@ struct tennisBall{
     void reflect(glm::vec3 racketDir);
 
     void calculateShadowScale(float distanceFromGround);
+    void calculateGuideRing(float distanceFromBoard);
 
     void resetBall(bool passToPlayer);    
 };
