@@ -12,15 +12,10 @@ void playerRacket::setTarget(glm::vec3 targetPos){
 }
 
 void playerRacket::update(double deltaTime){
-    interpolateRotation(deltaTime);
     interpolatePosition(deltaTime);
 
     setModelValues(m_refObject.m_modelMat);
     setModelValues(m_refShock.m_modelMat);
-
-    if(m_rotationStep > 0){
-        m_rotationStep -= deltaTime;
-    }
 }
 
 void playerRacket::setModelValues(glm::mat4& ref){
@@ -33,10 +28,6 @@ void playerRacket::setModelValues(glm::mat4& ref){
 
 void playerRacket::interpolatePosition(double deltaTime){
     m_position = glm::mix(m_position, m_targetPosition, deltaTime * m_movementSpeed);
-}
-
-void playerRacket::interpolateRotation(double deltaTime){
-    m_angle = glm::mix(m_angle, m_targetAngle, deltaTime * m_angleSpeed);
 }
 
 void playerRacket::clampPosition(){

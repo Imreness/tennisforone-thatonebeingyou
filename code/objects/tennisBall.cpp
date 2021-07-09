@@ -80,12 +80,16 @@ void tennisBall::reflect(glm::vec3 racketDir){
 
         m_direction = glm::reflect(m_direction, ballreflector);
         m_direction = glm::normalize(m_direction);
+
+        m_lastWall = WallTypes::NONE;
     }
 }
 
 void tennisBall::reflect(WallTypes hittype){
 
-    m_speed -= 0.1;
+    if(hittype == m_lastWall){
+        return;
+    }
 
     glm::vec3 normalvector;
 
@@ -114,5 +118,13 @@ void tennisBall::reflect(WallTypes hittype){
     m_direction = glm::reflect(m_direction, normalvector);
 
     m_direction = glm::normalize(m_direction);
+
+    m_speed -= 0.1;
+
+    m_lastWall = hittype; 
+
+//    std::printf("----\nangle: %f\ndirection: %f %f %f\nnormal: %f %f %f\n", glm::dot(m_direction, normalvector),
+//                    m_direction.x, m_direction.y, m_direction.z,
+//                    normalvector.x, normalvector.y, normalvector.z);
 
 }

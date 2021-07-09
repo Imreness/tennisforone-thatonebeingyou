@@ -16,12 +16,7 @@ struct playerRacket{
     glm::vec3 m_position;
     glm::vec3 m_targetPosition;
     float m_movementSpeed = 3;
-    const float m_rotationStepLimit = 0.1;
-    float m_rotationStep = 0;
 
-    float m_angle = 0;
-    float m_targetAngle = 0 ;
-    float m_angleSpeed = 8;
 
     playerRacket(GameObject& refObject, GameObject& refShock);
 
@@ -32,8 +27,6 @@ struct playerRacket{
 private:
 
     void clampPosition(); 
-
-    void interpolateRotation(double deltaTime);
 
     void interpolatePosition(double deltaTime);
 

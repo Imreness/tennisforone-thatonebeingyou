@@ -8,7 +8,8 @@ enum class WallTypes{
     LEFT,
     TOP,
     ENEMY,
-    PLAYER
+    PLAYER,
+    NONE
 };
 
 struct tennisBall{
@@ -22,6 +23,8 @@ struct tennisBall{
     float m_maxSpeed = 3.5f;
     float m_minSpeed = 2;
     float m_ballSpeedMultiplier = 5;
+
+    WallTypes m_lastWall = WallTypes::NONE;
 
     float m_currCooldown= 0;
     float m_cooldownMax = 0.1;
