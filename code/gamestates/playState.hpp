@@ -35,9 +35,11 @@ private:
     float m_renderAccumulator = 0;
     float m_renderTick = 1. / 60.;
 
-    //deltaTime
+    //Time
     float m_lastTime;
     float m_deltaTime;
+
+    float m_timeScale = 1.f;
 
     //rendering
     void initGraphics();

@@ -148,6 +148,10 @@ void playState::initInput(){
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
 
     m_input.registerKey("debugResetBall", GLFW_KEY_KP_5, true);
+
+    m_input.registerKey("debugTimehalf", GLFW_KEY_KP_7, true);
+    m_input.registerKey("debugTimeNormal", GLFW_KEY_KP_8, true);
+    m_input.registerKey("debugTimeonepointfive", GLFW_KEY_KP_9, true);
 }
 
 void playState::processInput(){
@@ -175,6 +179,16 @@ void playState::processInput(){
     if(m_input.isPressed("debugResetBall")){
         m_tennisBall->resetBall(true);
     }
+
+//    if(m_input.isPressed("debugTimehalf")){
+//        m_timeScale = 0.5f;
+//    }
+//    else if(m_input.isPressed("debugTimeNormal")){
+//        m_timeScale = 1.f;
+//    }
+//    else if(m_input.isPressed("debugTimeonepointfive")){
+//        m_timeScale = 1.5f;
+//    }
 }
 
 void playState::processPlayerRacket(){
@@ -183,7 +197,7 @@ void playState::processPlayerRacket(){
         m_playerRacket->setTarget(hit.m_hitpos);
     }
 
-    m_playerRacket->update(m_deltaTime);
+    m_playerRacket->update(m_deltaTime * m_timeScale);
 
     m_physics.setTransformFromMat("racket", m_playerRacket->m_refObject.m_modelMat);
 }
@@ -197,7 +211,7 @@ void playState::processBall(){
     Raycasthit guideray = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(-1, 0 ,0));
     m_tennisBall->calculateGuideRing(glm::distance(guideray.m_hitpos, m_tennisBall->m_position));
 
-    m_tennisBall->update(m_deltaTime);
+    m_tennisBall->update(m_deltaTime * m_timeScale);
 
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
 
