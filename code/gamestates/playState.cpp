@@ -47,8 +47,12 @@ void playState::initGraphics(){
 
 void playState::initObjects(){
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
+    m_gameObjects.insert({"enemyRacket" , GameObject{m_models.at("racket")}});
     m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
+    m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
+
+    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::EASY);
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
@@ -66,6 +70,9 @@ void playState::initObjects(){
 void playState::initPhysicsObjects(){
     m_physics.createColObject("racket");
     m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
+
+    m_physics.createColObject("enemyRacket");
+    m_physics.addBoxCollider("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(7, 0 ,0));
 
     m_physics.createColObject("ball");
     m_physics.addSphereCollider("ball", 0.0438);
@@ -133,6 +140,7 @@ void playState::process(){
     processBall();
     processInput();
     processPlayerRacket();
+    processAiRacket();
 
     m_physics.update(m_deltaTime);
 
@@ -200,6 +208,14 @@ void playState::processPlayerRacket(){
     m_playerRacket->update(m_deltaTime * m_timeScale);
 
     m_physics.setTransformFromMat("racket", m_playerRacket->m_refObject.m_modelMat);
+}
+
+void playState::processAiRacket(){
+    m_aiRacket->setTarget(glm::vec3(7, m_tennisBall->m_position.y, m_tennisBall->m_position.z));
+
+    m_aiRacket->update(m_deltaTime * m_timeScale);
+
+    m_physics.setTransformFromMat("enemyRacket", m_aiRacket->m_refObject.m_modelMat);
 }
 
 void playState::processBall(){

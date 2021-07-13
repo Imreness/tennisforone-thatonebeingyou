@@ -9,6 +9,7 @@
 #include <objects/gameObject.hpp>
 
 #include <objects/playerRacket.hpp>
+#include <objects/aiRacket.hpp>
 #include <objects/tennisBall.hpp>
 
 class playState : public gameState{
@@ -27,6 +28,7 @@ private:
     RailsCamera* m_gameCam;
 
     playerRacket* m_playerRacket;
+    aiRacket* m_aiRacket;
     tennisBall* m_tennisBall;
 
     bool m_debugMode = false;
@@ -53,6 +55,7 @@ private:
     void initPhysicsObjects();
 
     void processPlayerRacket();
+    void processAiRacket();
     void processBall();
 
     void initDeltaTime();

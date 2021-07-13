@@ -44,5 +44,4 @@ void playerRacket::clampPosition(){
     else if(m_targetPosition.z > 2){
         m_targetPosition.z = 2;
     }
-
 }
