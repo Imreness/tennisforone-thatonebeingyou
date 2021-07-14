@@ -74,8 +74,8 @@ void graphicsEngine::renderStart(){
     glClearColor(0.3, 0.3 ,0.3 , 1.);
 }
 
-void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects){
-    Shader* currShader = m_shaders.at("debug");
+void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects, std::string shaderName){
+    Shader* currShader = m_shaders.at(shaderName);
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
@@ -88,8 +88,8 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
    }
 }
 
-void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects){
-    Shader* currShader = m_shaders.at("debug");
+void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects, std::string shaderName){
+    Shader* currShader = m_shaders.at(shaderName);
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
@@ -102,8 +102,8 @@ void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& t
     }
 }
 
-void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,GameObject& object){
-    Shader* currShader = m_shaders.at("debug");
+void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,GameObject& object, std::string shaderName){
+    Shader* currShader = m_shaders.at(shaderName);
     currShader->Use();
 
     currShader->setUniform("proj", refcam->m_proj);
@@ -113,8 +113,8 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
     object.m_refModel->render();
 }
 
-void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,GameObject& object){
-    Shader* currShader = m_shaders.at("debug");
+void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,GameObject& object, std::string shaderName){
+    Shader* currShader = m_shaders.at(shaderName);
     currShader->Use();
 
     currShader->setUniform("proj", refcam->m_proj);

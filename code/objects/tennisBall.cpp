@@ -76,9 +76,9 @@ void tennisBall::reflect(glm::vec3 racketDir){
 
         //std::printf("%f\n", racketVelocity);
 
-        glm::vec3 ballreflector = glm::mix(glm::vec3(1, 0 ,0), racketDirNormalized, racketVelocity / 10);
+        glm::vec3 ballreflector = glm::mix(glm::vec3(1, 0 ,0), racketDirNormalized, racketVelocity / 5);
 
-        m_direction = glm::reflect(m_direction, ballreflector);
+        m_direction = ballreflector;
         m_direction = glm::normalize(m_direction);
 
         m_lastWall = WallTypes::NONE;

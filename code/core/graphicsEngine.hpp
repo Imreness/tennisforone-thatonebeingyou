@@ -41,10 +41,10 @@ public:
 
     void renderUi(uiManager&);
 
-    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
-    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&);
-    void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&);
-    void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&);
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "debug");
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "debug");
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
 
     void renderStart();
     void renderEnd();

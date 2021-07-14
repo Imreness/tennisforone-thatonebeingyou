@@ -34,6 +34,7 @@ void playState::initGraphics(){
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("debug");
     m_graphics.loadShader("bulletDebug");
+    m_graphics.loadShader("ring");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -112,7 +113,7 @@ void playState::render(){
         else{
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("shadow"));
-            m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("guidering"));
+            m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("guidering"), "ring");
 
             if(m_debugDrawingInGame){
                 m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
