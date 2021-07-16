@@ -34,7 +34,7 @@ struct tennisBall{
     void update(float deltaTime);
 
     void reflect(WallTypes hittype);
-    void reflect(glm::vec3 racketDir);
+    void reflect(glm::vec3 racketDir, bool isEnemy = false);
 
     void calculateShadowScale(float distanceFromGround);
     void calculateGuideRing(float distanceFromBoard);

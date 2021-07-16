@@ -1,6 +1,7 @@
 #ifndef AIRACKET
 #define AIRACKET
 #include <objects/gameObject.hpp>
+#include <random>
 
 enum class AIDIFFICULTY{
     EASY,
@@ -18,12 +19,13 @@ struct aiRacket{
     glm::vec3 m_targetPosition;
     float m_movementSpeed = 3;
 
-    //how much + / - max will be added to the ball's position
-    float m_ballguessfailfactorMax = 0.1;
-
     aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY difficulty);
 
     void update(double deltaTime);
+
+    void changeSpeed();
+
+    glm::vec3 generateRackedDir();
 
     void setTarget(glm::vec3 targetPos);
 

@@ -23,6 +23,7 @@ void tennisBall::update(float deltaTime){
 }
 
 void tennisBall::resetBall(bool passToPlayer){
+    m_lastWall = WallTypes::NONE;
     m_speed = 1;
     m_position = glm::vec3(3.4 , 0.945, 0);
     if(passToPlayer){
@@ -64,7 +65,7 @@ void tennisBall::calculateGuideRing(float distanceFromBoard){
 }
 
 //racketdir is NOT normalized
-void tennisBall::reflect(glm::vec3 racketDir){
+void tennisBall::reflect(glm::vec3 racketDir, bool isEnemy){
     if(m_currCooldown < 0){
         m_currCooldown = m_cooldownMax;
 
@@ -76,7 +77,15 @@ void tennisBall::reflect(glm::vec3 racketDir){
 
         //std::printf("%f\n", racketVelocity);
 
-        glm::vec3 ballreflector = glm::mix(glm::vec3(1, 0 ,0), racketDirNormalized, racketVelocity / 5);
+        glm::vec3 backvector;
+        if(isEnemy){
+            backvector = glm::vec3(-1, 0,0);
+        }
+        else{
+            backvector = glm::vec3(1, 0 ,0);
+        }
+
+        glm::vec3 ballreflector = glm::mix(backvector, racketDirNormalized, racketVelocity / 5);
 
         m_direction = ballreflector;
         m_direction = glm::normalize(m_direction);

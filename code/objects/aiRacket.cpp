@@ -2,7 +2,8 @@
 
 aiRacket::aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY difficulty) : m_refObject(refObject), m_refShock(refShock), m_difficulty(difficulty){
     m_position = glm::vec3(0., 7., 0.);
-    m_targetPosition = glm::vec3(0., 7., 0.); 
+    m_targetPosition = glm::vec3(0., 7., 0.);
+
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
             m_movementSpeed = 1;
@@ -32,6 +33,72 @@ void aiRacket::update(double deltaTime){
 void aiRacket::setTarget(glm::vec3 targetPos){
     m_targetPosition = targetPos;
     clampPosition();
+}
+
+//speeds
+/*
+    1 - my grandma could win against this
+    2 - really easy
+    3 - same as player, but easy regardless
+    4 - 
+*/
+
+void aiRacket::changeSpeed(){
+    //WIP
+    switch(m_difficulty){
+        case AIDIFFICULTY::EASY:
+            break;
+        case AIDIFFICULTY::MEDIUM:
+            break;
+        case AIDIFFICULTY::HARD:
+            break;
+    }
+}
+
+glm::vec3 aiRacket::generateRackedDir(){
+    std::random_device rd;
+    std::mt19937 mt(rd());
+
+    float minDistace = 0, maxDistance = 0;
+
+    switch(m_difficulty){
+        case AIDIFFICULTY::EASY:
+            minDistace = 0.1f;
+            maxDistance = 0.3f;
+            break;
+        case AIDIFFICULTY::MEDIUM:
+            minDistace = 0.3f;
+            maxDistance = 0.8f;
+            break;
+        case AIDIFFICULTY::HARD:
+            minDistace = 0.8f;
+            maxDistance = 1.5f;
+            break;
+    }
+
+    //0 - left , 1 - right, 0 - up , 1 - down
+    std::uniform_int_distribution<int> direction(0,1);
+    std::uniform_real_distribution<float> distanceGen(minDistace, maxDistance);
+
+    glm::vec3 returnedvec = glm::vec3(0);
+
+    //lefty righty
+    if(direction(mt) == 1){
+        returnedvec.z = -(distanceGen(mt));
+    }
+    else{
+        returnedvec.z = distanceGen(mt);
+    }
+
+    //uppy downy
+    if(direction(mt) == 1){
+        returnedvec.y = -(distanceGen(mt));
+    }
+    else{
+        returnedvec.y = distanceGen(mt);
+    }
+
+    return returnedvec;
 }
 
 void aiRacket::clampPosition(){

@@ -53,7 +53,7 @@ void playState::initObjects(){
     m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
 
-    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::EASY);
+    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::MEDIUM);
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
@@ -73,7 +73,8 @@ void playState::initPhysicsObjects(){
     m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
 
     m_physics.createColObject("enemyRacket");
-    m_physics.addBoxCollider("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(7, 0 ,0));
+    m_physics.addBoxCollider("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(-0.1, 0 ,0));
+
 
     m_physics.createColObject("ball");
     m_physics.addSphereCollider("ball", 0.0438);
@@ -236,6 +237,10 @@ void playState::processBall(){
         m_tennisBall->reflect(m_playerRacket->m_targetPosition - m_playerRacket->m_position);
     }
 
+    if(m_physics.testCollisionBodies("ball", "enemyRacket")){
+        m_tennisBall->reflect(m_aiRacket->generateRackedDir(), true);
+    }
+
     if(m_physics.testCollisionBodies("ball", "leftboard")){
         m_tennisBall->reflect(WallTypes::LEFT);
     }
@@ -251,10 +256,12 @@ void playState::processBall(){
 
     //debug shit pls delete before game is done much love homie :*
     else if(m_physics.testCollisionBodies("ball", "backboard")){
-        //m_tennisBall->reflect(WallTypes::PLAYER);
+        m_tennisBall->reflect(WallTypes::PLAYER);
+        std::printf("HAH player got RAMMED\n");
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
         m_tennisBall->reflect(WallTypes::ENEMY);
+        std::printf("goddamn ai is kinda shit ngl\n");
     }
 }
 
