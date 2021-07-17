@@ -44,15 +44,27 @@ void aiRacket::setTarget(glm::vec3 targetPos){
 */
 
 void aiRacket::changeSpeed(){
-    //WIP
+    std::random_device rd;
+    std::mt19937 mt(rd());
+
+    float minSpeed = 0, maxSpeed = 0;
+
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
+            minSpeed = 1.5f;
+            maxSpeed = 2.5f;
             break;
         case AIDIFFICULTY::MEDIUM:
+            minSpeed = 3.f;
+            maxSpeed = 5.f;
             break;
         case AIDIFFICULTY::HARD:
+            minSpeed = 5.5f;
+            maxSpeed = 10.f;
             break;
     }
+
+    
 }
 
 glm::vec3 aiRacket::generateRackedDir(){
