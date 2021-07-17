@@ -2,6 +2,8 @@
 #include <string>
 
 configStruct config::loadConfig(const char* path){
+    spdlog::info("Reading config file...");
+
     configStruct currentConfig;
 
     std::ifstream file; file.open(path);

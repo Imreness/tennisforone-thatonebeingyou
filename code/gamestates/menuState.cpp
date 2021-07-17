@@ -10,7 +10,7 @@ void menuState::init(GLFWwindow* referencewindow){
 }
 
 void menuState::initGraphics(){
-    spdlog::info("Initalizing graphics engine");
+    spdlog::info("Initalizing graphics engine...");
     m_graphics.setTargetWindow(m_window);
 
     m_graphics.loadShader("debug");
@@ -20,7 +20,7 @@ void menuState::initGraphics(){
 }
 
 void menuState::initUI(){
-    spdlog::info("Initalizing UI");
+    spdlog::info("Initalizing UI...");
     configStruct conf = config::loadConfig("game.conf");
     m_uiManager.m_screenHeight = conf.windowHeight;    
     m_uiManager.m_screenWidth = conf.windowWidth;    
@@ -70,5 +70,5 @@ nextStateEnum menuState::nextState(){
 }
 
 menuState::~menuState(){
-    
+   spdlog::info("Deleting menustate..."); 
 }

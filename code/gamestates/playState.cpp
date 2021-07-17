@@ -20,6 +20,7 @@ void playState::init(GLFWwindow* referencewindow){
 }
 
 void playState::initDeltaTime(){
+    spdlog::info("Initalizing delta time...");
     m_lastTime = glfwGetTime();
 }
 
@@ -30,7 +31,7 @@ void playState::calculateDeltaTime(){
 }
 
 void playState::initGraphics(){
-    spdlog::info("Initalizing graphics engine");
+    spdlog::info("Initalizing graphics engine...");
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("debug");
     m_graphics.loadShader("bulletDebug");
@@ -47,6 +48,8 @@ void playState::initGraphics(){
 }
 
 void playState::initObjects(){
+    spdlog::info("Initalizing Game Objects...");
+
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
     m_gameObjects.insert({"enemyRacket" , GameObject{m_models.at("racket")}});
     m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
@@ -69,6 +72,8 @@ void playState::initObjects(){
 }
 
 void playState::initPhysicsObjects(){
+    spdlog::info("Initalizing Physics colliders...");
+
     m_physics.createColObject("racket");
     m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
 
@@ -150,6 +155,7 @@ void playState::process(){
 }
 
 void playState::initInput(){
+    spdlog::info("Initalizing Input...");
     m_input.init(m_window);
 
     glfwSetWindowUserPointer(m_window, this);
@@ -281,6 +287,8 @@ nextStateEnum playState::nextState(){
 
 
 playState::~playState(){
+    spdlog::info("Deleting playstate...");
+
    delete m_debugCam;
    delete m_playerRacket;
    delete m_tennisBall;

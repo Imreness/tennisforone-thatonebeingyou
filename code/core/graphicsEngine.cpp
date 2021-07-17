@@ -1,5 +1,6 @@
 #include <core/graphicsEngine.hpp>
 #include <glm/glm.hpp>
+#include <spdlog/spdlog.h>
 
 void graphicsEngine::setTargetWindow(GLFWwindow* window){
     m_targetWindow = window;
@@ -130,6 +131,8 @@ void graphicsEngine::renderEnd(){
 }
 
 graphicsEngine::~graphicsEngine(){
+    spdlog::info("Freeing up graphics engine shaders...");
+
     glDeleteVertexArrays(1, &m_uiVAO);
     glDeleteBuffers(1, &m_uiVBO);
 

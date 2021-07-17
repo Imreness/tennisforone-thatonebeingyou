@@ -68,6 +68,8 @@ Game::Game(const char* windowtitle){
 
     initspdlog();
 
+    spdlog::info("Initalizing graphics...");    
+
     initGLFW(windowtitle);
 
     initOpenGL();
@@ -79,7 +81,7 @@ Game::Game(const char* windowtitle){
     m_currState->init(m_mainWindow);
 
     
-    spdlog::info("Running game");
+    spdlog::info("Running game yay!");
 }
 
 void Game::update(){
@@ -105,6 +107,10 @@ Game::~Game(){
 }
 
 void Game::switchState(nextStateEnum state){
+
+    spdlog::debug("switching states...");
+
+    
     switch (state){
         case nextStateEnum::GAME:
             delete m_currState;

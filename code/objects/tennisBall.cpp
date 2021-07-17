@@ -2,6 +2,7 @@
 
 tennisBall::tennisBall(GameObject& refBall, GameObject& refShadow, GameObject& refGuide)
     : m_refBall{refBall}, m_refShadow{refShadow}, m_refGuide{refGuide}{
+    spdlog::info("Creating ball....");
 }
 
 void tennisBall::update(float deltaTime){

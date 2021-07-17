@@ -1,6 +1,8 @@
 #include <objects/aiRacket.hpp>
 
 aiRacket::aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY difficulty) : m_refObject(refObject), m_refShock(refShock), m_difficulty(difficulty){
+    spdlog::info("Creating AI Racket...");
+
     m_position = glm::vec3(0., 7., 0.);
     m_targetPosition = glm::vec3(0., 7., 0.);
 

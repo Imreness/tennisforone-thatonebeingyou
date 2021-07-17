@@ -1,8 +1,11 @@
 #include <core/assetLoader.hpp>
 #include <fstream>
 #include <core/binaryfile.hpp>
+#include <spdlog/spdlog.h>
 
 void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textures,const char* path){
+
+    spdlog::info("Loading UI Package: {}", path);
 
     std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".ui");
 
@@ -32,6 +35,8 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     const char* path){
 
     std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".assetbundle");
+
+    spdlog::info("Loading Asset package: {}", fullpath);
 
     binaryFile file;
     file.open(fullpath.c_str(), false);

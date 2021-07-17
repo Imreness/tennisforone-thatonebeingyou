@@ -1,6 +1,8 @@
 #include <objects/railsCamera.hpp>
+#include <spdlog/spdlog.h>;
 
 RailsCamera::RailsCamera(GLFWwindow* window){
+    spdlog::info("Creating Game Camera...");
     int winX, winY;
 	glfwGetWindowSize(window, &winX, &winY);
 	m_proj = glm::mat4(1.0); m_view = glm::mat4(1.0);

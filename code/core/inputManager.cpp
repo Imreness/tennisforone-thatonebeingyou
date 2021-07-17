@@ -1,10 +1,12 @@
 #include <core/inputManager.hpp>
+#include <spdlog/spdlog.h>
 
 void InputManager::init(GLFWwindow* window){
     m_window = window; 
 }
 
 void InputManager::registerKey(std::string name, int key, bool isSticky, bool isMouse){
+    spdlog::debug("Registered key: {}", name);
     m_keys.insert({name, keyStruct{.m_isSticky = isSticky, .m_isMouse = isMouse ,.m_key = key}});
 }
 

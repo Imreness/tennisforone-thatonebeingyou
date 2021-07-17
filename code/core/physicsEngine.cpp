@@ -1,6 +1,8 @@
 #include <core/physicsEngine.hpp>
 
 void PhysicsEngine::init(GLFWwindow* window){
+    spdlog::info("Initalizing physics...");
+
     m_window = window;
 
     m_world = m_physicsCommon.createPhysicsWorld();
@@ -109,6 +111,7 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
 }
 
 PhysicsEngine::~PhysicsEngine(){
+    spdlog::info("Deleting Physics Engine...");
     for(const auto& a : m_colObjects){
         m_world->destroyCollisionBody(a.second->m_body);
         delete a.second;
@@ -219,6 +222,8 @@ Raycasthit PhysicsEngine::testRayAgainstCollisionObject(std::string name, glm::v
 
 
 void PhysicsEngine::createColObject(std::string name, reactphysics3d::Vector3 position, reactphysics3d::Quaternion rotation){
+    spdlog::debug("Creating Collision object: {}", name);
+
     reactphysics3d::Vector3 startpos = position;
     reactphysics3d::Quaternion startquat = rotation;
 

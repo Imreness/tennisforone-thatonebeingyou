@@ -1,6 +1,7 @@
 #include <objects/playerRacket.hpp>
 
 playerRacket::playerRacket(GameObject& refObject, GameObject& refShock) : m_refObject{refObject}, m_refShock{refShock}{
+    spdlog::info("Creating Player Racket...");
     m_refShock.m_render = true;
     m_position = glm::vec3(0.);
     m_targetPosition = glm::vec3(0.);
