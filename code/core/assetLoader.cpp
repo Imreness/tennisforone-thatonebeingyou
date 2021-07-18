@@ -3,8 +3,8 @@
 #include <core/binaryfile.hpp>
 #include <spdlog/spdlog.h>
 
+//Load .ui files then fill the reference texture map
 void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textures,const char* path){
-
     spdlog::info("Loading UI Package: {}", path);
 
     std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".ui");
@@ -14,6 +14,7 @@ void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textu
 
     uint8_t textureAmount = file.read<uint8_t>();
 
+    //The way bits are packed is represented in assetpacker's source
     for(int i = 0; i < textureAmount; i++){
         char* nameChar = file.readChars(15);
         std::string name(nameChar);
@@ -30,6 +31,7 @@ void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textu
     file.close();
 }
 
+//load .assetbundle files then fill up textures and 3D models accordingly
 void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     std::unordered_map<std::string, Model*>& models,
     const char* path){
@@ -44,6 +46,7 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     int textureAmount = file.read<uint8_t>();
     int modelAmount = file.read<uint8_t>();
 
+    //The way bits are packed is represented in assetpacker's source
     for(int i = 0; i < textureAmount; i++){
         int textureWidth = file.read<uint16_t>();
         int textureHeight = file.read<uint16_t>();

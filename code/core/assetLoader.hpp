@@ -6,6 +6,7 @@
 #include <core/model.hpp>
 #include <string>
 
+//Simple enough namespace to house all data-importing related functions
 namespace assetLoader{
 
     void loadUiPackage(std::unordered_map<std::string, Texture*>& ,const char*);

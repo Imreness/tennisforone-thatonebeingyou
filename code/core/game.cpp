@@ -31,6 +31,9 @@ void Game::initGLFW(const char* title){
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+
+    //OpenGL profile should be CORE profile, instead of compat profile. But, this makes it work on Nvidia GPus under linux,
+    //plus, it doesnt seem to break anything under AMD/Intel offerings.
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
@@ -98,7 +101,7 @@ void Game::update(){
 }
 
 bool Game::shouldRun(){
-    return m_shouldRun; 
+    return m_shouldRun;
 }
 
 Game::~Game(){
@@ -110,7 +113,10 @@ void Game::switchState(nextStateEnum state){
 
     spdlog::debug("switching states...");
 
-    
+    //I obviously need a way to signal the main game class "AYO WEE NED A SWITCH"
+    //and obviously, a messaging system would be best... although technically this is a messaging system.
+    //A system that works well and fast. No reason to have a comment  here, I just think there should be better way of signaling state-switching
+    //apart from "yo return this pls"
     switch (state){
         case nextStateEnum::GAME:
             delete m_currState;

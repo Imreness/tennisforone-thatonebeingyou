@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 
+//Helping class to ease work with storing and loading data bit-by-bit. Theres a brick-by-brick joke there somewhere
 class binaryFile{
 public:
 
