@@ -74,6 +74,9 @@ void playState::initObjects(){
 
     m_tennisBall->resetBall(true);
 
+    m_gameObjects.insert({"counterrack", GameObject{m_models.at("counterrack")}});
+
+
 }
 
 void playState::initPhysicsObjects(){
