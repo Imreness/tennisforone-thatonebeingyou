@@ -2,7 +2,7 @@
 #include <string>
 
 configStruct config::loadConfig(const char* path){
-    spdlog::info("Reading config file...");
+    //spdlog::info("Reading config file...");
 
     configStruct currentConfig;
 

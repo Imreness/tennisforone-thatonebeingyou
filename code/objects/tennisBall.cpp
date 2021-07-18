@@ -25,7 +25,7 @@ void tennisBall::update(float deltaTime){
 
 void tennisBall::resetBall(bool passToPlayer){
     m_lastWall = WallTypes::NONE;
-    m_speed = 1;
+    m_speed = m_minSpeed; 
     m_position = glm::vec3(3.4 , 0.945, 0);
     if(passToPlayer){
         m_direction = glm::vec3(-1 , 0 ,0);
@@ -92,6 +92,8 @@ void tennisBall::reflect(glm::vec3 racketDir, bool isEnemy){
         m_direction = glm::normalize(m_direction);
 
         m_lastWall = WallTypes::NONE;
+
+        std::printf("Ball Speed: %f\n", m_speed);
     }
 }
 
@@ -129,7 +131,7 @@ void tennisBall::reflect(WallTypes hittype){
 
     m_direction = glm::normalize(m_direction);
 
-    m_speed -= 0.1;
+    m_speed -= 0.2;
 
     m_lastWall = hittype; 
 

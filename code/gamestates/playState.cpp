@@ -67,6 +67,11 @@ void playState::initObjects(){
     m_gameObjects.insert({"guidering", GameObject{m_models.at("guide")}});
     m_gameObjects.at("guidering").m_render = false;
     m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"), m_gameObjects.at("guidering"));
+
+    m_tennisBall->m_minSpeed = 2;
+    m_tennisBall->m_maxSpeed = 10;
+    m_tennisBall->m_ballSpeedMultiplier = 1;
+
     m_tennisBall->resetBall(true);
 
 }
@@ -241,6 +246,7 @@ void playState::processBall(){
 
     if(m_physics.testCollisionBodies("ball", "racket")){
         m_tennisBall->reflect(m_playerRacket->m_targetPosition - m_playerRacket->m_position);
+        m_aiRacket->changeSpeed();
     }
 
     if(m_physics.testCollisionBodies("ball", "enemyRacket")){
@@ -262,12 +268,10 @@ void playState::processBall(){
 
     //debug shit pls delete before game is done much love homie :*
     else if(m_physics.testCollisionBodies("ball", "backboard")){
-        m_tennisBall->reflect(WallTypes::PLAYER);
-        std::printf("HAH player got RAMMED\n");
+        m_tennisBall->resetBall(false);
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
-        m_tennisBall->reflect(WallTypes::ENEMY);
-        std::printf("goddamn ai is kinda shit ngl\n");
+        m_tennisBall->resetBall(true);
     }
 }
 

@@ -37,14 +37,6 @@ void aiRacket::setTarget(glm::vec3 targetPos){
     clampPosition();
 }
 
-//speeds
-/*
-    1 - my grandma could win against this
-    2 - really easy
-    3 - same as player, but easy regardless
-    4 - 
-*/
-
 void aiRacket::changeSpeed(){
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -66,7 +58,10 @@ void aiRacket::changeSpeed(){
             break;
     }
 
-    
+    std::uniform_real_distribution<float> speedGen(minSpeed, maxSpeed);
+
+    m_movementSpeed = speedGen(mt);
+    //std::printf("New AI speed: %f\n", m_movementSpeed);
 }
 
 glm::vec3 aiRacket::generateRackedDir(){
@@ -77,16 +72,16 @@ glm::vec3 aiRacket::generateRackedDir(){
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
-            minDistace = 0.1f;
-            maxDistance = 0.3f;
+            minDistace = 0.05f;
+            maxDistance = 0.15f;
             break;
         case AIDIFFICULTY::MEDIUM:
-            minDistace = 0.3f;
-            maxDistance = 0.8f;
+            minDistace = 0.15f;
+            maxDistance = 0.5f;
             break;
         case AIDIFFICULTY::HARD:
-            minDistace = 0.8f;
-            maxDistance = 1.5f;
+            minDistace = 0.5f;
+            maxDistance = 1.2f;
             break;
     }
 
