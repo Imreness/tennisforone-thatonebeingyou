@@ -12,6 +12,8 @@
 #include <objects/aiRacket.hpp>
 #include <objects/tennisBall.hpp>
 
+#include <objects/scoreKeeper.hpp>
+
 class playState : public gameState{
 private:
     graphicsEngine m_graphics;
@@ -23,6 +25,8 @@ private:
     std::unordered_map<std::string, Model*> m_models;
 
     std::unordered_map<std::string, GameObject> m_gameObjects;
+
+    ScoreKeeper m_score;
 
     DebugCamera* m_debugCam;
     RailsCamera* m_gameCam;

@@ -75,6 +75,8 @@ add_library(Engine STATIC
     code/objects/tennisBall.cpp
     code/objects/aiRacket.hpp
     code/objects/aiRacket.cpp
+    code/objects/scoreKeeper.hpp
+    code/objects/scoreKeeper.cpp
 )
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Engine PRIVATE "h/")
