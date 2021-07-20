@@ -46,6 +46,9 @@ public:
     void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
     void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
 
+    void renderLight(DebugCamera*, std::vector<Texture*>&, GameObject&, bool isOn);
+    void renderLight(RailsCamera*, std::vector<Texture*>&, GameObject&, bool isOn);
+
     void renderStart();
     void renderEnd();
 

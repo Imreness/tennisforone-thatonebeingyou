@@ -48,6 +48,7 @@ private:
     void initObjects();
 
     void render();
+    void renderLights(bool isDebugCam);
 
     void initInput();
     void processInput();

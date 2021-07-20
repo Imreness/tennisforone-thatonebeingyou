@@ -125,6 +125,30 @@ void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& t
     object.m_refModel->render();
 }
 
+void graphicsEngine::renderLight(DebugCamera* refcam, std::vector<Texture*>& textures, GameObject& object, bool isOn){
+    Shader* currShader = m_shaders.at("light");
+    currShader->Use();
+
+    currShader->setUniform("proj", refcam->m_proj);
+    currShader->setUniform("view", refcam->m_view);
+    currShader->setUniform("model", object.m_modelMat);
+    currShader->setUniform("isLitUp", (int)isOn);
+    textures.at(object.m_refModel->m_texID)->Use();
+    object.m_refModel->render();
+}
+
+void graphicsEngine::renderLight(RailsCamera* refcam, std::vector<Texture*>& textures, GameObject& object, bool isOn){
+    Shader* currShader = m_shaders.at("light");
+    currShader->Use();
+
+    currShader->setUniform("proj", refcam->m_proj);
+    currShader->setUniform("view", refcam->m_view);
+    currShader->setUniform("model", object.m_modelMat);
+    currShader->setUniform("isLitUp", (int)isOn);
+    textures.at(object.m_refModel->m_texID)->Use();
+    object.m_refModel->render();
+}
+
 void graphicsEngine::renderEnd(){
     glfwSwapBuffers(m_targetWindow);
     glfwPollEvents();

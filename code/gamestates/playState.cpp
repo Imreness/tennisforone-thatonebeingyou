@@ -36,13 +36,14 @@ void playState::initGraphics(){
     m_graphics.loadShader("debug");
     m_graphics.loadShader("bulletDebug");
     m_graphics.loadShader("ring");
+    m_graphics.loadShader("light");
 
     glEnable(GL_DEPTH_TEST);
 
     m_debugCam = new DebugCamera(m_window);
     m_gameCam = new RailsCamera(m_window);
     m_gameCam->m_moveSpeed = 1;
-    m_gameCam->moveTo(glm::vec3(-2.4, 0.8, 0), glm::vec3(0,0.9,0), 0);
+    m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0);
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
 }
@@ -76,6 +77,37 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"counterrack", GameObject{m_models.at("counterrack")}});
 
+    m_gameObjects.insert({"nameplatePlayer", GameObject{m_models.at("nameplatePlayer")}});
+    m_gameObjects.insert({"nameplateAI", GameObject{m_models.at("nameplateAI")}});
+
+    //a level editor would come handy round this time :d
+    m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerLED1")}});
+    m_gameObjects.insert({"playerLED2", GameObject{m_models.at("playerLED2")}});
+    m_gameObjects.insert({"playerLED3", GameObject{m_models.at("playerLED3")}});
+    m_gameObjects.insert({"playerLED4", GameObject{m_models.at("playerLED4")}});
+    m_gameObjects.insert({"playerLED5", GameObject{m_models.at("playerLED5")}});
+    m_gameObjects.insert({"playerLED6", GameObject{m_models.at("playerLED6")}});
+
+    m_gameObjects.at("playerLED1").m_render = false;
+    m_gameObjects.at("playerLED2").m_render = false;
+    m_gameObjects.at("playerLED3").m_render = false;
+    m_gameObjects.at("playerLED4").m_render = false;
+    m_gameObjects.at("playerLED5").m_render = false;
+    m_gameObjects.at("playerLED6").m_render = false;
+
+    m_gameObjects.insert({"aiLED1", GameObject{m_models.at("aiLED1")}});
+    m_gameObjects.insert({"aiLED2", GameObject{m_models.at("aiLED2")}});
+    m_gameObjects.insert({"aiLED3", GameObject{m_models.at("aiLED3")}});
+    m_gameObjects.insert({"aiLED4", GameObject{m_models.at("aiLED4")}});
+    m_gameObjects.insert({"aiLED5", GameObject{m_models.at("aiLED5")}});
+    m_gameObjects.insert({"aiLED6", GameObject{m_models.at("aiLED6")}});
+
+    m_gameObjects.at("aiLED1").m_render = false;
+    m_gameObjects.at("aiLED2").m_render = false;
+    m_gameObjects.at("aiLED3").m_render = false;
+    m_gameObjects.at("aiLED4").m_render = false;
+    m_gameObjects.at("aiLED5").m_render = false;
+    m_gameObjects.at("aiLED6").m_render = false;
 
 }
 
@@ -121,6 +153,8 @@ void playState::render(){
         if(m_debugMode){
             m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects);
             m_graphics.renderObjects(m_debugCam, m_textures, m_gameObjects.at("shadow"));
+
+            renderLights(true);
     
             m_physics.debugRender(m_debugCam->m_view, m_debugCam->m_proj, m_graphics.getShader("bulletDebug"));
         }
@@ -128,6 +162,8 @@ void playState::render(){
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("shadow"));
             m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects.at("guidering"), "ring");
+
+            renderLights(false);
 
             if(m_debugDrawingInGame){
                 m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
@@ -139,6 +175,39 @@ void playState::render(){
     }
     else{
         m_renderAccumulator += m_deltaTime;
+    }
+}
+
+void playState::renderLights(bool isDebugCam){
+    if(isDebugCam){
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED1"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED2"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED3"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED4"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED5"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED6"), false);
+
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED1"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED2"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED3"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED4"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED5"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED6"), false);
+    }
+    else{
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED1"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED2"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED3"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED4"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED5"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED6"), false);
+        
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED1"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED2"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED3"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED4"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED5"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED6"), false);
     }
 }
 
