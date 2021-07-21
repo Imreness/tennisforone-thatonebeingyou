@@ -115,11 +115,10 @@ void playState::initPhysicsObjects(){
     spdlog::info("Initalizing Physics colliders...");
 
     m_physics.createColObject("racket");
-    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.05 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
+    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.12 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
 
     m_physics.createColObject("enemyRacket");
     m_physics.addBoxCollider("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(-0.1, 0 ,0));
-
 
     m_physics.createColObject("ball");
     m_physics.addSphereCollider("ball", 0.0438);
@@ -180,34 +179,34 @@ void playState::render(){
 
 void playState::renderLights(bool isDebugCam){
     if(isDebugCam){
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED1"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED2"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED3"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED4"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED5"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED6"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED1"), m_score.isLEDLit(true,1));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED2"), m_score.isLEDLit(true,2));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED3"), m_score.isLEDLit(true,3));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED4"), m_score.isLEDLit(true,4));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED5"), m_score.isLEDLit(true,5));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED6"), m_score.isLEDLit(true,6));
 
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED1"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED2"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED3"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED4"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED5"), false);
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED6"), false);
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED1"), m_score.isLEDLit(false,1));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED2"), m_score.isLEDLit(false,2));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED3"), m_score.isLEDLit(false,3));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED4"), m_score.isLEDLit(false,4));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED5"), m_score.isLEDLit(false,5));
+        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED6"), m_score.isLEDLit(false,6));
     }
     else{
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED1"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED2"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED3"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED4"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED5"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED6"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED1"), m_score.isLEDLit(true,1));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED2"), m_score.isLEDLit(true,2));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED3"), m_score.isLEDLit(true,3));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED4"), m_score.isLEDLit(true,4));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED5"), m_score.isLEDLit(true,5));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED6"), m_score.isLEDLit(true,6));
         
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED1"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED2"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED3"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED4"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED5"), false);
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED6"), false);
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED1"), m_score.isLEDLit(false,1));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED2"), m_score.isLEDLit(false,2));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED3"), m_score.isLEDLit(false,3));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED4"), m_score.isLEDLit(false,4));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED5"), m_score.isLEDLit(false,5));
+        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED6"), m_score.isLEDLit(false,6));
     }
 }
 
@@ -271,6 +270,8 @@ void playState::processInput(){
 
     if(m_input.isPressed("debugResetBall")){
         m_tennisBall->resetBall(true);
+        m_score.reset();
+        m_timeScale = 1;
     }
 
 //    if(m_input.isPressed("debugTimehalf")){
@@ -340,9 +341,21 @@ void playState::processBall(){
 
     //debug shit pls delete before game is done much love homie :*
     else if(m_physics.testCollisionBodies("ball", "backboard")){
+        m_score.addPoints(false);
+
+        if(m_score.m_aiScore == m_score.m_maxScore){
+            m_timeScale = 0;
+        }
+
         m_tennisBall->resetBall(false);
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
+        m_score.addPoints(true);
+
+        if(m_score.m_playerScore == m_score.m_maxScore){
+            m_timeScale = 0;
+        }
+
         m_tennisBall->resetBall(true);
     }
 }

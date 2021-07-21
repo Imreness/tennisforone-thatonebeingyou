@@ -14,15 +14,15 @@ void ScoreKeeper::addPoints(bool toPlayer){
         }
     }
 
-    if(m_playerScore = m_maxScore){
+    if(m_playerScore == m_maxScore){
         std::printf("PLAYA WONNNNNN WHOOO\n");
     }
-    else if(m_aiScore = m_maxScore){
+    else if(m_aiScore == m_maxScore){
         std::printf("AI WON WHOOOO not! fuck that ai >:[\n");
     }
 }
 
-bool ScoreKeeper::isLit(bool isPlayer, int lightID){
+bool ScoreKeeper::isLEDLit(bool isPlayer, int lightID){
     if(isPlayer){
         if (lightID <= m_playerScore){
             return true;
@@ -35,4 +35,9 @@ bool ScoreKeeper::isLit(bool isPlayer, int lightID){
         }
         return false;
     }
+}
+
+void ScoreKeeper::reset(){
+    m_playerScore = 0;
+    m_aiScore = 0;
 }

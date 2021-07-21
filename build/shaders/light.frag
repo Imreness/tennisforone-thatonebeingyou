@@ -10,7 +10,7 @@ void main()
 {
 	vec4 color = texture(tex, texcoords);
     if(isLitUp){
-        color = color * 0.1;
+        color = color * 1.3;
 		color.w = 1;
     }
     else{

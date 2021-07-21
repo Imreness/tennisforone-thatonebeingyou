@@ -15,7 +15,9 @@ struct ScoreKeeper{
 
     void addPoints(bool toPlayer);
 
-    bool isLit(bool isPlayer, int lightID);
+    bool isLEDLit(bool isPlayer, int lightID);
+
+    void reset();
 };
 
 #endif

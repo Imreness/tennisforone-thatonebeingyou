@@ -93,7 +93,7 @@ void tennisBall::reflect(glm::vec3 racketDir, bool isEnemy){
 
         m_lastWall = WallTypes::NONE;
 
-        std::printf("Ball Speed: %f\n", m_speed);
+        //std::printf("Ball Speed: %f\n", m_speed);
     }
 }
 
