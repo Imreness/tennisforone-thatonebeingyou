@@ -2,6 +2,7 @@
 #include <spdlog/spdlog.h>
 #include <core/configloader.hpp>
 
+
 void playState::init(GLFWwindow* referencewindow){
     spdlog::info("Launching play state...");
 
@@ -12,7 +13,8 @@ void playState::init(GLFWwindow* referencewindow){
     initGraphics();
 
     initObjects();
-    initPhysicsObjects(); 
+    initPhysicsObjects();
+    initAudio();
 
     initInput();
 
@@ -22,6 +24,14 @@ void playState::init(GLFWwindow* referencewindow){
 void playState::initDeltaTime(){
     spdlog::info("Initalizing delta time...");
     m_lastTime = glfwGetTime();
+}
+
+void playState::initAudio(){
+    m_soloud = new SoLoud::Soloud;
+    m_soloud->init();
+
+    m_sounds.insert({"test", SoLoud::Wav()});
+    m_sounds.at("test").load("dikk.wav");
 }
 
 void playState::calculateDeltaTime(){
@@ -244,6 +254,8 @@ void playState::initInput(){
     m_input.registerKey("debugTimehalf", GLFW_KEY_KP_7, true);
     m_input.registerKey("debugTimeNormal", GLFW_KEY_KP_8, true);
     m_input.registerKey("debugTimeonepointfive", GLFW_KEY_KP_9, true);
+
+    m_input.registerKey("debugTestSound", GLFW_KEY_F3, true);
 }
 
 void playState::processInput(){
@@ -272,6 +284,10 @@ void playState::processInput(){
         m_tennisBall->resetBall(true);
         m_score.reset();
         m_timeScale = 1;
+    }
+
+    if(m_input.isPressed("debugTestSound")){
+        m_soloud->play(m_sounds.at("test"));
     }
 
 //    if(m_input.isPressed("debugTimehalf")){
@@ -378,8 +394,10 @@ nextStateEnum playState::nextState(){
 playState::~playState(){
     spdlog::info("Deleting playstate...");
 
-   delete m_debugCam;
-   delete m_playerRacket;
-   delete m_tennisBall;
-   delete m_gameCam;
+    delete m_soloud;
+
+    delete m_debugCam;
+    delete m_playerRacket;
+    delete m_tennisBall;
+    delete m_gameCam;
 }

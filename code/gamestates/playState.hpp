@@ -14,6 +14,11 @@
 
 #include <objects/scoreKeeper.hpp>
 
+
+#define WITH_ALSA
+#include <soloud/soloud.h>
+#include <soloud/soloud_wav.h>
+
 class playState : public gameState{
 private:
     graphicsEngine m_graphics;
@@ -34,6 +39,9 @@ private:
     playerRacket* m_playerRacket;
     aiRacket* m_aiRacket;
     tennisBall* m_tennisBall;
+
+    SoLoud::Soloud* m_soloud;
+    std::unordered_map<std::string, SoLoud::Wav> m_sounds;
 
     bool m_debugMode = false;
     bool m_debugDrawingInGame = false;
@@ -65,6 +73,8 @@ private:
 
     void initDeltaTime();
     void calculateDeltaTime();
+
+    void initAudio();
 
 public:
 
