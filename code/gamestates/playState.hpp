@@ -75,6 +75,10 @@ private:
     void calculateDeltaTime();
 
     void initAudio();
+    void update3DAudio();
+
+    //shouldve made a seperate "AudioManager" class or sumthang like that, cuz 
+    std::string getRandomBounceNoiseName();
 
 public:
 

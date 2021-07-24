@@ -30,8 +30,21 @@ void playState::initAudio(){
     m_soloud = new SoLoud::Soloud;
     m_soloud->init();
 
-    m_sounds.insert({"test", SoLoud::Wav()});
-    m_sounds.at("test").load("sounds/dikk.wav");
+    //m_sounds.insert({"test", SoLoud::Wav()});
+
+    //load ballbounces
+    std::string path;
+    std::string soundName;
+    for(int i = 0; i < 21; i++){
+        path = "sounds/bounce";path.append(std::to_string(i+1));path.append(".wav");
+        soundName = "bounce"; soundName.append(std::to_string(i+1));
+
+        m_sounds.insert({soundName, SoLoud::Wav()});
+        m_sounds.at(soundName).load(path.c_str());
+        m_sounds.at(soundName).set3dAttenuation(1, 0.15);
+    }
+
+    //m_sounds.at("test").load("sounds/dikk.wav");
 }
 
 void playState::calculateDeltaTime(){
@@ -234,10 +247,19 @@ void playState::process(){
     processInput();
     processPlayerRacket();
     processAiRacket();
+    update3DAudio();
 
     m_physics.update(m_deltaTime);
 
     render();
+}
+
+void playState::update3DAudio(){
+    m_soloud->set3dListenerParameters(
+        m_gameCam->m_position.x , m_gameCam->m_position.y, m_gameCam->m_position.z,
+        m_gameCam->m_front.x, m_gameCam->m_front.y, m_gameCam->m_front.z,
+        m_gameCam->m_up.x , m_gameCam->m_up.y , m_gameCam->m_up.z
+    );
 }
 
 void playState::initInput(){
@@ -287,7 +309,7 @@ void playState::processInput(){
     }
 
     if(m_input.isPressed("debugTestSound")){
-        m_soloud->play(m_sounds.at("test"));
+        m_soloud->play(m_sounds.at("bounce17"));
     }
 
 //    if(m_input.isPressed("debugTimehalf")){
@@ -336,23 +358,31 @@ void playState::processBall(){
     if(m_physics.testCollisionBodies("ball", "racket")){
         m_tennisBall->reflect(m_playerRacket->m_targetPosition - m_playerRacket->m_position);
         m_aiRacket->changeSpeed();
+
+        //TODO - fix multiple plays
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
 
     if(m_physics.testCollisionBodies("ball", "enemyRacket")){
         m_tennisBall->reflect(m_aiRacket->generateRackedDir(), true);
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
 
     if(m_physics.testCollisionBodies("ball", "leftboard")){
         m_tennisBall->reflect(WallTypes::LEFT);
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
     else if (m_physics.testCollisionBodies("ball", "rightboard")){
         m_tennisBall->reflect(WallTypes::RIGHT);
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
     else if (m_physics.testCollisionBodies("ball", "floorboard")){
         m_tennisBall->reflect(WallTypes::FLOOR);
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
     else if (m_physics.testCollisionBodies("ball", "ceilingboard")){
         m_tennisBall->reflect(WallTypes::TOP);
+        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
 
     //debug shit pls delete before game is done much love homie :*
@@ -400,4 +430,16 @@ playState::~playState(){
     delete m_playerRacket;
     delete m_tennisBall;
     delete m_gameCam;
+}
+
+std::string playState::getRandomBounceNoiseName(){
+    std::string baseString = "bounce";
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> numberRange(1, 21);
+
+    int randomnumber = numberRange(mt);
+    baseString.append(std::to_string(randomnumber));
+    return baseString;
 }
