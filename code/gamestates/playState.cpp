@@ -31,7 +31,7 @@ void playState::initAudio(){
     m_soloud->init();
 
     m_sounds.insert({"test", SoLoud::Wav()});
-    m_sounds.at("test").load("dikk.wav");
+    m_sounds.at("test").load("sounds/dikk.wav");
 }
 
 void playState::calculateDeltaTime(){
@@ -394,7 +394,7 @@ nextStateEnum playState::nextState(){
 playState::~playState(){
     spdlog::info("Deleting playstate...");
 
-    delete m_soloud;
+    m_soloud->deinit();
 
     delete m_debugCam;
     delete m_playerRacket;

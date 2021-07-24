@@ -1,5 +1,6 @@
 # Tennis For One - That One Being You
 - [Tennis For One - That One Being You](#tennis-for-one---that-one-being-you)
+- [TECHSTUFF](#techstuff)
 - [Story](#story)
 - [Gameplay](#gameplay)
   - [Matches](#matches)
@@ -16,6 +17,9 @@
       - [Dexterity](#dexterity)
 - [Specific engine parts](#specific-engine-parts)
   - [Cinematic](#cinematic)
+
+# TECHSTUFF
+For audio on arch ,install pulseaudio-alsa
 
 # Story
 You are the last person on earth. A nuclear fallout has killed every single living being on the planet. While seeking shelter, you come across a rec facility, with a top of the line Zer 0-G Tennis court, with a built in AI. With a decent chunk of supplies left, you make camp in the facility, hoping to survive for a long while.

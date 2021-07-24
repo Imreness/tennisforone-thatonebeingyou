@@ -1,5 +1,5 @@
 #include <objects/railsCamera.hpp>
-#include <spdlog/spdlog.h>;
+#include <spdlog/spdlog.h>
 
 RailsCamera::RailsCamera(GLFWwindow* window){
     spdlog::info("Creating Game Camera...");

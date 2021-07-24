@@ -5,6 +5,7 @@ build/*
 !build/game.conf
 !build/shaders/
 !build/levels/
+!build/sounds/
 !build/assetpacker/assets/
 build/assetpacker/*
 !build/assetpacker/assets/
