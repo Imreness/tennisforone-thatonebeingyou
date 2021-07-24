@@ -30,8 +30,6 @@ void playState::initAudio(){
     m_soloud = new SoLoud::Soloud;
     m_soloud->init();
 
-    //m_sounds.insert({"test", SoLoud::Wav()});
-
     //load ballbounces
     std::string path;
     std::string soundName;
@@ -44,7 +42,10 @@ void playState::initAudio(){
         m_sounds.at(soundName).set3dAttenuation(1, 0.15);
     }
 
-    //m_sounds.at("test").load("sounds/dikk.wav");
+    m_sounds.insert({"buzzer", SoLoud::Wav()});
+    m_sounds.at("buzzer").load("sounds/buzzer.wav");
+    m_sounds.at("buzzer").set3dAttenuation(1, 0.15);
+
 }
 
 void playState::calculateDeltaTime(){
@@ -393,6 +394,8 @@ void playState::processBall(){
             m_timeScale = 0;
         }
 
+        m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+
         m_tennisBall->resetBall(false);
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
@@ -401,6 +404,8 @@ void playState::processBall(){
         if(m_score.m_playerScore == m_score.m_maxScore){
             m_timeScale = 0;
         }
+
+        m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(true);
     }
