@@ -269,6 +269,8 @@ void playState::initInput(){
 
     glfwSetWindowUserPointer(m_window, this);
 
+    m_input.registerKey("pause", GLFW_KEY_ESCAPE, true);
+
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
 
@@ -282,6 +284,15 @@ void playState::initInput(){
 }
 
 void playState::processInput(){
+
+    if(m_input.isPressed("pause")){
+        if(m_timeScale == 0){
+            m_timeScale = 1;
+        }
+        else{
+            m_timeScale = 0;
+        }
+    }
 
     if(m_input.isPressed("debugMode")){
         if(m_debugMode){
