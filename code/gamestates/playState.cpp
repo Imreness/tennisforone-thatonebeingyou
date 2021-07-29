@@ -68,6 +68,7 @@ void playState::initGraphics(){
     m_gameCam = new RailsCamera(m_window);
     m_gameCam->m_moveSpeed = 1;
     m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0);
+    m_gameCam->m_moveSpeed = 20;
 
     assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
 }
@@ -81,7 +82,7 @@ void playState::initObjects(){
     m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
 
-    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::MEDIUM);
+    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::EASY);
 
     m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
     m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
@@ -103,6 +104,7 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"nameplatePlayer", GameObject{m_models.at("nameplatePlayer")}});
     m_gameObjects.insert({"nameplateAI", GameObject{m_models.at("nameplateAI")}});
+
 
     //a level editor would come handy round this time :d
     m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerLED1")}});
@@ -133,6 +135,9 @@ void playState::initObjects(){
     m_gameObjects.at("aiLED5").m_render = false;
     m_gameObjects.at("aiLED6").m_render = false;
 
+    m_gameObjects.insert({"button_exit", GameObject{m_models.at("button_exit")}});
+    m_gameObjects.insert({"button_inc", GameObject{m_models.at("button_inc")}});
+    m_gameObjects.insert({"button_dec", GameObject{m_models.at("button_dec")}});
 }
 
 void playState::initPhysicsObjects(){
@@ -167,6 +172,15 @@ void playState::initPhysicsObjects(){
 
     m_physics.createColObject("mouseBoard");
     m_physics.addBoxCollider("mouseBoard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
+
+    m_physics.createColObject("button_exit");
+    m_physics.addBoxCollider("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , -0.54));
+
+    m_physics.createColObject("button_inc");
+    m_physics.addBoxCollider("button_inc", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , 0.59));
+
+    m_physics.createColObject("button_dec");
+    m_physics.addBoxCollider("button_dec", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , 0.84));
 }
 
 void playState::render(){
@@ -244,6 +258,7 @@ void playState::process(){
         m_gameCam->update(m_deltaTime);
     }
 
+    process3DButtons();
     processBall();
     processInput();
     processPlayerRacket();
@@ -253,6 +268,29 @@ void playState::process(){
     m_physics.update(m_deltaTime);
 
     render();
+}
+
+void playState::process3DButtons(){
+    if(m_input.isPressed("click")){
+        Raycasthit hitExit = m_physics.testMouseRayAgainstCollisionObject("button_exit", m_gameCam->m_view, m_gameCam->m_proj);
+        if(hitExit.m_isHit){
+            m_exit = true;
+            return;
+        }
+
+        Raycasthit hitInc = m_physics.testMouseRayAgainstCollisionObject("button_inc", m_gameCam->m_view, m_gameCam->m_proj);
+        if(hitInc.m_isHit){
+            changeAIDifficulty(true);
+            return;
+        } 
+
+        Raycasthit hitDec = m_physics.testMouseRayAgainstCollisionObject("button_dec", m_gameCam->m_view, m_gameCam->m_proj);
+        if(hitDec.m_isHit){
+            changeAIDifficulty(false);
+        }
+    }
+
+    //std::printf("aidifficulty: %i\n", m_aiRacket->m_difficulty);
 }
 
 void playState::update3DAudio(){
@@ -271,6 +309,8 @@ void playState::initInput(){
 
     m_input.registerKey("pause", GLFW_KEY_ESCAPE, true);
 
+    m_input.registerKey("click", 0 , true, true);
+
     m_input.registerKey("debugMode", GLFW_KEY_F1, true);
     m_input.registerKey("debugDrawingInGame", GLFW_KEY_F2, true);
 
@@ -288,9 +328,11 @@ void playState::processInput(){
     if(m_input.isPressed("pause")){
         if(m_timeScale == 0){
             m_timeScale = 1;
+            m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0.5);
         }
         else{
             m_timeScale = 0;
+            m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
         }
     }
 
@@ -320,9 +362,10 @@ void playState::processInput(){
         m_timeScale = 1;
     }
 
-    if(m_input.isPressed("debugTestSound")){
-        m_soloud->play(m_sounds.at("bounce17"));
-    }
+//    if(m_input.isPressed("debugTestSound")){
+//        m_gameObjects.at("nameplateAI").m_refModel->m_texID += 1;
+//        std::printf("nameplateTextureID: %i\n", m_gameObjects.at("nameplateAI").m_refModel->m_texID);
+//    }
 
 //    if(m_input.isPressed("debugTimehalf")){
 //        m_timeScale = 0.5f;
@@ -356,12 +399,17 @@ void playState::processAiRacket(){
 
 void playState::processBall(){
     Raycasthit shadowray = m_physics.testRayAgainstCollisionObject("floorboard", m_tennisBall->m_position, glm::vec3(0, -1, 0));
-    float shadowdistance = glm::distance(shadowray.m_hitpos, m_tennisBall->m_position);
-    m_tennisBall->calculateShadowScale(shadowdistance);
+    if(shadowray.m_isHit){
+        float shadowdistance = glm::distance(shadowray.m_hitpos, m_tennisBall->m_position);
+        m_tennisBall->calculateShadowScale(shadowdistance);
+    }
+
 
 
     Raycasthit guideray = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(-1, 0 ,0));
-    m_tennisBall->calculateGuideRing(glm::distance(guideray.m_hitpos, m_tennisBall->m_position));
+    if(guideray.m_isHit){
+        m_tennisBall->calculateGuideRing(glm::distance(guideray.m_hitpos, m_tennisBall->m_position));
+    }
 
     m_tennisBall->update(m_deltaTime * m_timeScale);
 
@@ -403,6 +451,7 @@ void playState::processBall(){
 
         if(m_score.m_aiScore == m_score.m_maxScore){
             m_timeScale = 0;
+            m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
         }
 
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
@@ -414,6 +463,21 @@ void playState::processBall(){
 
         if(m_score.m_playerScore == m_score.m_maxScore){
             m_timeScale = 0;
+            m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
+
+            if(m_maxDifficulty == 0){
+                m_maxDifficulty++;
+            }
+            else if(m_maxDifficulty == 1){
+                if(m_aiRacket->m_difficulty == AIDIFFICULTY::MEDIUM){
+                    m_maxDifficulty++;
+                }
+            }
+            else if(m_maxDifficulty == 2){
+                if(m_aiRacket->m_difficulty == AIDIFFICULTY::HARD){
+                    //play end cutscene
+                }
+            }
         }
 
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
@@ -427,7 +491,7 @@ bool playState::shouldRun(){
 }
 
 nextStateEnum playState::nextState(){
-    if(glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS){
+    if(m_exit){
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         return nextStateEnum::MENU;
     }
@@ -436,6 +500,61 @@ nextStateEnum playState::nextState(){
     }
 }
 
+void playState::changeAIDifficulty(bool increase){
+    if(increase){
+        switch (m_aiRacket->m_difficulty){
+            case AIDIFFICULTY::EASY:
+                if(m_maxDifficulty > 0){
+                    m_aiRacket->changeDifficulty(AIDIFFICULTY::MEDIUM);
+                    m_gameObjects.at("nameplateAI").m_refModel->m_texID = 2;
+                    m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+                    m_tennisBall->resetBall(true);
+                    m_score.reset();
+                    return;
+                }
+                // TODO - ADD "DIFFICULTY NOT YET UNLOCKED"
+                return;
+
+            case AIDIFFICULTY::MEDIUM:
+                if(m_maxDifficulty > 1){
+                    m_aiRacket->changeDifficulty(AIDIFFICULTY::HARD);
+                    m_gameObjects.at("nameplateAI").m_refModel->m_texID = 3;
+                    m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+                    m_tennisBall->resetBall(true);
+                    m_score.reset();
+                    return;
+                }
+                //above todo
+                return;
+            
+            case AIDIFFICULTY::HARD:
+                //TODO - ADD "YOURE ALREADY AT THE PEAK OF MY CAPABILITES FUCKBOY"
+                return;
+        }
+    } 
+    else{
+        switch(m_aiRacket->m_difficulty){
+            case AIDIFFICULTY::EASY:
+                return;
+            
+            case AIDIFFICULTY::MEDIUM:
+                m_aiRacket->changeDifficulty(AIDIFFICULTY::EASY);
+                m_gameObjects.at("nameplateAI").m_refModel->m_texID = 1;
+                m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+                m_tennisBall->resetBall(true);
+                m_score.reset();
+                return;
+            
+            case AIDIFFICULTY::HARD:
+                m_aiRacket->changeDifficulty(AIDIFFICULTY::MEDIUM);
+                m_gameObjects.at("nameplateAI").m_refModel->m_texID = 2;
+                m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+                m_tennisBall->resetBall(true);
+                m_score.reset();
+                return;
+        }
+    }
+}
 
 playState::~playState(){
     spdlog::info("Deleting playstate...");

@@ -21,6 +21,8 @@
 
 class playState : public gameState{
 private:
+    bool m_exit = false;
+
     graphicsEngine m_graphics;
     InputManager m_input;
     PhysicsEngine m_physics;
@@ -32,6 +34,7 @@ private:
     std::unordered_map<std::string, GameObject> m_gameObjects;
 
     ScoreKeeper m_score;
+    int m_maxDifficulty = 0;
 
     DebugCamera* m_debugCam;
     RailsCamera* m_gameCam;
@@ -60,10 +63,12 @@ private:
     void initObjects();
 
     void render();
+    //Lights as in LED lights. Not LIGHT lights :P
     void renderLights(bool isDebugCam);
 
     void initInput();
     void processInput();
+    void process3DButtons();
 
     void initPhysicsObjects();
 
@@ -76,6 +81,8 @@ private:
 
     void initAudio();
     void update3DAudio();
+
+    void changeAIDifficulty(bool increase);
 
     //shouldve made a seperate "AudioManager" class or sumthang like that, cuz 
     std::string getRandomBounceNoiseName();

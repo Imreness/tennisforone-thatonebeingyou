@@ -8,15 +8,15 @@ aiRacket::aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY dif
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
-            m_movementSpeed = 1;
+            m_movementSpeed = m_speedEasy;
             break;
         
         case AIDIFFICULTY::MEDIUM:
-            m_movementSpeed = 3.5f;
+            m_movementSpeed = m_speedNormal;
             break;
 
         case AIDIFFICULTY::HARD:
-            m_movementSpeed = 5.5f;
+            m_movementSpeed = m_speedHard;
             break;
     }
 }
@@ -45,16 +45,16 @@ void aiRacket::changeSpeed(){
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
-            minSpeed = 1.5f;
-            maxSpeed = 2.5f;
+            minSpeed = m_minSpeedEasy;
+            maxSpeed = m_maxSpeedEasy;
             break;
         case AIDIFFICULTY::MEDIUM:
-            minSpeed = 3.f;
-            maxSpeed = 5.f;
+            minSpeed = m_minSpeedNormal;
+            maxSpeed = m_maxSpeedNormal;
             break;
         case AIDIFFICULTY::HARD:
-            minSpeed = 5.5f;
-            maxSpeed = 10.f;
+            minSpeed = m_minSpeedHard;
+            maxSpeed = m_maxSpeedHard;
             break;
     }
 
@@ -62,6 +62,24 @@ void aiRacket::changeSpeed(){
 
     m_movementSpeed = speedGen(mt);
     //std::printf("New AI speed: %f\n", m_movementSpeed);
+}
+
+void aiRacket::changeDifficulty(AIDIFFICULTY newdiff){
+    m_difficulty = newdiff;
+
+    switch(m_difficulty){
+        case AIDIFFICULTY::EASY:
+            m_movementSpeed = m_speedEasy;
+            break;
+        
+        case AIDIFFICULTY::MEDIUM:
+            m_movementSpeed = m_speedNormal;
+            break;
+
+        case AIDIFFICULTY::HARD:
+            m_movementSpeed = m_speedHard;
+            break;
+    }
 }
 
 glm::vec3 aiRacket::generateRackedDir(){

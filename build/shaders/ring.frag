@@ -17,7 +17,7 @@ void main()
 	{
 		discard;
 	}
-	else if(verticalDistanceFromCenter > 1.8){
+	else if(verticalDistanceFromCenter > 2){
 		discard;
 	}
 	else

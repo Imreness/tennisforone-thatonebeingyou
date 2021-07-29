@@ -20,11 +20,18 @@ void RailsCamera::update(double delta){
         m_moveTime -= delta;
     }
     else{
-        m_view = m_targetView;
+        m_targetView = m_view;
     }
 }
 
 void RailsCamera::moveTo(glm::vec3 position, glm::vec3 lookAt, float moveTime){
     m_targetView = glm::lookAt(position, lookAt, m_up);
-    m_moveTime = moveTime;
+
+    if(moveTime == 0){
+        m_moveTime = 0;
+        m_view = m_targetView;
+    }
+    else{
+        m_moveTime = moveTime;
+    }
 }

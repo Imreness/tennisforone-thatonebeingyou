@@ -14,8 +14,9 @@ out float verticalDistanceFromCenter;
 void main()
 {
 	vec4 finalpos = proj * view * model * vec4(aPos,1.0);
+	vec4 modelPos = model * vec4(aPos, 1.0);
 	gl_Position = finalpos;
 	texcoords = aTexCoord;
-	horizontalDistanceFromCenter = abs(finalpos.x);
-	verticalDistanceFromCenter = finalpos.y;
+	horizontalDistanceFromCenter = abs(modelPos.z);
+	verticalDistanceFromCenter = modelPos.y;
 }
