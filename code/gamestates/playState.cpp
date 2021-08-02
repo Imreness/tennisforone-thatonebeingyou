@@ -69,7 +69,7 @@ void playState::initGraphics(){
     m_graphics.loadShader("framebuffer");
 
 
-    m_frameBuffer = new FrameBuffer(windowWidth, windowHeight, windowWidth, windowHeight, m_graphics.getShader("framebuffer"));
+    m_frameBuffer = new FrameBuffer(windowWidth / 1, windowHeight / 1, windowWidth, windowHeight, m_graphics.getShader("framebuffer"));
 
     glEnable(GL_DEPTH_TEST);
 
@@ -219,7 +219,7 @@ void playState::render(){
     
         m_graphics.renderEnd();
 
-        m_frameBuffer->Render();
+        m_frameBuffer->Render(m_brightness);
         m_renderAccumulator -= m_renderTick;
     }
     else{
@@ -271,6 +271,7 @@ void playState::process(){
     }
 
     process3DButtons();
+    processFading();
     processBall();
     processInput();
     processPlayerRacket();
@@ -282,11 +283,30 @@ void playState::process(){
     render();
 }
 
+void playState::processFading(){
+    if (m_fadeOut){
+        if(m_brightness > 0){
+            m_brightness -= m_deltaTime * m_fadeSpeed;
+        }
+        else{
+            m_brightness = 0;
+        }
+    }
+    else{
+        if(m_brightness < 1){
+            m_brightness += m_deltaTime * m_fadeSpeed;
+        }
+        else{
+            m_brightness = 1;
+        }
+    }
+}
+
 void playState::process3DButtons(){
     if(m_input.isPressed("click")){
         Raycasthit hitExit = m_physics.testMouseRayAgainstCollisionObject("button_exit", m_gameCam->m_view, m_gameCam->m_proj);
         if(hitExit.m_isHit){
-            m_exit = true;
+            m_fadeOut = true;
             return;
         }
 
@@ -503,7 +523,7 @@ bool playState::shouldRun(){
 }
 
 nextStateEnum playState::nextState(){
-    if(m_exit){
+    if(m_brightness == 0){
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         return nextStateEnum::MENU;
     }

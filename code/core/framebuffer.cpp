@@ -65,7 +65,7 @@ void FrameBuffer::Bind()
     glViewport(0,0, m_renderWidth, m_renderHeight);
 }
 
-void FrameBuffer::Render()
+void FrameBuffer::Render(float brightness)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClearColor(0.2f, 0.2f, 0.2f, 1.f);
@@ -74,6 +74,7 @@ void FrameBuffer::Render()
 
     glViewport(0, 0, m_windowWidth, m_windowHeight);
     m_shader->Use();
+    m_shader->setUniform("darkness", brightness);
     glBindVertexArray(m_vaoId);
     glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
     glDrawArrays(GL_TRIANGLES, 0, 6);

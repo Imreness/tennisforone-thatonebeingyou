@@ -30,6 +30,11 @@ private:
     PhysicsEngine m_physics;
     FrameBuffer* m_frameBuffer;
 
+    float m_brightness = 0.0000000001f;
+    //if its false, we're fading in
+    bool m_fadeOut = false;
+    float m_fadeSpeed = 3.f;
+
 
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
@@ -68,6 +73,7 @@ private:
     void render();
     //Lights as in LED lights. Not LIGHT lights :P
     void renderLights(bool isDebugCam);
+    void processFading();
 
     void initInput();
     void processInput();

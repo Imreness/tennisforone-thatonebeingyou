@@ -26,7 +26,7 @@ public:
 
     void Bind();
     void Unbind();
-    void Render();
+    void Render(float brightness = 1.0f);
 
 };
 
