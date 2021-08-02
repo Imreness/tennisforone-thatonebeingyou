@@ -73,6 +73,7 @@ void graphicsEngine::renderUi(uiManager &ui){
 void graphicsEngine::renderStart(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.3, 0.3 ,0.3 , 1.);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects, std::string shaderName){

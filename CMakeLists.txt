@@ -54,6 +54,8 @@ add_library(Engine STATIC
     code/core/inputManager.cpp
     code/core/model.cpp
     code/core/model.hpp
+    code/core/framebuffer.hpp
+    code/core/framebuffer.cpp
     code/ui/uiManager.hpp
     code/ui/uiManager.cpp
     code/ui/uiTypes.hpp

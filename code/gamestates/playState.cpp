@@ -56,11 +56,20 @@ void playState::calculateDeltaTime(){
 
 void playState::initGraphics(){
     spdlog::info("Initalizing graphics engine...");
+
+    int windowWidth = 0, windowHeight = 0;
+    glfwGetWindowSize(m_window, &windowWidth, &windowHeight);
+
+
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("debug");
     m_graphics.loadShader("bulletDebug");
     m_graphics.loadShader("ring");
     m_graphics.loadShader("light");
+    m_graphics.loadShader("framebuffer");
+
+
+    m_frameBuffer = new FrameBuffer(windowWidth, windowHeight, windowWidth, windowHeight, m_graphics.getShader("framebuffer"));
 
     glEnable(GL_DEPTH_TEST);
 
@@ -185,6 +194,7 @@ void playState::initPhysicsObjects(){
 
 void playState::render(){
     if(m_renderAccumulator > m_renderTick){
+        m_frameBuffer->Bind();
         m_graphics.renderStart();
     
         if(m_debugMode){
@@ -208,6 +218,8 @@ void playState::render(){
         }
     
         m_graphics.renderEnd();
+
+        m_frameBuffer->Render();
         m_renderAccumulator -= m_renderTick;
     }
     else{

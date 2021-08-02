@@ -14,6 +14,8 @@
 
 #include <objects/scoreKeeper.hpp>
 
+#include <core/framebuffer.hpp>
+
 
 #define WITH_ALSA
 #include <soloud/soloud.h>
@@ -26,6 +28,7 @@ private:
     graphicsEngine m_graphics;
     InputManager m_input;
     PhysicsEngine m_physics;
+    FrameBuffer* m_frameBuffer;
 
 
     std::vector<Texture*> m_textures;
