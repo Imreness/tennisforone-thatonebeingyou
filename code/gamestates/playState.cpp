@@ -62,7 +62,7 @@ void playState::initGraphics(){
 
 
     m_graphics.setTargetWindow(m_window);
-    m_graphics.loadShader("debug");
+    m_graphics.loadShader("object");
     m_graphics.loadShader("bulletDebug");
     m_graphics.loadShader("ring");
     m_graphics.loadShader("light");
@@ -75,7 +75,6 @@ void playState::initGraphics(){
 
     m_debugCam = new DebugCamera(m_window);
     m_gameCam = new RailsCamera(m_window);
-    m_gameCam->m_moveSpeed = 1;
     m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0);
     m_gameCam->m_moveSpeed = 20;
 

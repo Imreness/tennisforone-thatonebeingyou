@@ -131,5 +131,10 @@ void Game::switchState(nextStateEnum state){
 
             break;
 
+        case nextStateEnum::INTRO:
+            delete m_currState;
+            m_currState = new introState();
+            m_currState->init(m_mainWindow);
+            break;
     }
 }

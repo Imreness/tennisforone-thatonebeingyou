@@ -65,6 +65,8 @@ add_library(Engine STATIC
     code/ui/uiPanel.cpp
     code/gamestates/playState.hpp
     code/gamestates/playState.cpp
+    code/gamestates/introState.hpp
+    code/gamestates/introState.cpp
     code/objects/debugCamera.hpp
     code/objects/debugCamera.cpp
     code/objects/gameObject.hpp

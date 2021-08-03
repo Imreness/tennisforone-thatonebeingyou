@@ -13,7 +13,7 @@ void menuState::initGraphics(){
     spdlog::info("Initalizing graphics engine...");
     m_graphics.setTargetWindow(m_window);
 
-    m_graphics.loadShader("debug");
+    m_graphics.loadShader("object");
     m_graphics.loadShader("ui");
 
     initUI();
@@ -62,7 +62,7 @@ bool menuState::shouldRun(){
 
 nextStateEnum menuState::nextState(){
     if(m_startGame){
-        return nextStateEnum::GAME;
+        return nextStateEnum::INTRO;
     }
     else{
         return nextStateEnum::NOTHING;

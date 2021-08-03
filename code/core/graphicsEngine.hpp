@@ -41,10 +41,10 @@ public:
 
     void renderUi(uiManager&);
 
-    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "debug");
-    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "debug");
-    void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
-    void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "debug");
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "object");
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,std::unordered_map<std::string, GameObject>&, std::string shaderName = "object");
+    void renderObjects(DebugCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "object");
+    void renderObjects(RailsCamera*, std::vector<Texture*>& ,GameObject&, std::string shaderName = "object");
 
     void renderLight(DebugCamera*, std::vector<Texture*>&, GameObject&, bool isOn);
     void renderLight(RailsCamera*, std::vector<Texture*>&, GameObject&, bool isOn);

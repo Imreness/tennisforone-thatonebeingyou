@@ -6,7 +6,8 @@
 enum class nextStateEnum{
     NOTHING,
     GAME,
-    MENU
+    MENU,
+    INTRO
 };
 
 class gameState{

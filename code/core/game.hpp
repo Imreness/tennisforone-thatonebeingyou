@@ -7,6 +7,7 @@
 #include <core/configloader.hpp>
 #include <gamestates/menuState.hpp>
 #include <gamestates/playState.hpp>
+#include <gamestates/introState.hpp>
 
 class Game{
 private:
