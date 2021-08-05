@@ -18,5 +18,10 @@ std::vector<cameraTargetObject>loadCameraPath(const char* filepath){
 
         cameraTargetObject obj;
 
+        std::vector<std::string> stringValues;
+
+        //each line has 8 values
+
+        fileLine.
     }
 }
