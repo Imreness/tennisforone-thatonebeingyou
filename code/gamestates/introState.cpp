@@ -13,6 +13,8 @@ void introState::init(GLFWwindow* referenceWindow){
 
     initInput();
 
+    initCameraPath();
+
     initDeltaTime();
 }
 
@@ -61,6 +63,10 @@ void introState::initGraphics(){
     m_gameCam->m_moveSpeed = 5;
 
     assetLoader::loadAssetBundle(m_textures, m_models, "intro");
+}
+
+void introState::initCameraPath(){
+    m_cameraTargets = loadCameraPath("assets/intro.path");
 }
 
 void introState::initObjects(){

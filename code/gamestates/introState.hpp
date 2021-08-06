@@ -11,10 +11,11 @@
 
 #include <core/framebuffer.hpp>
 
-
 #define WITH_ALSA
 #include <soloud/soloud.h>
 #include <soloud/soloud_wav.h>
+
+#include <objects/cameraPathLoader.hpp>
 
 class introState : public gameState{
 private:
@@ -56,6 +57,11 @@ private:
 
     void initInput();
     void processInput();
+
+    std::vector<cameraTargetObject> m_cameraTargets;
+    int m_currentTarget = 0;
+    void initCameraPath();
+    void processCameraPath();
 
     void processExitTimer();
 
