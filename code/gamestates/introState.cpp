@@ -128,13 +128,25 @@ void introState::initInput(){
 
     glfwSetWindowUserPointer(m_window, this);
 
-    m_input.registerKey("next", GLFW_KEY_SPACE, true);
+    m_input.registerKey("next", GLFW_KEY_ESCAPE, true);
+    m_input.registerKey("nextCamPos", GLFW_KEY_SPACE, true);
 }
 
 void introState::processInput(){
     if(m_input.isPressed("next")){
         m_exitTimerStart = true;
         m_fadeOut = true;
+    }
+    if(m_input.isPressed("nextCamPos")){
+        if(m_currentCameraTarget >= (m_cameraTargets.size() - 1)){
+            m_exitTimerStart = true;
+            m_fadeOut = true;
+        }
+
+        m_currentCameraTarget++;
+        cameraTargetObject target = m_cameraTargets.at(m_currentCameraTarget);
+        m_gameCam->m_moveSpeed = target.movementSpeed;
+        m_gameCam->moveTo(target.cameraPos, target.cameraLookAt, target.movementTime);
     }
 }
 

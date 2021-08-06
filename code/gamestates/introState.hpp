@@ -59,9 +59,8 @@ private:
     void processInput();
 
     std::vector<cameraTargetObject> m_cameraTargets;
-    int m_currentTarget = 0;
+    int m_currentCameraTarget = 0;
     void initCameraPath();
-    void processCameraPath();
 
     void processExitTimer();
 
