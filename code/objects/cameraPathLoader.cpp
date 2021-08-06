@@ -33,16 +33,14 @@ std::vector<cameraTargetObject>loadCameraPath(const char* filepath){
         //this could be a loop but fuck that noise this runs like ONCE. ONCE PER STATE! i aint writin good code here .-.
 
         stringValues.push_back(fileLine.substr(0, spaces.at(0)));
-        stringValues.push_back(fileLine.substr(spaces.at(0), spaces.at(1)));
-        stringValues.push_back(fileLine.substr(spaces.at(1), spaces.at(2)));
+        stringValues.push_back(fileLine.substr(spaces.at(0) + 1, spaces.at(1) - spaces.at(0) - 1));
+        stringValues.push_back(fileLine.substr(spaces.at(1) + 1, spaces.at(2) - spaces.at(1) - 1));
+        stringValues.push_back(fileLine.substr(spaces.at(2) + 1, spaces.at(3) - spaces.at(2) - 1));
+        stringValues.push_back(fileLine.substr(spaces.at(3) + 1, spaces.at(4) - spaces.at(3) - 1));
+        stringValues.push_back(fileLine.substr(spaces.at(4) + 1, spaces.at(5) - spaces.at(4) - 1));
+        stringValues.push_back(fileLine.substr(spaces.at(5) + 1, spaces.at(6) - spaces.at(5) - 1));
 
-        stringValues.push_back(fileLine.substr(spaces.at(2), spaces.at(3)));
-        stringValues.push_back(fileLine.substr(spaces.at(3), spaces.at(4)));
-        stringValues.push_back(fileLine.substr(spaces.at(4), spaces.at(5)));
-
-        stringValues.push_back(fileLine.substr(spaces.at(5), spaces.at(6)));
-
-        stringValues.push_back(fileLine.substr(spaces.at(6)));
+        stringValues.push_back(fileLine.substr(spaces.at(6) + 1));
 
         obj.cameraPos = glm::vec3(std::stof(stringValues.at(0)), std::stof(stringValues.at(1)), std::stof(stringValues.at(2)));
         obj.cameraLookAt = glm::vec3(std::stof(stringValues.at(3)), std::stof(stringValues.at(4)), std::stof(stringValues.at(5)));
