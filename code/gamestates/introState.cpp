@@ -141,6 +141,7 @@ void introState::processInput(){
         if(m_currentCameraTarget >= (m_cameraTargets.size() - 1)){
             m_exitTimerStart = true;
             m_fadeOut = true;
+            return;
         }
 
         m_currentCameraTarget++;
