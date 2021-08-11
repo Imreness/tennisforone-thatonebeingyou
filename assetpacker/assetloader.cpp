@@ -22,6 +22,7 @@
 
     per model:
     25 * char - model name
+    16 floats - transform matrix
     8bit int - textureID
     32bit int - verticesamount
     float_t  - vertices
@@ -116,6 +117,17 @@ namespace assetloader{
             file.writeChars(name.C_Str(), 25);
 
             name.Clear();
+
+            aiMatrix4x4 mat = currNode->mTransformation;
+            glm::mat4 transMat = glm::mat4(1.f);
+
+            transMat = glm::transpose(glm::make_mat4(&mat.a1));
+
+            for(int i = 0; i < 4; i++){
+                for(int x = 0; x < 4; x++){
+                    file.write((float_t)transMat[i][x]);
+                }
+            }
 
             file.write((uint8_t)nodeMesh->mMaterialIndex);
 

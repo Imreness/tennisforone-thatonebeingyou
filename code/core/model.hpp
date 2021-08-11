@@ -7,6 +7,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+
 struct VertexData
 {
 	std::vector<float> vertices;
@@ -28,9 +30,9 @@ private:
 public:
 
 	unsigned int m_texID;
+	glm::mat4 m_initTransform;
 
-
-	Model(unsigned int texID, VertexData m_data, VertexLayout layout = VertexLayout::NORMAL);
+	Model(unsigned int texID, VertexData m_data, glm::mat4 initTransform ,VertexLayout layout = VertexLayout::NORMAL);
 
 	void render();
 

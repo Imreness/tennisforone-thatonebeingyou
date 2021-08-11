@@ -6,14 +6,13 @@ void introState::init(GLFWwindow* referenceWindow){
 
     m_window = referenceWindow;
 
+    initCameraPath();
     initGraphics();
 
     initObjects();
     initAudio();
 
     initInput();
-
-    initCameraPath();
 
     initDeltaTime();
 }
@@ -59,7 +58,7 @@ void introState::initGraphics(){
     m_frameBuffer = new FrameBuffer(windowWidth, windowHeight, windowWidth, windowHeight, m_graphics.getShader("framebuffer"));
 
     m_gameCam = new RailsCamera(m_window);
-    m_gameCam->moveTo(glm::vec3(0, 0 , -5), glm::vec3(0 , 0 , 0), 0);
+    m_gameCam->moveTo(m_cameraTargets.at(0).cameraPos, m_cameraTargets.at(0).cameraLookAt, 0);
     m_gameCam->m_moveSpeed = 5;
 
     assetLoader::loadAssetBundle(m_textures, m_models, "intro");
@@ -72,7 +71,8 @@ void introState::initCameraPath(){
 void introState::initObjects(){
     spdlog::info("Initalizing Game Objects...");
 
-    m_gameObjects.insert({"grass" , GameObject{m_models.at("grass")}});
+    m_gameObjects.insert({"brick" , GameObject{m_models.at("brick")}});
+    m_gameObjects.insert({"Cube", GameObject{m_models.at("Cube")}});
 }
 
 void introState::render(){

@@ -60,6 +60,14 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
         char* name = file.readChars(25);
         std::string nameString(name); delete[] name;
 
+        glm::mat4 mat = glm::mat4(1.f);
+
+        for(int i = 0; i < 4; i++){
+            for(int x = 0; x < 4; x++){
+                mat[i][x] = file.read<float_t>();
+            }
+        }
+
         unsigned int textureID = file.read<uint8_t>();
 
         VertexData vertDat;
@@ -83,6 +91,6 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
             vertDat.indicies.push_back(file.read<uint32_t>());
         }
 
-        models.insert({nameString, new Model(textureID,vertDat)});
+        models.insert({nameString, new Model(textureID,vertDat, mat)});
     }
 }
