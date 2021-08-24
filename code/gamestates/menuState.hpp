@@ -3,10 +3,10 @@
 #include <core/gamestate.hpp>
 #include <core/assetLoader.hpp>
 #include <core/graphicsEngine.hpp>
+#include <core/physicsEngine.hpp>
 
 #include <core/inputManager.hpp>
 #include <core/framebuffer.hpp>
-#include <objects/cameraPathLoader.hpp>
 
 #include <soloud/soloud.h>
 #include <soloud/soloud_wav.h>
@@ -16,12 +16,12 @@ private:
     graphicsEngine m_graphics;
     InputManager m_input;
     FrameBuffer* m_frameBuffer;
+    PhysicsEngine m_physics;
 
     float m_brightness = 0.0000000001f;
     //if its false, we're fading in
     bool m_fadeOut = false;
     float m_fadeSpeed = 3.f;
-
 
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
@@ -43,6 +43,7 @@ private:
 
     void initGraphics();
     void initObjects();
+    void initPhysicsObjects();
 
     void render();
     void processFading();

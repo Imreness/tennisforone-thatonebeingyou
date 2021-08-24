@@ -15,8 +15,6 @@
 #include <soloud/soloud.h>
 #include <soloud/soloud_wav.h>
 
-#include <objects/cameraPathLoader.hpp>
-
 class introState : public gameState{
 private:
     graphicsEngine m_graphics;

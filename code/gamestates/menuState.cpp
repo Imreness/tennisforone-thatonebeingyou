@@ -2,9 +2,11 @@
 #include <spdlog/spdlog.h>
 
 void menuState::init(GLFWwindow* referenceWindow){
-    spdlog::info("Launching intro state...");
+    spdlog::info("Launching menu state...");
 
     m_window = referenceWindow;
+    m_physics.init(m_window);
+    m_physics.initDebugDrawer();
 
     initCameraPath();
     initGraphics();
@@ -60,18 +62,27 @@ void menuState::initGraphics(){
     m_gameCam->moveTo(m_cameraTargets.at(0).cameraPos, m_cameraTargets.at(0).cameraLookAt, 0);
     m_gameCam->m_moveSpeed = 5;
 
-    assetLoader::loadAssetBundle(m_textures, m_models, "intro");
+    assetLoader::loadAssetBundle(m_textures, m_models, "mainmenu");
 }
 
 void menuState::initCameraPath(){
-    m_cameraTargets = loadCameraPath("assets/intro.path");
+    m_cameraTargets = loadCameraPath("assets/menu.path");
 }
 
 void menuState::initObjects(){
     spdlog::info("Initalizing Game Objects...");
 
-    m_gameObjects.insert({"brick" , GameObject{m_models.at("brick")}});
-    m_gameObjects.insert({"Cube", GameObject{m_models.at("Cube")}});
+    m_gameObjects.insert({"floor" , GameObject{m_models.at("floor")}});
+    m_gameObjects.insert({"desk", GameObject{m_models.at("desk")}});
+    m_gameObjects.insert({"wall", GameObject{m_models.at("wall")}});
+    m_gameObjects.insert({"menubox", GameObject{m_models.at("menubox")}});
+}
+
+void menuState::initPhysicsObjects(){
+    spdlog::info("Initalizing Physics colliders...");
+
+    m_physics.createColObject("play");
+    m_physics.addBoxCollider("play")
 }
 
 void menuState::render(){
@@ -121,14 +132,27 @@ void menuState::initInput(){
     m_input.registerKey("click", 0, true, true);
     m_input.registerKey("skipEsc", GLFW_KEY_ESCAPE, true);
     m_input.registerKey("skipSpace", GLFW_KEY_SPACE, true);
+
+    m_input.registerKey("debugPlay", GLFW_KEY_KP_5, true);
 }
 
 void menuState::processInput(){
-    if(m_input.isPressed("next")){
+    if(m_input.isPressed("click")){
     }
     if(m_input.isPressed("skipEsc") || m_input.isPressed("skipSpace")){
-        //TODO
-        //do some cameratarget translations like in introstate
+        if(m_currentCameraTarget >= (m_cameraTargets.size() - 1)){
+            return;
+        }
+
+        m_currentCameraTarget++;
+        cameraTargetObject target = m_cameraTargets.at(m_currentCameraTarget);
+        m_gameCam->m_moveSpeed = target.movementSpeed;
+        m_gameCam->moveTo(target.cameraPos, target.cameraLookAt, target.movementTime);
+ 
+    }
+
+    if(m_input.isPressed("debugPlay")){
+        m_exit = true;
     }
 }
 
@@ -145,7 +169,7 @@ void menuState::update3DAudio(){
     );
 }
 
-menuState>:~menuState(){
+menuState::~menuState(){
     spdlog::info("Deleting playstate...");
 
     m_soloud->deinit();

@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <objects/cameraPathLoader.hpp>
+
 enum class nextStateEnum{
     NOTHING,
     GAME,
