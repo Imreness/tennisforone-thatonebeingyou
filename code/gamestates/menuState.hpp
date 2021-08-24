@@ -4,20 +4,62 @@
 #include <core/assetLoader.hpp>
 #include <core/graphicsEngine.hpp>
 
+#include <core/inputManager.hpp>
+#include <core/framebuffer.hpp>
+#include <objects/cameraPathLoader.hpp>
+
+#include <soloud/soloud.h>
+#include <soloud/soloud_wav.h>
+
 class menuState : public gameState{
 private:
-    uiManager m_uiManager;
     graphicsEngine m_graphics;
+    InputManager m_input;
+    FrameBuffer* m_frameBuffer;
 
-    bool m_startGame = false;
+    float m_brightness = 0.0000000001f;
+    //if its false, we're fading in
+    bool m_fadeOut = false;
+    float m_fadeSpeed = 3.f;
 
-    //ui
-    void initUI();
-    void processUIClick();
 
-    //rendering
+    std::vector<Texture*> m_textures;
+    std::unordered_map<std::string, Model*> m_models;
+
+    std::unordered_map<std::string, GameObject> m_gameObjects;
+
+    RailsCamera* m_gameCam;
+
+    bool m_exit = false;
+
+    SoLoud::Soloud* m_soloud;
+    std::unordered_map<std::string, SoLoud::Wav> m_sounds;
+
+    float m_renderAccumulator = 0;
+    float m_renderTick = 1. / 60.;
+
+    float m_lastTime;
+    float m_deltaTime;
+
     void initGraphics();
+    void initObjects();
+
     void render();
+    void processFading();
+
+    void initInput();
+    void processInput();
+
+    std::vector<cameraTargetObject> m_cameraTargets;
+    int m_currentCameraTarget = 0;
+    void initCameraPath();
+
+    void initDeltaTime();
+    void calculateDeltaTime();
+
+    void initAudio();
+    void update3DAudio();
+
 
 public:
     virtual void init(GLFWwindow*);
