@@ -11,6 +11,7 @@ void menuState::init(GLFWwindow* referenceWindow){
     initCameraPath();
     initGraphics();
 
+    initPhysicsObjects();
     initObjects();
     initAudio();
 
@@ -31,6 +32,10 @@ void menuState::process(){
 
     render();
 
+    if(m_exit){
+        glfwSetWindowShouldClose(m_window, true);
+    }
+
 }
 
 bool menuState::shouldRun(){
@@ -38,7 +43,7 @@ bool menuState::shouldRun(){
 }
 
 nextStateEnum menuState::nextState(){
-    if(m_exit){
+    if(m_play){
         return nextStateEnum::INTRO;
     }
     else{
@@ -55,6 +60,7 @@ void menuState::initGraphics(){
     m_graphics.setTargetWindow(m_window);
     m_graphics.loadShader("object");
     m_graphics.loadShader("framebuffer");
+    m_graphics.loadShader("bulletDebug");
 
     m_frameBuffer = new FrameBuffer(windowWidth, windowHeight, windowWidth, windowHeight, m_graphics.getShader("framebuffer"));
 
@@ -82,7 +88,10 @@ void menuState::initPhysicsObjects(){
     spdlog::info("Initalizing Physics colliders...");
 
     m_physics.createColObject("play");
-    m_physics.addBoxCollider("play")
+    m_physics.addBoxCollider("play", reactphysics3d::Vector3(0.1 , 0.06 , 0.1), reactphysics3d::Vector3(5.4911, 6.182, 2.5));
+
+    m_physics.createColObject("exit");
+    m_physics.addBoxCollider("exit", reactphysics3d::Vector3(0.1 , 0.06, 0.1), reactphysics3d::Vector3(6.22, 6.182, 2.5));
 }
 
 void menuState::render(){
@@ -92,6 +101,7 @@ void menuState::render(){
 
         m_graphics.renderObjects(m_gameCam, m_textures, m_gameObjects);
 
+        m_physics.debugRender(m_gameCam->m_view, m_gameCam->m_proj, m_graphics.getShader("bulletDebug"));
         m_graphics.renderEnd();
 
         m_frameBuffer->Render(m_brightness);
@@ -138,6 +148,19 @@ void menuState::initInput(){
 
 void menuState::processInput(){
     if(m_input.isPressed("click")){
+        Raycasthit playHit;
+        playHit = m_physics.testMouseRayAgainstCollisionObject("play", m_gameCam->m_view, m_gameCam->m_proj, false);
+
+        if(playHit.m_isHit){
+            m_play = true;
+        }
+
+        Raycasthit exitHit;
+        exitHit = m_physics.testMouseRayAgainstCollisionObject("exit", m_gameCam->m_view, m_gameCam->m_proj, false);
+
+        if(exitHit.m_isHit){
+            m_exit = true;
+        }
     }
     if(m_input.isPressed("skipEsc") || m_input.isPressed("skipSpace")){
         if(m_currentCameraTarget >= (m_cameraTargets.size() - 1)){

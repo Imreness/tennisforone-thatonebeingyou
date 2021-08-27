@@ -31,6 +31,7 @@ private:
     RailsCamera* m_gameCam;
 
     bool m_exit = false;
+    bool m_play = false;
 
     SoLoud::Soloud* m_soloud;
     std::unordered_map<std::string, SoLoud::Wav> m_sounds;
