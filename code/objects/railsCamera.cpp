@@ -6,7 +6,7 @@ RailsCamera::RailsCamera(GLFWwindow* window){
     int winX, winY;
 	glfwGetWindowSize(window, &winX, &winY);
 	m_proj = glm::mat4(1.0); m_view = glm::mat4(1.0);
-	m_proj = glm::perspective(45.f, (float)winX / (float)winY, 0.001f, 100.f);
+	m_proj = glm::perspective(45.f, (float)winX / (float)winY, 0.001f, 1000.f);
 
 	m_position = glm::vec3(-1, 0.43 , 0); m_up = glm::vec3(0., 1., 0.);
 
