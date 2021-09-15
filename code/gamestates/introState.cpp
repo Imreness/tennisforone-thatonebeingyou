@@ -71,8 +71,33 @@ void introState::initCameraPath(){
 void introState::initObjects(){
     spdlog::info("Initalizing Game Objects...");
 
-    m_gameObjects.insert({"brick" , GameObject{m_models.at("brick")}});
-    m_gameObjects.insert({"Cube", GameObject{m_models.at("Cube")}});
+    m_gameObjects.insert({"floor" , GameObject{m_models.at("floor")}});
+    m_gameObjects.insert({"cagedecorfrontleft" , GameObject{m_models.at("cagedecorfrontleft")}});
+    m_gameObjects.insert({"cagedecorfrontright" , GameObject{m_models.at("cagedecorfrontright")}});
+    m_gameObjects.insert({"cagedecorrearleft" , GameObject{m_models.at("cagedecorrearleft")}});
+    m_gameObjects.insert({"cagedecorrearright" , GameObject{m_models.at("cagedecorrearright")}});
+    m_gameObjects.insert({"pathwayedge1" , GameObject{m_models.at("pathwayedge1")}});
+    m_gameObjects.insert({"pathwayedge2" , GameObject{m_models.at("pathwayedge2")}});
+    m_gameObjects.insert({"pathways" , GameObject{m_models.at("pathways")}});
+    m_gameObjects.insert({"counterrack" , GameObject{m_models.at("counterrack")}});
+    m_gameObjects.insert({"hedge1" , GameObject{m_models.at("hedge1")}});
+    m_gameObjects.insert({"hedge2" , GameObject{m_models.at("hedge2")}});
+    m_gameObjects.insert({"hedge3" , GameObject{m_models.at("hedge3")}});
+    m_gameObjects.insert({"hedge4" , GameObject{m_models.at("hedge4")}});
+    m_gameObjects.insert({"hedge5" , GameObject{m_models.at("hedge5")}});
+    m_gameObjects.insert({"hedge6" , GameObject{m_models.at("hedge6")}});
+    m_gameObjects.insert({"hedgevertical" , GameObject{m_models.at("hedgevertical")}});
+    m_gameObjects.insert({"laser" , GameObject{m_models.at("laser")}});
+    m_gameObjects.insert({"laser2" , GameObject{m_models.at("laser2")}});
+    m_gameObjects.insert({"laser3" , GameObject{m_models.at("laser3")}});
+    m_gameObjects.insert({"laser4" , GameObject{m_models.at("laser4")}});
+    m_gameObjects.insert({"laser5" , GameObject{m_models.at("laser5")}});
+    m_gameObjects.insert({"laser6" , GameObject{m_models.at("laser6")}});
+    m_gameObjects.insert({"laser7" , GameObject{m_models.at("laser7")}});
+    m_gameObjects.insert({"laser8" , GameObject{m_models.at("laser8")}});
+    m_gameObjects.insert({"sky" , GameObject{m_models.at("sky")}});
+    m_gameObjects.insert({"skyline" , GameObject{m_models.at("skyline")}});
+    
 }
 
 void introState::render(){

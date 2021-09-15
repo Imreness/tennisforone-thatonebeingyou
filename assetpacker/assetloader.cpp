@@ -60,7 +60,7 @@ namespace assetloader{
 
         textureAmount = 0;
         modelAmount = 0;
-
+        
         std::printf("Name a file to pack\n");
             
         std::string assetfileName;
@@ -73,6 +73,8 @@ namespace assetloader{
         outfile.write(modelAmount, 1);
 
         outfile.close();
+
+        printf("Done packing %s from %s!\n", outfilePath.c_str(), modelpath.c_str());
     }
 
     void packtextures(const aiScene* level, binaryFile& file, std::string texturepath){
