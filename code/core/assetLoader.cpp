@@ -57,7 +57,11 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     }
 
     for(int i = 0; i < modelAmount; i++){
-        char* name = file.readChars(25);
+       char* name = file.readChars(25);
+       if(name == "hedge1"){
+           int x = 15;   
+        }
+
         std::string nameString(name); delete[] name;
 
         glm::mat4 mat = glm::mat4(1.f);

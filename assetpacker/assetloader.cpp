@@ -83,6 +83,10 @@ namespace assetloader{
             aiString texPath;
             level->mMaterials[i]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0,&texPath);
 
+            if (texPath .C_Str() == ""){
+                continue;
+            }
+
             std::string realTexturePath(texturepath);
             realTexturePath.append(texPath.C_Str());
 
