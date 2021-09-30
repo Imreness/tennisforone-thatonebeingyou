@@ -95,7 +95,7 @@ void playState::initObjects(){
     m_gameObjects.insert({"floor", GameObject{m_models.at("floor")}});
     //m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
 
-    m_gameObjects.insert({"shadow", GameObject{m_models.at("Plane")}});
+    m_gameObjects.insert({"shadow", GameObject{m_models.at("shadow")}});
     m_gameObjects.at("shadow").m_render = false;
     m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
     m_gameObjects.insert({"guidering", GameObject{m_models.at("guide")}});
@@ -108,26 +108,52 @@ void playState::initObjects(){
 
     m_tennisBall->resetBall(true);
 
-    m_gameObjects.insert({"counterrack", GameObject{m_models.at("counterrack")}});
-
+    m_gameObjects.insert({"floor" , GameObject{m_models.at("floor")}});
+    m_gameObjects.insert({"cagedecorfrontleft" , GameObject{m_models.at("cagedecorfrontleft")}});
+    m_gameObjects.insert({"cagedecorfrontright" , GameObject{m_models.at("cagedecorfrontright")}});
+    m_gameObjects.insert({"cagedecorrearleft" , GameObject{m_models.at("cagedecorrearleft")}});
+    m_gameObjects.insert({"cagedecorrearright" , GameObject{m_models.at("cagedecorrearright")}});
+    m_gameObjects.insert({"pathwayedge1" , GameObject{m_models.at("pathwayedge1")}});
+    m_gameObjects.insert({"pathwayedge2" , GameObject{m_models.at("pathwayedge2")}});
+    m_gameObjects.insert({"pathways" , GameObject{m_models.at("pathways")}});
+    m_gameObjects.insert({"counterrack" , GameObject{m_models.at("counterrack")}});
+    m_gameObjects.insert({"hedge1" , GameObject{m_models.at("hedge1")}});
+    m_gameObjects.insert({"hedge2" , GameObject{m_models.at("hedge2")}});
+    m_gameObjects.insert({"hedge3" , GameObject{m_models.at("hedge3")}});
+    m_gameObjects.insert({"hedge4" , GameObject{m_models.at("hedge4")}});
+    m_gameObjects.insert({"hedge5" , GameObject{m_models.at("hedge5")}});
+    m_gameObjects.insert({"hedge6" , GameObject{m_models.at("hedge6")}});
+    m_gameObjects.insert({"hedgevertical" , GameObject{m_models.at("hedgevertical")}});
+    m_gameObjects.insert({"laser" , GameObject{m_models.at("laser")}});
+    m_gameObjects.insert({"laser2" , GameObject{m_models.at("laser2")}});
+    m_gameObjects.insert({"laser3" , GameObject{m_models.at("laser3")}});
+    m_gameObjects.insert({"laser4" , GameObject{m_models.at("laser4")}});
+    m_gameObjects.insert({"laser5" , GameObject{m_models.at("laser5")}});
+    m_gameObjects.insert({"laser6" , GameObject{m_models.at("laser6")}});
+    m_gameObjects.insert({"laser7" , GameObject{m_models.at("laser7")}});
+    m_gameObjects.insert({"laser8" , GameObject{m_models.at("laser8")}});
+    m_gameObjects.insert({"sky" , GameObject{m_models.at("sky")}});
+    m_gameObjects.insert({"skyline" , GameObject{m_models.at("skyline")}});
 
 
     //a level editor would come handy round this time :d
-    m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerLED1")}});
-    m_gameObjects.insert({"playerLED2", GameObject{m_models.at("playerLED2")}});
-    m_gameObjects.insert({"playerLED3", GameObject{m_models.at("playerLED3")}});
+    m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerscore1")}});
+    m_gameObjects.insert({"playerLED2", GameObject{m_models.at("playerscore2")}});
+    m_gameObjects.insert({"playerLED3", GameObject{m_models.at("playerscore3")}});
 
     m_gameObjects.at("playerLED1").m_render = false;
     m_gameObjects.at("playerLED2").m_render = false;
     m_gameObjects.at("playerLED3").m_render = false;
 
-    m_gameObjects.insert({"aiLED1", GameObject{m_models.at("aiLED1")}});
-    m_gameObjects.insert({"aiLED2", GameObject{m_models.at("aiLED2")}});
-    m_gameObjects.insert({"aiLED3", GameObject{m_models.at("aiLED3")}});
+    m_gameObjects.insert({"aiLED1", GameObject{m_models.at("aiscore1")}});
+    m_gameObjects.insert({"aiLED2", GameObject{m_models.at("aiscore2")}});
+    m_gameObjects.insert({"aiLED3", GameObject{m_models.at("aiscore3")}});
 
     m_gameObjects.at("aiLED1").m_render = false;
     m_gameObjects.at("aiLED2").m_render = false;
     m_gameObjects.at("aiLED3").m_render = false;
+
+    m_gameObjects.insert({"aidiff", GameObject{m_models.at("aidiff")}});
 }
 
 void playState::initPhysicsObjects(){
@@ -155,7 +181,7 @@ void playState::initPhysicsObjects(){
     m_physics.addBoxCollider("rightboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, 2));
 
     m_physics.createColObject("floorboard");
-    m_physics.addBoxCollider("floorboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, -.07,0));
+    m_physics.addBoxCollider("floorboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, -.08,0));
 
     m_physics.createColObject("ceilingboard");
     m_physics.addBoxCollider("ceilingboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, (2 - 0.07),0));
@@ -164,7 +190,7 @@ void playState::initPhysicsObjects(){
     m_physics.addBoxCollider("mouseBoard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
 
     m_physics.createColObject("button_exit");
-    m_physics.addBoxCollider("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , -0.54));
+    m_physics.addBoxCollider("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.9 , 0));
 
 }
 
@@ -207,6 +233,26 @@ void playState::renderLights(bool isDebugCam){
     if(isDebugCam){
     }
     else{
+        int aiScore = m_score.m_aiScore, playerScore = m_score.m_playerScore;
+
+        for(int i = 0; i < 3; i++){
+            std::string objectname{"aiLED" + std::to_string(i + 1)};
+            if(i < aiScore){
+                m_gameObjects.at(objectname).m_render = true;
+            }
+            else{
+                m_gameObjects.at(objectname).m_render = false;
+            }
+        } 
+        for(int i = 0; i < 3; i++){
+            std::string objectname{"playerLED" + std::to_string(i + 1)};
+            if(i < playerScore){
+                m_gameObjects.at(objectname).m_render = true;
+            }
+            else{
+                m_gameObjects.at(objectname).m_render = false;
+            }
+        }       
     }
 }
 
@@ -435,12 +481,13 @@ void playState::processBall(){
             if(m_maxDifficulty == 0){
                 m_maxDifficulty++;
                 m_aiRacket->m_difficulty = AIDIFFICULTY::MEDIUM;
-                
+                m_gameObjects.at("aidiff").m_refModel->m_texID = 2;
                 m_score.reset();
             }
             else if(m_maxDifficulty == 1){
                 m_maxDifficulty++;
                 m_aiRacket->m_difficulty = AIDIFFICULTY::HARD;
+                m_gameObjects.at("aidiff").m_refModel->m_texID = 1;
 
                 m_score.reset();
             }

@@ -97,8 +97,8 @@ glm::vec3 aiRacket::generateRackedDir(){
             maxDistance = 0.5f;
             break;
         case AIDIFFICULTY::HARD:
-            minDistace = 0.5f;
-            maxDistance = 1.2f;
+            minDistace = 0.3f;
+            maxDistance = 0.6f;
             break;
     }
 

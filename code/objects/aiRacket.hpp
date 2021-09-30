@@ -11,7 +11,6 @@ enum class AIDIFFICULTY{
 
 struct aiRacket{
     GameObject& m_refObject;
-    GameObject& m_refShock;
 
     AIDIFFICULTY m_difficulty;
 
@@ -24,14 +23,13 @@ struct aiRacket{
     const float m_minSpeedNormal = 3.f;
     const float m_maxSpeedNormal = 5.f;
     const float m_minSpeedHard = 5.5f;
-    const float m_maxSpeedHard = 10.f;
+    const float m_maxSpeedHard = 7.f;
 
     const float m_speedEasy = (m_minSpeedEasy + m_maxSpeedEasy) / 2;
     const float m_speedNormal = (m_minSpeedNormal + m_maxSpeedNormal) / 2;
     const float m_speedHard = (m_minSpeedHard + m_maxSpeedHard) / 2;
 
-
-    aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY difficulty);
+    aiRacket(GameObject& refObject, AIDIFFICULTY difficulty);
 
     void update(double deltaTime);
 

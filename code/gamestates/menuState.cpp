@@ -106,10 +106,10 @@ void menuState::initPhysicsObjects(){
     spdlog::info("Initalizing Physics colliders...");
 
     m_physics.createColObject("play");
-    m_physics.addBoxCollider("play", reactphysics3d::Vector3(0.1 , 0.06 , 0.1), reactphysics3d::Vector3(5.4911, 6.182, 2.5));
+    m_physics.addBoxCollider("play", reactphysics3d::Vector3(0.1 , 0.1 , 0.1), reactphysics3d::Vector3(5.4911, 6.182, 2.5));
 
     m_physics.createColObject("exit");
-    m_physics.addBoxCollider("exit", reactphysics3d::Vector3(0.1 , 0.06, 0.1), reactphysics3d::Vector3(6.22, 6.182, 2.5));
+    m_physics.addBoxCollider("exit", reactphysics3d::Vector3(0.1 , 0.1, 0.1), reactphysics3d::Vector3(6.22, 6.182, 2.5));
 }
 
 void menuState::render(){

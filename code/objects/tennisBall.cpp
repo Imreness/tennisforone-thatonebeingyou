@@ -55,14 +55,14 @@ void tennisBall::calculateShadowScale(float distanceFromGround){
 void tennisBall::calculateGuideRing(float distanceFromBoard){
     glm::mat4& mat = m_refGuide.m_modelMat;
 
-    if (distanceFromBoard < 0.3){
-        distanceFromBoard = 0.3;
+    if (distanceFromBoard < 0.1){
+        distanceFromBoard = 0.1;
     }
 
     mat = glm::mat4(1.);
     mat = glm::translate(mat, glm::vec3(0, m_position.y, m_position.z));
 
-    mat = glm::scale(mat, glm::vec3(distanceFromBoard));
+    mat = glm::scale(mat, glm::vec3(distanceFromBoard  / 1.1));
 }
 
 //racketdir is NOT normalized
