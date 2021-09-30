@@ -1,6 +1,6 @@
 #include <objects/aiRacket.hpp>
 
-aiRacket::aiRacket(GameObject& refObject, GameObject& refShock, AIDIFFICULTY difficulty) : m_refObject(refObject), m_refShock(refShock), m_difficulty(difficulty){
+aiRacket::aiRacket(GameObject& refObject, AIDIFFICULTY difficulty) : m_refObject(refObject), m_difficulty(difficulty){
     spdlog::info("Creating AI Racket...");
 
     m_position = glm::vec3(0., 7., 0.);
@@ -29,7 +29,6 @@ void aiRacket::update(double deltaTime){
     mat = glm::translate(mat, m_position);
 
     m_refObject.m_modelMat = mat;
-    m_refShock.m_modelMat = mat;
 }
 
 void aiRacket::setTarget(glm::vec3 targetPos){

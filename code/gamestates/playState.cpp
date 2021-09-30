@@ -86,14 +86,14 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
     m_gameObjects.insert({"enemyRacket" , GameObject{m_models.at("racket")}});
-    m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
-    m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
-    m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"), m_gameObjects.at("shock"));
+    //m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
+    //m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
+    m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
 
-    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), m_gameObjects.at("enemyShock"), AIDIFFICULTY::EASY);
+    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), AIDIFFICULTY::EASY);
 
-    m_gameObjects.insert({"house", GameObject{m_models.at("house")}});
-    m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
+    m_gameObjects.insert({"floor", GameObject{m_models.at("floor")}});
+    //m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
 
     m_gameObjects.insert({"shadow", GameObject{m_models.at("Plane")}});
     m_gameObjects.at("shadow").m_render = false;
@@ -110,42 +110,24 @@ void playState::initObjects(){
 
     m_gameObjects.insert({"counterrack", GameObject{m_models.at("counterrack")}});
 
-    m_gameObjects.insert({"nameplatePlayer", GameObject{m_models.at("nameplatePlayer")}});
-    m_gameObjects.insert({"nameplateAI", GameObject{m_models.at("nameplateAI")}});
 
 
     //a level editor would come handy round this time :d
     m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerLED1")}});
     m_gameObjects.insert({"playerLED2", GameObject{m_models.at("playerLED2")}});
     m_gameObjects.insert({"playerLED3", GameObject{m_models.at("playerLED3")}});
-    m_gameObjects.insert({"playerLED4", GameObject{m_models.at("playerLED4")}});
-    m_gameObjects.insert({"playerLED5", GameObject{m_models.at("playerLED5")}});
-    m_gameObjects.insert({"playerLED6", GameObject{m_models.at("playerLED6")}});
 
     m_gameObjects.at("playerLED1").m_render = false;
     m_gameObjects.at("playerLED2").m_render = false;
     m_gameObjects.at("playerLED3").m_render = false;
-    m_gameObjects.at("playerLED4").m_render = false;
-    m_gameObjects.at("playerLED5").m_render = false;
-    m_gameObjects.at("playerLED6").m_render = false;
 
     m_gameObjects.insert({"aiLED1", GameObject{m_models.at("aiLED1")}});
     m_gameObjects.insert({"aiLED2", GameObject{m_models.at("aiLED2")}});
     m_gameObjects.insert({"aiLED3", GameObject{m_models.at("aiLED3")}});
-    m_gameObjects.insert({"aiLED4", GameObject{m_models.at("aiLED4")}});
-    m_gameObjects.insert({"aiLED5", GameObject{m_models.at("aiLED5")}});
-    m_gameObjects.insert({"aiLED6", GameObject{m_models.at("aiLED6")}});
 
     m_gameObjects.at("aiLED1").m_render = false;
     m_gameObjects.at("aiLED2").m_render = false;
     m_gameObjects.at("aiLED3").m_render = false;
-    m_gameObjects.at("aiLED4").m_render = false;
-    m_gameObjects.at("aiLED5").m_render = false;
-    m_gameObjects.at("aiLED6").m_render = false;
-
-    m_gameObjects.insert({"button_exit", GameObject{m_models.at("button_exit")}});
-    m_gameObjects.insert({"button_inc", GameObject{m_models.at("button_inc")}});
-    m_gameObjects.insert({"button_dec", GameObject{m_models.at("button_dec")}});
 }
 
 void playState::initPhysicsObjects(){
@@ -184,11 +166,6 @@ void playState::initPhysicsObjects(){
     m_physics.createColObject("button_exit");
     m_physics.addBoxCollider("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , -0.54));
 
-    m_physics.createColObject("button_inc");
-    m_physics.addBoxCollider("button_inc", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , 0.59));
-
-    m_physics.createColObject("button_dec");
-    m_physics.addBoxCollider("button_dec", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.93 , 0.84));
 }
 
 void playState::render(){
@@ -228,34 +205,8 @@ void playState::render(){
 
 void playState::renderLights(bool isDebugCam){
     if(isDebugCam){
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED1"), m_score.isLEDLit(true,1));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED2"), m_score.isLEDLit(true,2));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED3"), m_score.isLEDLit(true,3));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED4"), m_score.isLEDLit(true,4));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED5"), m_score.isLEDLit(true,5));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("playerLED6"), m_score.isLEDLit(true,6));
-
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED1"), m_score.isLEDLit(false,1));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED2"), m_score.isLEDLit(false,2));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED3"), m_score.isLEDLit(false,3));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED4"), m_score.isLEDLit(false,4));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED5"), m_score.isLEDLit(false,5));
-        m_graphics.renderLight(m_debugCam, m_textures, m_gameObjects.at("aiLED6"), m_score.isLEDLit(false,6));
     }
     else{
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED1"), m_score.isLEDLit(true,1));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED2"), m_score.isLEDLit(true,2));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED3"), m_score.isLEDLit(true,3));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED4"), m_score.isLEDLit(true,4));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED5"), m_score.isLEDLit(true,5));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("playerLED6"), m_score.isLEDLit(true,6));
-        
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED1"), m_score.isLEDLit(false,1));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED2"), m_score.isLEDLit(false,2));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED3"), m_score.isLEDLit(false,3));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED4"), m_score.isLEDLit(false,4));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED5"), m_score.isLEDLit(false,5));
-        m_graphics.renderLight(m_gameCam, m_textures, m_gameObjects.at("aiLED6"), m_score.isLEDLit(false,6));
     }
 }
 
@@ -308,17 +259,6 @@ void playState::process3DButtons(){
             m_fadeOut = true;
             return;
         }
-
-        Raycasthit hitInc = m_physics.testMouseRayAgainstCollisionObject("button_inc", m_gameCam->m_view, m_gameCam->m_proj);
-        if(hitInc.m_isHit){
-            changeAIDifficulty(true);
-            return;
-        } 
-
-        Raycasthit hitDec = m_physics.testMouseRayAgainstCollisionObject("button_dec", m_gameCam->m_view, m_gameCam->m_proj);
-        if(hitDec.m_isHit){
-            changeAIDifficulty(false);
-        }
     }
 
     //std::printf("aidifficulty: %i\n", m_aiRacket->m_difficulty);
@@ -355,7 +295,6 @@ void playState::initInput(){
 }
 
 void playState::processInput(){
-
     if(m_input.isPressed("pause")){
         if(m_timeScale == 0){
             m_timeScale = 1;
@@ -481,8 +420,8 @@ void playState::processBall(){
         m_score.addPoints(false);
 
         if(m_score.m_aiScore == m_score.m_maxScore){
-            m_timeScale = 0;
-            m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
+            m_score.reset();
+            //play sounds bite
         }
 
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
@@ -493,16 +432,17 @@ void playState::processBall(){
         m_score.addPoints(true);
 
         if(m_score.m_playerScore == m_score.m_maxScore){
-            m_timeScale = 0;
-            m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
-
             if(m_maxDifficulty == 0){
                 m_maxDifficulty++;
+                m_aiRacket->m_difficulty = AIDIFFICULTY::MEDIUM;
+                
+                m_score.reset();
             }
             else if(m_maxDifficulty == 1){
-                if(m_aiRacket->m_difficulty == AIDIFFICULTY::MEDIUM){
-                    m_maxDifficulty++;
-                }
+                m_maxDifficulty++;
+                m_aiRacket->m_difficulty = AIDIFFICULTY::HARD;
+
+                m_score.reset();
             }
             else if(m_maxDifficulty == 2){
                 if(m_aiRacket->m_difficulty == AIDIFFICULTY::HARD){

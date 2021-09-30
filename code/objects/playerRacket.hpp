@@ -11,14 +11,13 @@ enum class RACKETMOVEMENT{
 
 struct playerRacket{
     GameObject& m_refObject;
-    GameObject& m_refShock;
 
     glm::vec3 m_position;
     glm::vec3 m_targetPosition;
     float m_movementSpeed = 3;
 
 
-    playerRacket(GameObject& refObject, GameObject& refShock);
+    playerRacket(GameObject& refObject);
 
     void update (double deltaTime);
 
