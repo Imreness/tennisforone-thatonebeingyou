@@ -97,6 +97,12 @@ void introState::initObjects(){
     m_gameObjects.insert({"laser8" , GameObject{m_models.at("laser8")}});
     m_gameObjects.insert({"sky" , GameObject{m_models.at("sky")}});
     m_gameObjects.insert({"skyline" , GameObject{m_models.at("skyline")}});
+
+    m_gameObjects.insert({"tp_wall", GameObject{m_models.at("tp_wall")}});
+    m_gameObjects.insert({"tutorial1", GameObject{m_models.at("tutorial1")}});
+    m_gameObjects.insert({"tutorial2", GameObject{m_models.at("tutorial2")}});
+    m_gameObjects.insert({"tutorial3", GameObject{m_models.at("tutorial3")}});
+
     
 }
 
