@@ -273,6 +273,7 @@ void playState::process(){
     processPlayerRacket();
     processAiRacket();
     update3DAudio();
+    processBulletTime();
 
     m_physics.update(m_deltaTime);
 
@@ -342,12 +343,12 @@ void playState::initInput(){
 
 void playState::processInput(){
     if(m_input.isPressed("pause")){
-        if(m_timeScale == 0){
-            m_timeScale = 1;
+        if(m_currTimeScale == 0){
+            m_currTimeScale = 1;
             m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0.5);
         }
         else{
-            m_timeScale = 0;
+            m_currTimeScale = 0;
             m_gameCam->moveTo(glm::vec3(-1.5 , 1.8 , 0), glm::vec3(0, 2,0), 0.5);
         }
     }
@@ -375,7 +376,7 @@ void playState::processInput(){
     if(m_input.isPressed("debugResetBall")){
         m_tennisBall->resetBall(true);
         m_score.reset();
-        m_timeScale = 1;
+        m_currTimeScale = 1;
     }
 
 //    if(m_input.isPressed("debugTestSound")){
@@ -400,7 +401,7 @@ void playState::processPlayerRacket(){
         m_playerRacket->setTarget(hit.m_hitpos);
     }
 
-    m_playerRacket->update(m_deltaTime * m_timeScale);
+    m_playerRacket->update(m_deltaTime * m_currTimeScale);
 
     m_physics.setTransformFromMat("racket", m_playerRacket->m_refObject.m_modelMat);
 }
@@ -408,7 +409,7 @@ void playState::processPlayerRacket(){
 void playState::processAiRacket(){
     m_aiRacket->setTarget(glm::vec3(7, m_tennisBall->m_position.y, m_tennisBall->m_position.z));
 
-    m_aiRacket->update(m_deltaTime * m_timeScale);
+    m_aiRacket->update(m_deltaTime * m_currTimeScale);
 
     m_physics.setTransformFromMat("enemyRacket", m_aiRacket->m_refObject.m_modelMat);
 }
@@ -427,7 +428,7 @@ void playState::processBall(){
         m_tennisBall->calculateGuideRing(glm::distance(guideray.m_hitpos, m_tennisBall->m_position));
     }
 
-    m_tennisBall->update(m_deltaTime * m_timeScale);
+    m_tennisBall->update(m_deltaTime * m_currTimeScale);
 
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
 
@@ -473,6 +474,7 @@ void playState::processBall(){
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(false);
+        m_currTimeScale = 1;
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
         m_score.addPoints(true);
@@ -493,7 +495,7 @@ void playState::processBall(){
             }
             else if(m_maxDifficulty == 2){
                 if(m_aiRacket->m_difficulty == AIDIFFICULTY::HARD){
-                    //play end cutscene
+                    m_fadeOut = true;
                 }
             }
         }
@@ -501,6 +503,24 @@ void playState::processBall(){
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(true);
+        m_currTimeScale = 1;
+    }
+}
+
+void playState::processBulletTime(){
+    if(m_tennisBall->m_lastWall != WallTypes::PLAYER && m_currTimeScale != 0){
+        glm::vec3 ballpos = m_tennisBall->m_position;
+        Raycasthit hit = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(0, ballpos.y, ballpos.z) - ballpos);
+        if(hit.m_isHit){
+            float distance = glm::distance(ballpos, hit.m_hitpos);
+            if(distance < 1){
+                m_currTimeScale = 0.9 * distance + 0.1;
+            }
+            //printf("%.3f\n", m_currTimeScale);
+        }
+    }
+    else if(m_currTimeScale != 0){
+        m_currTimeScale = 1;
     }
 }
 

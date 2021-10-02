@@ -64,7 +64,7 @@ private:
     float m_lastTime;
     float m_deltaTime;
 
-    float m_timeScale = 1.f;
+    float m_currTimeScale = 1.f;
 
     //rendering
     void initGraphics();
@@ -84,6 +84,7 @@ private:
     void processPlayerRacket();
     void processAiRacket();
     void processBall();
+    void processBulletTime();
 
     void initDeltaTime();
     void calculateDeltaTime();
