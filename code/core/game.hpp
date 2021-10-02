@@ -8,6 +8,7 @@
 #include <gamestates/menuState.hpp>
 #include <gamestates/playState.hpp>
 #include <gamestates/introState.hpp>
+#include <gamestates/outroState.hpp>
 
 class Game{
 private:

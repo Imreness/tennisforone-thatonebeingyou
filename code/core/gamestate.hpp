@@ -9,7 +9,8 @@ enum class nextStateEnum{
     NOTHING,
     GAME,
     MENU,
-    INTRO
+    INTRO,
+    OUTRO
 };
 
 class gameState{

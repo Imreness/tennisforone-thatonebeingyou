@@ -339,6 +339,7 @@ void playState::initInput(){
     m_input.registerKey("debugTimeonepointfive", GLFW_KEY_KP_9, true);
 
     m_input.registerKey("debugTestSound", GLFW_KEY_F3, true);
+    m_input.registerKey("debugWin", GLFW_KEY_F5, true);
 }
 
 void playState::processInput(){
@@ -377,6 +378,10 @@ void playState::processInput(){
         m_tennisBall->resetBall(true);
         m_score.reset();
         m_currTimeScale = 1;
+    }
+
+    if(m_input.isPressed("debugWin")){
+        m_fadeOut = true;
     }
 
 //    if(m_input.isPressed("debugTestSound")){
@@ -531,7 +536,7 @@ bool playState::shouldRun(){
 nextStateEnum playState::nextState(){
     if(m_brightness == 0){
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        return nextStateEnum::MENU;
+        return nextStateEnum::OUTRO;
     }
     else{
         return nextStateEnum::NOTHING;
