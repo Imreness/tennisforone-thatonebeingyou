@@ -78,7 +78,7 @@ void playState::initGraphics(){
     m_gameCam->moveTo(glm::vec3(-2.5, 0.8, 0), glm::vec3(0,1,0), 0);
     m_gameCam->m_moveSpeed = 20;
 
-    assetLoader::loadAssetBundle(m_textures, m_models, "gameplay");
+    assetLoader::loadAssetBundle(m_textures, m_models, "intro");
 }
 
 void playState::initObjects(){
@@ -135,6 +135,12 @@ void playState::initObjects(){
     m_gameObjects.insert({"sky" , GameObject{m_models.at("sky")}});
     m_gameObjects.insert({"skyline" , GameObject{m_models.at("skyline")}});
 
+    m_gameObjects.insert({"flier1", GameObject{m_models.at("flier1")}});
+    m_gameObjects.insert({"flier2", GameObject{m_models.at("flier2")}});
+    m_gameObjects.insert({"flier3", GameObject{m_models.at("flier3")}});
+    m_gameObjects.insert({"flier4", GameObject{m_models.at("flier4")}});
+    m_gameObjects.insert({"flier5", GameObject{m_models.at("flier5")}});
+    
 
     //a level editor would come handy round this time :d
     m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerscore1")}});

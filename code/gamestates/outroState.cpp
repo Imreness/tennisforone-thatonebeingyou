@@ -2,7 +2,7 @@
 #include <spdlog/spdlog.h>
 
 void outroState::init(GLFWwindow* referenceWindow){
-    spdlog::info("Launching intro state...");
+    spdlog::info("Launching outro state...");
 
     m_window = referenceWindow;
 
@@ -103,6 +103,14 @@ void outroState::initObjects(){
     m_gameObjects.insert({"tutorial2", GameObject{m_models.at("tutorial2")}});
     m_gameObjects.insert({"tutorial3", GameObject{m_models.at("tutorial3")}});
 
+    m_gameObjects.insert({"blood", GameObject{m_models.at("blood")}});
+    m_gameObjects.insert({"legs", GameObject{m_models.at("legs")}});
+
+    m_gameObjects.insert({"flier1", GameObject{m_models.at("flier1")}});
+    m_gameObjects.insert({"flier2", GameObject{m_models.at("flier2")}});
+    m_gameObjects.insert({"flier3", GameObject{m_models.at("flier3")}});
+    m_gameObjects.insert({"flier4", GameObject{m_models.at("flier4")}});
+    m_gameObjects.insert({"flier5", GameObject{m_models.at("flier5")}});
     
 }
 
@@ -135,7 +143,12 @@ void outroState::processFading(){
     }
     else{
         if(m_brightness < 1){
-            m_brightness += m_deltaTime * m_fadeSpeed;
+            if(m_fadeDelayTimer > 0){
+                m_fadeDelayTimer -= m_deltaTime;
+            }
+            else{
+                m_brightness += m_deltaTime * m_fadeSpeed;
+            }
         }
         else{
             m_brightness = 1;

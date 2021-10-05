@@ -24,10 +24,12 @@ private:
     float m_brightness = 0.0000000001f;
     //if its false, we're fading in
     bool m_fadeOut = false;
-    float m_fadeSpeed = 3.f;
+    float m_fadeSpeed = 0.15f;
 
+    const float m_fadeDelay = 3.f;
+    float m_fadeDelayTimer = m_fadeDelay;
 
-    float m_exitTimer = 0.35f;
+    float m_exitTimer = 10.f;
     bool m_exitTimerStart = false;
     bool m_exit = false;
 

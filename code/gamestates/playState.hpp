@@ -35,7 +35,6 @@ private:
     bool m_fadeOut = false;
     float m_fadeSpeed = 3.f;
 
-
     std::vector<Texture*> m_textures;
     std::unordered_map<std::string, Model*> m_models;
 

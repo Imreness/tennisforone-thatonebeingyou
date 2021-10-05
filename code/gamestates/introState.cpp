@@ -103,6 +103,12 @@ void introState::initObjects(){
     m_gameObjects.insert({"tutorial2", GameObject{m_models.at("tutorial2")}});
     m_gameObjects.insert({"tutorial3", GameObject{m_models.at("tutorial3")}});
 
+    m_gameObjects.insert({"flier1", GameObject{m_models.at("flier1")}});
+    m_gameObjects.insert({"flier2", GameObject{m_models.at("flier2")}});
+    m_gameObjects.insert({"flier3", GameObject{m_models.at("flier3")}});
+    m_gameObjects.insert({"flier4", GameObject{m_models.at("flier4")}});
+    m_gameObjects.insert({"flier5", GameObject{m_models.at("flier5")}});
+    
     
 }
 
