@@ -46,6 +46,11 @@ void playState::initAudio(){
     m_sounds.at("buzzer").load("sounds/buzzer.wav");
     m_sounds.at("buzzer").set3dAttenuation(1, 0.15);
 
+    m_sounds.insert({"ambient", SoLoud::Wav()});
+    m_sounds.at("ambient").load("sounds/ambient.wav");
+    m_sounds.at("ambient").setLooping(true);
+
+    m_soloud->play(m_sounds.at("ambient"), 0.75);
 }
 
 void playState::calculateDeltaTime(){
@@ -323,6 +328,7 @@ void playState::update3DAudio(){
         m_gameCam->m_front.x, m_gameCam->m_front.y, m_gameCam->m_front.z,
         m_gameCam->m_up.x , m_gameCam->m_up.y , m_gameCam->m_up.z
     );
+    m_soloud->update3dAudio();
 }
 
 void playState::initInput(){
