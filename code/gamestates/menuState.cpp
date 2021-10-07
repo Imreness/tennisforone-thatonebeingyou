@@ -191,15 +191,31 @@ void menuState::processInput(){
 
 void menuState::initAudio(){
     m_soloud = new SoLoud::Soloud;
+
+    m_sounds.insert({"ambient", SoLoud::Wav()});
+    m_sounds.at("ambient").load("sounds/ambient.wav");
+    m_sounds.at("ambient").setLooping(true);
+
+    m_sounds.insert({"crt", SoLoud::Wav()});
+    m_sounds.at("crt").load("sounds/crt.wav");
+    m_sounds.at("crt").setLooping(true);
+    m_sounds.at("crt").set3dAttenuation(1, 1);
+
+
     m_soloud->init();
+
+    m_soloud->play(m_sounds.at("ambient"), 0.75);
+    m_soloud->play3d(m_sounds.at("crt"), 5.81, 6.175 , 4.5 , 0 , 0 , 0, 1);
 }
 
 void menuState::update3DAudio(){
+    //printf("%.2fx %.2fy %.2fz\n", m_gameCam->m_position.x , m_gameCam->m_position.y, m_gameCam->m_position.z);
     m_soloud->set3dListenerParameters(
         m_gameCam->m_position.x , m_gameCam->m_position.y, m_gameCam->m_position.z,
         m_gameCam->m_front.x, m_gameCam->m_front.y, m_gameCam->m_front.z,
         m_gameCam->m_up.x , m_gameCam->m_up.y , m_gameCam->m_up.z
     );
+    m_soloud->update3dAudio();
 }
 
 menuState::~menuState(){

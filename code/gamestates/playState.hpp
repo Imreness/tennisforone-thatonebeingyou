@@ -24,6 +24,7 @@
 class playState : public gameState{
 private:
     bool m_exit = false;
+    bool m_won = false;
 
     graphicsEngine m_graphics;
     InputManager m_input;

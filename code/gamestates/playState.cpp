@@ -387,6 +387,7 @@ void playState::processInput(){
     }
 
     if(m_input.isPressed("debugWin")){
+        m_won = true;
         m_fadeOut = true;
     }
 
@@ -507,6 +508,7 @@ void playState::processBall(){
             else if(m_maxDifficulty == 2){
                 if(m_aiRacket->m_difficulty == AIDIFFICULTY::HARD){
                     m_fadeOut = true;
+                    m_won = true;
                 }
             }
         }
@@ -540,9 +542,12 @@ bool playState::shouldRun(){
 }
 
 nextStateEnum playState::nextState(){
-    if(m_brightness == 0){
-        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    if(m_brightness == 0 && m_won){
         return nextStateEnum::OUTRO;
+    }
+    else if(m_brightness == 0){
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        return nextStateEnum::MENU;
     }
     else{
         return nextStateEnum::NOTHING;

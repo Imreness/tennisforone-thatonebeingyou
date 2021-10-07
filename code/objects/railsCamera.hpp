@@ -20,13 +20,17 @@ struct RailsCamera{
 
     float m_moveSpeed = 1;
     float m_moveTime = 5;
-    glm::mat4 m_targetView;
+    glm::vec3 m_targetPosition, m_targetFront;
 
     RailsCamera(GLFWwindow* window);
 
     void moveTo(glm::vec3 position, glm::vec3 lookAt, float moveTime = 5);
 
     void update(double delta);
+
+private:
+
+    void setInternalValues();
 
 };
 #endif

@@ -38,6 +38,7 @@ bool outroState::shouldRun(){
 
 nextStateEnum outroState::nextState(){
     if(m_exit){
+        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         return nextStateEnum::MENU;
     }
     else{
