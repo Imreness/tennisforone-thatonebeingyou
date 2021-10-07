@@ -191,6 +191,13 @@ void introState::processInput(){
 void introState::initAudio(){
     m_soloud = new SoLoud::Soloud;
     m_soloud->init();
+
+    m_sounds.insert({"ambient", SoLoud::Wav()});
+    m_sounds.at("ambient").load("sounds/ambient.wav");
+    m_sounds.at("ambient").setLooping(true);
+
+    m_soloud->play(m_sounds.at("ambient"), 0.75);
+
 }
 
 void introState::update3DAudio(){
@@ -199,6 +206,7 @@ void introState::update3DAudio(){
         m_gameCam->m_front.x, m_gameCam->m_front.y, m_gameCam->m_front.z,
         m_gameCam->m_up.x , m_gameCam->m_up.y , m_gameCam->m_up.z
     );
+    m_soloud->update3dAudio();
 }
 
 introState::~introState(){
