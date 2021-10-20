@@ -199,6 +199,20 @@ void outroState::processInput(){
 void outroState::initAudio(){
     m_soloud = new SoLoud::Soloud;
     m_soloud->init();
+
+    m_sounds.insert({"aiEnd", SoLoud::Wav()});
+    m_sounds.at("aiEnd").load("sounds/aiEnd.wav");
+    m_sounds.at("aiEnd").set3dAttenuation(1,0.1);
+
+    m_soloud->play(m_sounds.at("aiEnd"));
+
+    m_sounds.insert({"ambient", SoLoud::Wav()});
+    m_sounds.at("ambient").load("sounds/ambient.wav");
+    m_sounds.at("ambient").setLooping(true);
+
+    m_soloud->play(m_sounds.at("ambient"), 0.75);
+
+
 }
 
 void outroState::update3DAudio(){

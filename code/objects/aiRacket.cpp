@@ -8,15 +8,15 @@ aiRacket::aiRacket(GameObject& refObject, AIDIFFICULTY difficulty) : m_refObject
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
-            m_movementSpeed = m_speedEasy;
+            m_movementSpeed = m_speedEasy * m_difficultyBalance;
             break;
         
         case AIDIFFICULTY::MEDIUM:
-            m_movementSpeed = m_speedNormal;
+            m_movementSpeed = m_speedNormal * m_difficultyBalance;
             break;
 
         case AIDIFFICULTY::HARD:
-            m_movementSpeed = m_speedHard;
+            m_movementSpeed = m_speedHard * m_difficultyBalance;
             break;
     }
 }
@@ -44,16 +44,16 @@ void aiRacket::changeSpeed(){
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
-            minSpeed = m_minSpeedEasy;
-            maxSpeed = m_maxSpeedEasy;
+            minSpeed = m_minSpeedEasy * m_difficultyBalance;
+            maxSpeed = m_maxSpeedEasy * m_difficultyBalance;
             break;
         case AIDIFFICULTY::MEDIUM:
-            minSpeed = m_minSpeedNormal;
-            maxSpeed = m_maxSpeedNormal;
+            minSpeed = m_minSpeedNormal * m_difficultyBalance;
+            maxSpeed = m_maxSpeedNormal * m_difficultyBalance;
             break;
         case AIDIFFICULTY::HARD:
-            minSpeed = m_minSpeedHard;
-            maxSpeed = m_maxSpeedHard;
+            minSpeed = m_minSpeedHard * m_difficultyBalance;
+            maxSpeed = m_maxSpeedHard * m_difficultyBalance;
             break;
     }
 
@@ -65,6 +65,7 @@ void aiRacket::changeSpeed(){
 
 void aiRacket::changeDifficulty(AIDIFFICULTY newdiff){
     m_difficulty = newdiff;
+    m_amountOfTimesWon = 0;
 
     switch(m_difficulty){
         case AIDIFFICULTY::EASY:
@@ -125,6 +126,11 @@ glm::vec3 aiRacket::generateRackedDir(){
     }
 
     return returnedvec;
+}
+
+void aiRacket::aiWon(){
+    m_amountOfTimesWon++;
+    m_difficultyBalance = 1 - (m_amountOfTimesWon * 0.15);
 }
 
 void aiRacket::clampPosition(){

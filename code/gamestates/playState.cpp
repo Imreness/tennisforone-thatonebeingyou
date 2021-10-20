@@ -2,6 +2,16 @@
 #include <spdlog/spdlog.h>
 #include <core/configloader.hpp>
 
+struct AISOUND{
+    std::string name;
+    int amount;
+
+    AISOUND(std::string n, int a) : name{n}, amount{a}
+    {}
+};
+
+const float aiXcoord = 6.81;
+const float aiYcoord = 2;
 
 void playState::init(GLFWwindow* referencewindow){
     spdlog::info("Launching play state...");
@@ -42,6 +52,27 @@ void playState::initAudio(){
         m_sounds.at(soundName).set3dAttenuation(1, 0.15);
     }
 
+    //load Ai noises
+    std::vector<AISOUND> aisounds{
+        AISOUND{"aiGotScored", 9},
+        AISOUND{"aiScored", 10},
+        AISOUND{"aiFromMediumToHard", 3},
+        AISOUND{"aiFromEasyToMedium", 3},
+        AISOUND{"aiIntro", 3}
+    };
+
+    for(int i = 0; i < aisounds.size(); i++){
+        AISOUND currsound = aisounds.at(i);
+        for(int x = 1; x < currsound.amount + 1; x++){
+            path = "sounds/" + currsound.name + std::to_string(x) + ".wav";
+            soundName = currsound.name + std::to_string(x);
+
+            m_sounds.insert({soundName, SoLoud::Wav()});
+            m_sounds.at(soundName).load(path.c_str());
+            m_sounds.at(soundName).set3dAttenuation(1,0.1);
+        }
+    }
+
     m_sounds.insert({"buzzer", SoLoud::Wav()});
     m_sounds.at("buzzer").load("sounds/buzzer.wav");
     m_sounds.at("buzzer").set3dAttenuation(1, 0.15);
@@ -51,6 +82,8 @@ void playState::initAudio(){
     m_sounds.at("ambient").setLooping(true);
 
     m_soloud->play(m_sounds.at("ambient"), 0.75);
+
+    playAISound(AISOUNDTYPE::INTRO);
 }
 
 void playState::calculateDeltaTime(){
@@ -397,10 +430,10 @@ void playState::processInput(){
         m_fadeOut = true;
     }
 
-//    if(m_input.isPressed("debugTestSound")){
-//        m_gameObjects.at("nameplateAI").m_refModel->m_texID += 1;
-//        std::printf("nameplateTextureID: %i\n", m_gameObjects.at("nameplateAI").m_refModel->m_texID);
-//    }
+    if(m_input.isPressed("debugTestSound")){
+        //m_soloud->play3d(m_sounds.at("aiGotScored5"), aiXcoord, aiYcoord, 0);
+//      std::printf("nameplateTextureID: %i\n", m_gameObjects.at("nameplateAI").m_refModel->m_texID);
+    }
 
 //    if(m_input.isPressed("debugTimehalf")){
 //        m_timeScale = 0.5f;
@@ -483,10 +516,11 @@ void playState::processBall(){
     //debug shit pls delete before game is done much love homie :*
     else if(m_physics.testCollisionBodies("ball", "backboard")){
         m_score.addPoints(false);
+        playAISound(AISOUNDTYPE::SCORE);
 
         if(m_score.m_aiScore == m_score.m_maxScore){
             m_score.reset();
-            //play sounds bite
+            m_aiRacket->aiWon();
         }
 
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
@@ -496,29 +530,36 @@ void playState::processBall(){
     }
     else if(m_physics.testCollisionBodies("ball", "enemybackboard")){
         m_score.addPoints(true);
-
+        bool playedsound = false;
         if(m_score.m_playerScore == m_score.m_maxScore){
             if(m_maxDifficulty == 0){
                 m_maxDifficulty++;
                 m_aiRacket->m_difficulty = AIDIFFICULTY::MEDIUM;
                 m_gameObjects.at("aidiff").m_refModel->m_texID = 2;
                 m_score.reset();
+                playAISound(AISOUNDTYPE::EZTOMED);
+                playedsound = true;
             }
             else if(m_maxDifficulty == 1){
                 m_maxDifficulty++;
                 m_aiRacket->m_difficulty = AIDIFFICULTY::HARD;
                 m_gameObjects.at("aidiff").m_refModel->m_texID = 1;
-
                 m_score.reset();
+                playAISound(AISOUNDTYPE::MEDTOHARD);
+                playedsound = true;
             }
             else if(m_maxDifficulty == 2){
                 if(m_aiRacket->m_difficulty == AIDIFFICULTY::HARD){
                     m_fadeOut = true;
                     m_won = true;
+                    playedsound = true;
                 }
             }
         }
 
+        if(!playedsound){
+            playAISound(AISOUNDTYPE::GOTSCORED);
+        }
         m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(true);
@@ -545,6 +586,79 @@ void playState::processBulletTime(){
 
 bool playState::shouldRun(){
     return !glfwWindowShouldClose(m_window);
+}
+
+void playState::playAISound(AISOUNDTYPE type){
+    if(type == AISOUNDTYPE::SCORE || type == AISOUNDTYPE::GOTSCORED){
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 5);
+
+            int number = numberRange(mt);
+            if(number == 1){
+                return;
+            }
+    }
+
+    switch (type)
+    {
+        case AISOUNDTYPE::SCORE:{
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 10);
+
+            int number = numberRange(mt);
+            m_soloud->play3d(m_sounds.at("aiScored" + std::to_string(number)), aiXcoord, aiYcoord, 0);
+
+            break;
+        }
+        case AISOUNDTYPE::GOTSCORED:{
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 9);
+
+            int number = numberRange(mt);
+            m_soloud->play3d(m_sounds.at("aiGotScored" + std::to_string(number)), aiXcoord, aiYcoord, 0);
+
+            break;
+        }
+        case AISOUNDTYPE::EZTOMED:{
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 3);
+
+            int number = numberRange(mt);
+            m_soloud->play3d(m_sounds.at("aiFromEasyToMedium" + std::to_string(number)), aiXcoord, aiYcoord, 0);
+
+            break;
+        }
+        case AISOUNDTYPE::MEDTOHARD:{
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 3);
+
+            int number = numberRange(mt);
+            m_soloud->play3d(m_sounds.at("aiFromMediumToHard" + std::to_string(number)), aiXcoord, aiYcoord, 0);
+
+            break;
+        }
+        case AISOUNDTYPE::INTRO:{
+            std::random_device rd;
+            std::mt19937 mt(rd());
+            std::uniform_int_distribution<int> numberRange(1, 3);
+
+            int number = numberRange(mt);
+            m_soloud->play3d(m_sounds.at("aiIntro" + std::to_string(number)), aiXcoord, aiYcoord, 0);
+
+            break;}
+
+        case AISOUNDTYPE::END:
+            m_soloud->play3d(m_sounds.at("aiEnd"), aiXcoord, aiYcoord, 0);
+
+            break;
+
+
+    }
 }
 
 nextStateEnum playState::nextState(){

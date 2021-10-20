@@ -21,6 +21,15 @@
 #include <soloud/soloud.h>
 #include <soloud/soloud_wav.h>
 
+enum class AISOUNDTYPE{
+    SCORE,
+    GOTSCORED,
+    EZTOMED,
+    MEDTOHARD,
+    END,
+    INTRO
+};
+
 class playState : public gameState{
 private:
     bool m_exit = false;
@@ -91,6 +100,8 @@ private:
 
     void initAudio();
     void update3DAudio();
+
+    void playAISound(AISOUNDTYPE type);
 
     void changeAIDifficulty(bool increase);
 

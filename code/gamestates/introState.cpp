@@ -196,8 +196,12 @@ void introState::initAudio(){
     m_sounds.at("ambient").load("sounds/ambient.wav");
     m_sounds.at("ambient").setLooping(true);
 
-    m_soloud->play(m_sounds.at("ambient"), 0.75);
+    m_sounds.insert({"aiStart", SoLoud::Wav()});
+    m_sounds.at("aiStart").load("sounds/aiStart.wav");
+    m_sounds.at("aiStart").set3dAttenuation(1,0.01);
 
+    m_soloud->play(m_sounds.at("ambient"), 0.75);
+    m_soloud->play3d(m_sounds.at("aiStart"), 6.81 , 1 , 0);
 }
 
 void introState::update3DAudio(){

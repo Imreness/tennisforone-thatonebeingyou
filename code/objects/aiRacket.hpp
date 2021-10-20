@@ -29,6 +29,9 @@ struct aiRacket{
     const float m_speedNormal = (m_minSpeedNormal + m_maxSpeedNormal) / 2;
     const float m_speedHard = (m_minSpeedHard + m_maxSpeedHard) / 2;
 
+    float m_difficultyBalance = 1;
+    int m_amountOfTimesWon = 0;
+
     aiRacket(GameObject& refObject, AIDIFFICULTY difficulty);
 
     void update(double deltaTime);
@@ -40,6 +43,8 @@ struct aiRacket{
     glm::vec3 generateRackedDir();
 
     void setTarget(glm::vec3 targetPos);
+
+    void aiWon();
 
 private:
 
