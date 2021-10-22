@@ -13,6 +13,7 @@ enum class nextStateEnum{
     OUTRO
 };
 
+//Base class for other states to build upon
 class gameState{
 protected:
 

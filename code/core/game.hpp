@@ -33,7 +33,6 @@ private:
 
 public:
 
-    //make debug level config defined
     Game(const char*);
 
     void update();

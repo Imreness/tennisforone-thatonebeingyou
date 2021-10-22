@@ -33,8 +33,6 @@ void Shader::CheckError(unsigned int ID, bool isProgram)
 
 Shader::Shader(const std::string_view vertexPath, const std::string_view fragmentPath)
 {
-	spdlog::warn("Loading shader from file, make sure this is a debug build. Shader locations: {} ; {}",
-		vertexPath.data(), fragmentPath.data());
 	spdlog::debug("Loading shader from file: {} ; {}", vertexPath.data(), fragmentPath.data());
 
 	//Load Shader from file
@@ -93,8 +91,6 @@ Shader::Shader(const std::string_view vertexPath, const std::string_view fragmen
 
 Shader::Shader(const std::string_view vertexPath, const std::string_view fragmentPath, const std::string_view geometryPath)
 {
-	spdlog::warn("Loading shader from file, make sure this is a debug build. Shader locations: {} ; {}",
-		vertexPath.data(), fragmentPath.data());
 	spdlog::debug("Loading shader from file: {} ; {}", vertexPath.data(), fragmentPath.data());
 
 	//Load Shader from file

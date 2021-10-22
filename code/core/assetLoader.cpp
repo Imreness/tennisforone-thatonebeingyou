@@ -47,6 +47,7 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     int modelAmount = file.read<uint8_t>();
 
     //The way bits are packed is represented in assetpacker's source
+    //Load the textures
     for(int i = 0; i < textureAmount; i++){
         int textureWidth = file.read<uint16_t>();
         int textureHeight = file.read<uint16_t>();
@@ -56,6 +57,7 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
         textures.push_back(new Texture(textureWidth, textureHeight, data, 0));
     }
 
+    //Load the models and their values
     for(int i = 0; i < modelAmount; i++){
        char* name = file.readChars(25);
        if(name == "hedge1"){

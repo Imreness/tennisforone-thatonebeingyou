@@ -5,6 +5,11 @@
 #include <spdlog/spdlog.h>
 #include <core/shader.hpp>
 
+//Sidenote:
+//Originally the game was supposed to be pixelated a bit to mimic the lower resolution of late 90's 3D games.
+//Ultimately ended up dropping  that idea, but the function still remains in the code! 
+
+//Dead simple FrameBuffer class. Has custom render resolution functionalities.
 class FrameBuffer
 {
 private:

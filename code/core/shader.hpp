@@ -22,13 +22,9 @@ private:
 
 public:
 
-	//DEBUG - Generate shader program from file without geometry shader
 	Shader(const std::string_view vertexPath, const std::string_view fragmentPath);
 
-	//DEBUG - Generate shader program from file with geometry shader
 	Shader(const std::string_view vertexPath, const std::string_view fragmentPath, const std::string_view geometryPath);
-
-	//TODO - Implement loading from strings
 
 	~Shader();
 

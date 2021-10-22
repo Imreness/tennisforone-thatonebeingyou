@@ -5,6 +5,8 @@
 void Game::initspdlog(){
     m_currConfig = config::loadConfig("game.conf");
 
+
+    //setup logging
 	auto logfile = spdlog::basic_logger_mt("log", "game.log");
 
 	spdlog::set_default_logger(logfile);
@@ -74,7 +76,6 @@ Game::Game(const char* windowtitle){
     spdlog::info("Initalizing graphics...");    
 
     initGLFW(windowtitle);
-
     initOpenGL();
 
     //Init the first game state
@@ -90,7 +91,6 @@ Game::Game(const char* windowtitle){
 void Game::update(){
 
     m_currState->process();
-
     m_shouldRun = m_currState->shouldRun();
 
     nextStateEnum nextState = m_currState->nextState();

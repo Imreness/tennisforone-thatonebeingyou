@@ -10,11 +10,11 @@ struct configStruct{
     spdlog::level::level_enum debuglevel;
 };
 
+//Simple namespace to handle the act of configuration.
+//There was once a "saveConfig" method aswell, but given how simple the game is, I dropped the idea of
+//having a "Settings Menu".
 namespace config{
     configStruct loadConfig(const char*);
-
-    //TODO - implement this with the settings menu
-    configStruct saveConfig(const char*);
 };
 
 #endif
