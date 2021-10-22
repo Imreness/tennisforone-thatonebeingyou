@@ -318,10 +318,21 @@ void playState::process(){
     processAiRacket();
     update3DAudio();
     processBulletTime();
+    processSoundLimiter();
 
     m_physics.update(m_deltaTime);
 
     render();
+}
+
+void playState::processSoundLimiter(){
+    if(m_ballSoundLimiterTimer > 0){
+        m_ballSoundLimiterTimer -= m_deltaTime;
+        if(m_ballSoundLimiterTimer < 0){
+            m_ballSoundLimiterTimer = 0;
+            m_ballSoundLimiter = false;
+        }
+    }
 }
 
 void playState::processFading(){
@@ -488,7 +499,11 @@ void playState::processBall(){
         m_aiRacket->changeSpeed();
 
         //TODO - fix multiple plays
-        m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
+        if(!m_ballSoundLimiter){
+            m_ballSoundLimiter = true;
+            m_ballSoundLimiterTimer = 0.1;
+            m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
+        }
     }
 
     if(m_physics.testCollisionBodies("ball", "enemyRacket")){

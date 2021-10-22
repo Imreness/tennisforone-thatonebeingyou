@@ -62,6 +62,8 @@ private:
 
     SoLoud::Soloud* m_soloud;
     std::unordered_map<std::string, SoLoud::Wav> m_sounds;
+    bool m_ballSoundLimiter = false;
+    float m_ballSoundLimiterTimer = 0.f;
 
     bool m_debugMode = false;
     bool m_debugDrawingInGame = false;
@@ -104,6 +106,8 @@ private:
     void playAISound(AISOUNDTYPE type);
 
     void changeAIDifficulty(bool increase);
+
+    void processSoundLimiter();
 
     //shouldve made a seperate "AudioManager" class or sumthang like that, cuz 
     std::string getRandomBounceNoiseName();
