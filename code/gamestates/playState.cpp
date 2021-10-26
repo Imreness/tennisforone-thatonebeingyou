@@ -588,11 +588,12 @@ void playState::processBulletTime(){
         Raycasthit hit = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(0, ballpos.y, ballpos.z) - ballpos);
         if(hit.m_isHit){
             float distance = glm::distance(ballpos, hit.m_hitpos);
-            if(distance < 1){
+            if(distance < 2){
                 m_currTimeScale = 0.9 * distance + 0.1;
             }
             //printf("%.3f\n", m_currTimeScale);
         }
+        printf("%i\n", (int)(m_tennisBall->m_lastWall));
     }
     else if(m_currTimeScale != 0){
         m_currTimeScale = 1;

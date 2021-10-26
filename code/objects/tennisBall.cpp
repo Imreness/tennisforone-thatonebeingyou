@@ -91,9 +91,16 @@ void tennisBall::reflect(glm::vec3 racketDir, bool isEnemy){
         m_direction = ballreflector;
         m_direction = glm::normalize(m_direction);
 
-        m_lastWall = WallTypes::NONE;
+        //m_lastWall = WallTypes::NONE;
 
         //std::printf("Ball Speed: %f\n", m_speed);
+
+        if(isEnemy){
+            m_lastWall = WallTypes::ENEMY;
+        }
+        else{
+            m_lastWall = WallTypes::PLAYER;
+        }
     }
 }
 

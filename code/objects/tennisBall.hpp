@@ -39,7 +39,8 @@ struct tennisBall{
     void calculateShadowScale(float distanceFromGround);
     void calculateGuideRing(float distanceFromBoard);
 
-    void resetBall(bool passToPlayer);    
+    void resetBall(bool passToPlayer);
+
 };
 
 #endif
