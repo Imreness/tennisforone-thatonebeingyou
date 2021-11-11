@@ -28,13 +28,17 @@ void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
         std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
         std::string geoName("shaders/"); geoName.append(shaderName); geoName.append(".geo");
+
         Shader* shader = new Shader{vertexName, fragmentName, geoName};
+
         m_shaders.insert({std::string(shaderName), shader});
     }
     else{
         std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
+
         Shader* shader = new Shader{vertexName, fragmentName};
+        
         m_shaders.insert({std::string(shaderName), shader});
     }
 }
@@ -78,9 +82,11 @@ void graphicsEngine::renderStart(){
 
 void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects, std::string shaderName){
     Shader* currShader = m_shaders.at(shaderName);
+
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
+
     for(auto& object : objects){
         if(object.second.m_render){
             currShader->setUniform("model", object.second.m_modelMat);
@@ -92,9 +98,11 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
 
 void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& textures,std::unordered_map<std::string, GameObject>& objects, std::string shaderName){
     Shader* currShader = m_shaders.at(shaderName);
+
     currShader->Use();
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
+
     for(auto& object : objects){
         if(object.second.m_render){
             currShader->setUniform("model", object.second.m_modelMat);
@@ -111,6 +119,7 @@ void graphicsEngine::renderObjects(DebugCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
     currShader->setUniform("model", object.m_modelMat);
+
     textures.at(object.m_refModel->m_texID)->Use();
     object.m_refModel->render();
 }
@@ -122,6 +131,7 @@ void graphicsEngine::renderObjects(RailsCamera* refcam, std::vector<Texture*>& t
     currShader->setUniform("proj", refcam->m_proj);
     currShader->setUniform("view", refcam->m_view);
     currShader->setUniform("model", object.m_modelMat);
+
     textures.at(object.m_refModel->m_texID)->Use();
     object.m_refModel->render();
 }

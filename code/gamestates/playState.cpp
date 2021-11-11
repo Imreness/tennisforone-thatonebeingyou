@@ -73,9 +73,27 @@ void playState::initAudio(){
         }
     }
 
-    m_sounds.insert({"buzzer", SoLoud::Wav()});
-    m_sounds.at("buzzer").load("sounds/buzzer.wav");
-    m_sounds.at("buzzer").set3dAttenuation(1, 0.15);
+    m_sounds.insert({"beep_playerScored", SoLoud::Wav()});
+    m_sounds.at("beep_playerScored").load("sounds/beep_playerScored.wav");
+    m_sounds.at("beep_playerScored").set3dAttenuation(1, 0.15);
+    m_sounds.at("beep_playerScored").setVolume(1.5);
+
+    m_sounds.insert({"beep_diffup", SoLoud::Wav()});
+    m_sounds.at("beep_diffup").load("sounds/beep_diffup.wav");
+    m_sounds.at("beep_diffup").set3dAttenuation(1, 0.15);
+    m_sounds.at("beep_diffup").setVolume(1.5);
+
+    m_sounds.insert({"beep_scoreReset", SoLoud::Wav()});
+    m_sounds.at("beep_scoreReset").load("sounds/beep_scoreReset.wav");
+    m_sounds.at("beep_scoreReset").set3dAttenuation(1, 0.15);
+    m_sounds.at("beep_scoreReset").setVolume(1.5);
+
+    m_sounds.insert({"beep_aiScored", SoLoud::Wav()});
+    m_sounds.at("beep_aiScored").load("sounds/beep_aiScored.wav");
+    m_sounds.at("beep_aiScored").set3dAttenuation(1, 0.15);
+    m_sounds.at("beep_aiScored").setVolume(1.5);
+
+
 
     m_sounds.insert({"ambient", SoLoud::Wav()});
     m_sounds.at("ambient").load("sounds/ambient.wav");
@@ -320,6 +338,10 @@ void playState::process(){
     processBulletTime();
     processSoundLimiter();
 
+    //if(m_currTimeScale > 1){
+    //    std::printf("whaaaT GAMESPEED IS TOO HIIIGH\n");
+    //}
+
     m_physics.update(m_deltaTime);
 
     render();
@@ -536,9 +558,10 @@ void playState::processBall(){
         if(m_score.m_aiScore == m_score.m_maxScore){
             m_score.reset();
             m_aiRacket->aiWon();
+            m_soloud->play3d(m_sounds.at("beep_scoreReset"), 3.5, 1 , 0);
         }
 
-        m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
+        m_soloud->play3d(m_sounds.at("beep_aiScored"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(false);
         m_currTimeScale = 1;
@@ -547,6 +570,7 @@ void playState::processBall(){
         m_score.addPoints(true);
         bool playedsound = false;
         if(m_score.m_playerScore == m_score.m_maxScore){
+            m_soloud->play3d(m_sounds.at("beep_diffup"), 3.5, 1 , 0);
             if(m_maxDifficulty == 0){
                 m_maxDifficulty++;
                 m_aiRacket->m_difficulty = AIDIFFICULTY::MEDIUM;
@@ -571,11 +595,13 @@ void playState::processBall(){
                 }
             }
         }
+        else{
+            m_soloud->play3d(m_sounds.at("beep_playerScored"), 3.5, 1 , 0);
+        }
 
         if(!playedsound){
             playAISound(AISOUNDTYPE::GOTSCORED);
         }
-        m_soloud->play3d(m_sounds.at("buzzer"), 3.5, 1 , 0);
 
         m_tennisBall->resetBall(true);
         m_currTimeScale = 1;
@@ -588,12 +614,13 @@ void playState::processBulletTime(){
         Raycasthit hit = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(0, ballpos.y, ballpos.z) - ballpos);
         if(hit.m_isHit){
             float distance = glm::distance(ballpos, hit.m_hitpos);
-            if(distance < 2){
-                m_currTimeScale = 0.9 * distance + 0.1;
+            if(distance <= 2){
+                m_currTimeScale = distance / 2 + 0.1;
+                if(m_currTimeScale > 1) { m_currTimeScale = 1; }
             }
             //printf("%.3f\n", m_currTimeScale);
         }
-        printf("%i\n", (int)(m_tennisBall->m_lastWall));
+        //std::printf("%i\n", (int)(m_tennisBall->m_lastWall));
     }
     else if(m_currTimeScale != 0){
         m_currTimeScale = 1;

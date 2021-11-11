@@ -6,9 +6,6 @@
 #include <core/model.hpp>
 #include <string>
 
-//Simple enough namespace to house all data-importing related functions
-//by all i mean the two of em, yes. Thse could also be eoutside a namespace, but it keeps em nice an tidy like this.
-//also gives a nice opportunity for simple extensibility
 namespace assetLoader{
 
     void loadUiPackage(std::unordered_map<std::string, Texture*>& ,const char*);

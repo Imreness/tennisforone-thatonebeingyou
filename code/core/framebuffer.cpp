@@ -30,7 +30,7 @@ FrameBuffer::FrameBuffer(int renderWidth, int renderHeight,int windowWidth, int 
     glGenRenderbuffers(1, &m_renderBufferObject);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferObject);
 
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH32F_STENCIL8, m_renderWidth, m_renderHeight);
+    glRenderbufferStorage    (GL_RENDERBUFFER, GL_DEPTH32F_STENCIL8, m_renderWidth, m_renderHeight);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferObject);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -54,8 +54,8 @@ FrameBuffer::FrameBuffer(int renderWidth, int renderHeight,int windowWidth, int 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(frameVertices), &frameVertices, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)0);
 	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)(2 * sizeof(float)));
 }
 

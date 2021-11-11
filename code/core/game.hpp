@@ -21,9 +21,6 @@ private:
 
     gameState* m_currState;
 
-
-
-    //init functions
     void initspdlog();
     void initGLFW(const char*);
     void initOpenGL();

@@ -2,15 +2,25 @@
 #include <fstream>
 #include <core/binaryfile.hpp>
 #include <spdlog/spdlog.h>
+#include <filesystem>
 
 //Load .ui files then fill the reference texture map
+//DEPRECATED - Not actually used in this project.
 void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textures,const char* path){
     spdlog::info("Loading UI Package: {}", path);
 
     std::string fullpath("assets/"); fullpath.append(path); fullpath.append(".ui");
 
     binaryFile file;
+    std::filesystem::path fspath{fullpath.c_str()};
+    if(!std::filesystem::exists(fspath)){
+        spdlog::error("Missing UI package: {}", fullpath);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        abort();
+    }
     file.open(fullpath.c_str(), false);
+
+
 
     uint8_t textureAmount = file.read<uint8_t>();
 
@@ -20,7 +30,7 @@ void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textu
         std::string name(nameChar);
         delete[] nameChar;
 
-        uint16_t textureWidth = file.read<uint16_t>();
+        uint16_t textureWidth  = file.read<uint16_t>();
         uint16_t textureHeight = file.read<uint16_t>();
 
         char* data = file.readChars(textureWidth*textureHeight*4);
@@ -41,6 +51,12 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     spdlog::info("Loading Asset package: {}", fullpath);
 
     binaryFile file;
+    std::filesystem::path fspath{fullpath.c_str()};
+    if(!std::filesystem::exists(fspath)){
+        spdlog::error("Missing Asset package: {}", fullpath);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        abort();
+    }
     file.open(fullpath.c_str(), false);
 
     int textureAmount = file.read<uint8_t>();
@@ -49,7 +65,7 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     //The way bits are packed is represented in assetpacker's source
     //Load the textures
     for(int i = 0; i < textureAmount; i++){
-        int textureWidth = file.read<uint16_t>();
+        int textureWidth  = file.read<uint16_t>();
         int textureHeight = file.read<uint16_t>();
 
         char* data = file.readChars(textureWidth*textureHeight*4);

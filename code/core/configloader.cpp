@@ -2,7 +2,7 @@
 #include <string>
 
 configStruct config::loadConfig(const char* path){
-    //spdlog::info("Reading config file...");
+    spdlog::info("Reading config file...");
 
     configStruct currentConfig;
 
@@ -17,7 +17,7 @@ configStruct config::loadConfig(const char* path){
     std::getline(file, line);
     std::string valueString;
     valueString = line.substr(line.find(' ') + 1);
-    if(valueString == "DEBUG"){ currentConfig.debuglevel = spdlog::level::debug;}
+    if(valueString      == "DEBUG") { currentConfig.debuglevel = spdlog::level::debug;}
     else if(valueString == "NORMAL"){ currentConfig.debuglevel = spdlog::level::info;}
 
 

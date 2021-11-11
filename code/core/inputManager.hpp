@@ -24,7 +24,7 @@ public:
 
     void init(GLFWwindow* window);
 
-    void registerKey(std::string name,int key,bool isSticky = false, bool isMouse = false);
+    void registerKey(std::string name,int key,bool isSticky = false, bool =isMouse = false);
 
     bool isPressed(std::string name);
 
