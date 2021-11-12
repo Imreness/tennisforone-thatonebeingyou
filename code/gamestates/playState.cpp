@@ -141,68 +141,62 @@ void playState::initObjects(){
     spdlog::info("Initalizing Game Objects...");
 
     m_gameObjects.insert({"playerRacket" , GameObject{m_models.at("racket")}});
-    m_gameObjects.insert({"enemyRacket" , GameObject{m_models.at("racket")}});
-    //m_gameObjects.insert({"shock", GameObject{m_models.at("shock")}});
-    //m_gameObjects.insert({"enemyShock", GameObject{m_models.at("shock")}});
+    m_gameObjects.insert({"enemyRacket" ,  GameObject{m_models.at("racket")}});
+    
     m_playerRacket = new playerRacket(m_gameObjects.at("playerRacket"));
-
-    m_aiRacket = new aiRacket(m_gameObjects.at("enemyRacket"), AIDIFFICULTY::EASY);
+    m_aiRacket     = new aiRacket    (m_gameObjects.at("enemyRacket"), AIDIFFICULTY::EASY);
 
     m_gameObjects.insert({"floor", GameObject{m_models.at("floor")}});
-    //m_gameObjects.insert({"cage", GameObject{m_models.at("cage")}});
 
-    m_gameObjects.insert({"shadow", GameObject{m_models.at("shadow")}});
-    m_gameObjects.at("shadow").m_render = false;
-    m_gameObjects.insert({"ball", GameObject{m_models.at("ball")}});
-    m_gameObjects.insert({"guidering", GameObject{m_models.at("guide")}});
+    m_gameObjects.insert({"shadow",     GameObject{m_models.at("shadow")}});
+    m_gameObjects.insert({"ball",       GameObject{m_models.at("ball")}});
+    m_gameObjects.insert({"guidering",  GameObject{m_models.at("guide")}});
+
+    m_gameObjects.at("shadow")   .m_render = false;
     m_gameObjects.at("guidering").m_render = false;
-    m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"), m_gameObjects.at("guidering"));
 
+    m_tennisBall = new tennisBall(m_gameObjects.at("ball"), m_gameObjects.at("shadow"), m_gameObjects.at("guidering"));
     m_tennisBall->m_minSpeed = 2;
     m_tennisBall->m_maxSpeed = 10;
     m_tennisBall->m_ballSpeedMultiplier = 1;
 
     m_tennisBall->resetBall(true);
 
-    m_gameObjects.insert({"floor" , GameObject{m_models.at("floor")}});
+    m_gameObjects.insert({"floor" ,              GameObject{m_models.at("floor")}});
     m_gameObjects.insert({"cagedecorfrontleft" , GameObject{m_models.at("cagedecorfrontleft")}});
-    m_gameObjects.insert({"cagedecorfrontright" , GameObject{m_models.at("cagedecorfrontright")}});
-    m_gameObjects.insert({"cagedecorrearleft" , GameObject{m_models.at("cagedecorrearleft")}});
-    m_gameObjects.insert({"cagedecorrearright" , GameObject{m_models.at("cagedecorrearright")}});
-    m_gameObjects.insert({"pathwayedge1" , GameObject{m_models.at("pathwayedge1")}});
-    m_gameObjects.insert({"pathwayedge2" , GameObject{m_models.at("pathwayedge2")}});
-    m_gameObjects.insert({"pathways" , GameObject{m_models.at("pathways")}});
-    m_gameObjects.insert({"counterrack" , GameObject{m_models.at("counterrack")}});
-    m_gameObjects.insert({"hedge1" , GameObject{m_models.at("hedge1")}});
-    m_gameObjects.insert({"hedge2" , GameObject{m_models.at("hedge2")}});
-    m_gameObjects.insert({"hedge3" , GameObject{m_models.at("hedge3")}});
-    m_gameObjects.insert({"hedge4" , GameObject{m_models.at("hedge4")}});
-    m_gameObjects.insert({"hedge5" , GameObject{m_models.at("hedge5")}});
-    m_gameObjects.insert({"hedge6" , GameObject{m_models.at("hedge6")}});
-    m_gameObjects.insert({"hedgevertical" , GameObject{m_models.at("hedgevertical")}});
-    m_gameObjects.insert({"laser" , GameObject{m_models.at("laser")}});
-    m_gameObjects.insert({"laser2" , GameObject{m_models.at("laser2")}});
-    m_gameObjects.insert({"laser3" , GameObject{m_models.at("laser3")}});
-    m_gameObjects.insert({"laser4" , GameObject{m_models.at("laser4")}});
-    m_gameObjects.insert({"laser5" , GameObject{m_models.at("laser5")}});
-    m_gameObjects.insert({"laser6" , GameObject{m_models.at("laser6")}});
-    m_gameObjects.insert({"laser7" , GameObject{m_models.at("laser7")}});
-    m_gameObjects.insert({"laser8" , GameObject{m_models.at("laser8")}});
-    m_gameObjects.insert({"sky" , GameObject{m_models.at("sky")}});
-    m_gameObjects.insert({"skyline" , GameObject{m_models.at("skyline")}});
+    m_gameObjects.insert({"cagedecorfrontright", GameObject{m_models.at("cagedecorfrontright")}});
+    m_gameObjects.insert({"cagedecorrearleft",   GameObject{m_models.at("cagedecorrearleft")}});
+    m_gameObjects.insert({"cagedecorrearright",  GameObject{m_models.at("cagedecorrearright")}});
+    m_gameObjects.insert({"pathwayedge1" ,       GameObject{m_models.at("pathwayedge1")}});
+    m_gameObjects.insert({"pathwayedge2" ,       GameObject{m_models.at("pathwayedge2")}});
+    m_gameObjects.insert({"pathways" ,           GameObject{m_models.at("pathways")}});
+    m_gameObjects.insert({"counterrack" ,        GameObject{m_models.at("counterrack")}});
+    m_gameObjects.insert({"hedge1" ,             GameObject{m_models.at("hedge1")}});
+    m_gameObjects.insert({"hedge2" ,             GameObject{m_models.at("hedge2")}});
+    m_gameObjects.insert({"hedge3" ,             GameObject{m_models.at("hedge3")}});
+    m_gameObjects.insert({"hedge4" ,             GameObject{m_models.at("hedge4")}});
+    m_gameObjects.insert({"hedge5" ,             GameObject{m_models.at("hedge5")}});
+    m_gameObjects.insert({"hedge6" ,             GameObject{m_models.at("hedge6")}});
+    m_gameObjects.insert({"hedgevertical" ,      GameObject{m_models.at("hedgevertical")}});
+    m_gameObjects.insert({"laser" ,              GameObject{m_models.at("laser")}});
+    m_gameObjects.insert({"laser2" ,             GameObject{m_models.at("laser2")}});
+    m_gameObjects.insert({"laser3" ,             GameObject{m_models.at("laser3")}});
+    m_gameObjects.insert({"laser4" ,             GameObject{m_models.at("laser4")}});
+    m_gameObjects.insert({"laser5" ,             GameObject{m_models.at("laser5")}});
+    m_gameObjects.insert({"laser6" ,             GameObject{m_models.at("laser6")}});
+    m_gameObjects.insert({"laser7" ,             GameObject{m_models.at("laser7")}});
+    m_gameObjects.insert({"laser8" ,             GameObject{m_models.at("laser8")}});
+    m_gameObjects.insert({"sky" ,                GameObject{m_models.at("sky")}});
+    m_gameObjects.insert({"skyline" ,            GameObject{m_models.at("skyline")}});
+    m_gameObjects.insert({"flier1",              GameObject{m_models.at("flier1")}});
+    m_gameObjects.insert({"flier2",              GameObject{m_models.at("flier2")}});
+    m_gameObjects.insert({"flier3",              GameObject{m_models.at("flier3")}});
+    m_gameObjects.insert({"flier4",              GameObject{m_models.at("flier4")}});
+    m_gameObjects.insert({"flier5",              GameObject{m_models.at("flier5")}});
 
-    m_gameObjects.insert({"flier1", GameObject{m_models.at("flier1")}});
-    m_gameObjects.insert({"flier2", GameObject{m_models.at("flier2")}});
-    m_gameObjects.insert({"flier3", GameObject{m_models.at("flier3")}});
-    m_gameObjects.insert({"flier4", GameObject{m_models.at("flier4")}});
-    m_gameObjects.insert({"flier5", GameObject{m_models.at("flier5")}});
-    
-
-    //a level editor would come handy round this time :d
-    m_gameObjects.insert({"playerLED1", GameObject{m_models.at("playerscore1")}});
-    m_gameObjects.insert({"playerLED2", GameObject{m_models.at("playerscore2")}});
-    m_gameObjects.insert({"playerLED3", GameObject{m_models.at("playerscore3")}});
-
+    m_gameObjects.insert({"playerLED1",          GameObject{m_models.at("playerscore1")}});
+    m_gameObjects.insert({"playerLED2",          GameObject{m_models.at("playerscore2")}});
+    m_gameObjects.insert({"playerLED3",          GameObject{m_models.at("playerscore3")}});
     m_gameObjects.at("playerLED1").m_render = false;
     m_gameObjects.at("playerLED2").m_render = false;
     m_gameObjects.at("playerLED3").m_render = false;
@@ -210,7 +204,6 @@ void playState::initObjects(){
     m_gameObjects.insert({"aiLED1", GameObject{m_models.at("aiscore1")}});
     m_gameObjects.insert({"aiLED2", GameObject{m_models.at("aiscore2")}});
     m_gameObjects.insert({"aiLED3", GameObject{m_models.at("aiscore3")}});
-
     m_gameObjects.at("aiLED1").m_render = false;
     m_gameObjects.at("aiLED2").m_render = false;
     m_gameObjects.at("aiLED3").m_render = false;
@@ -222,40 +215,43 @@ void playState::initPhysicsObjects(){
     spdlog::info("Initalizing Physics colliders...");
 
     m_physics.createColObject("racket");
-    m_physics.addBoxCollider("racket", reactphysics3d::Vector3(0.12 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
+    m_physics.addBoxCollider ("racket", reactphysics3d::Vector3(0.12 , 0.15 , 0.15), reactphysics3d::Vector3(0.0, 0.0,0));
 
     m_physics.createColObject("enemyRacket");
-    m_physics.addBoxCollider("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(-0.1, 0 ,0));
+    m_physics.addBoxCollider ("enemyRacket", reactphysics3d::Vector3(0.05, 0.15, 0.15), reactphysics3d::Vector3(-0.1, 0 ,0));
 
     m_physics.createColObject("ball");
     m_physics.addSphereCollider("ball", 0.0438);
 
     m_physics.createColObject("backboard");
-    m_physics.addBoxCollider("backboard", reactphysics3d::Vector3(0.05 , 1 , 2), reactphysics3d::Vector3(-.01 , 0.9, 0));
+    m_physics.addBoxCollider ("backboard", reactphysics3d::Vector3(0.05 , 1 , 2), reactphysics3d::Vector3(-.01 , 0.9, 0));
 
     m_physics.createColObject("enemybackboard");
-    m_physics.addBoxCollider("enemybackboard", reactphysics3d::Vector3(0.05, 1, 2), reactphysics3d::Vector3(7, 0.9, 0));
+    m_physics.addBoxCollider ("enemybackboard", reactphysics3d::Vector3(0.05, 1, 2), reactphysics3d::Vector3(7, 0.9, 0));
 
     m_physics.createColObject("leftboard");
-    m_physics.addBoxCollider("leftboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, -2));
+    m_physics.addBoxCollider ("leftboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, -2));
 
     m_physics.createColObject("rightboard");
-    m_physics.addBoxCollider("rightboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, 2));
+    m_physics.addBoxCollider ("rightboard", reactphysics3d::Vector3(3.5, 1, 0.05 ), reactphysics3d::Vector3(3.5, 0.9, 2));
 
     m_physics.createColObject("floorboard");
-    m_physics.addBoxCollider("floorboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, -.08,0));
+    m_physics.addBoxCollider ("floorboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, -.08,0));
 
     m_physics.createColObject("ceilingboard");
-    m_physics.addBoxCollider("ceilingboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, (2 - 0.07),0));
+    m_physics.addBoxCollider ("ceilingboard", reactphysics3d::Vector3(3.5 , 0.05, 2), reactphysics3d::Vector3(3.5, (2 - 0.07),0));
 
     m_physics.createColObject("mouseBoard");
-    m_physics.addBoxCollider("mouseBoard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
+    m_physics.addBoxCollider ("mouseBoard", reactphysics3d::Vector3(0.0005, 50 , 50 ), reactphysics3d::Vector3(0, 0.9, 0));
 
     m_physics.createColObject("button_exit");
-    m_physics.addBoxCollider("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.9 , 0));
+    m_physics.addBoxCollider ("button_exit", reactphysics3d::Vector3(0.1, 0.05 , 0.1), reactphysics3d::Vector3(0, 1.9 , 0));
 
 }
 
+//Side note:
+//This whole "Debug mode" and "Normal rendering" is kind of pointless.
+//A simple "normal rendering" with debug stuff slapped ontop of it would be a lot better and simpler.
 void playState::render(){
     if(m_renderAccumulator > m_renderTick){
         m_frameBuffer->Bind();
@@ -498,14 +494,17 @@ void playState::processAiRacket(){
     m_physics.setTransformFromMat("enemyRacket", m_aiRacket->m_refObject.m_modelMat);
 }
 
+//Side note
+//this method should've been like 5 different methods.
+//Bit of a jumbled mess of code
+
 void playState::processBall(){
+
     Raycasthit shadowray = m_physics.testRayAgainstCollisionObject("floorboard", m_tennisBall->m_position, glm::vec3(0, -1, 0));
     if(shadowray.m_isHit){
         float shadowdistance = glm::distance(shadowray.m_hitpos, m_tennisBall->m_position);
         m_tennisBall->calculateShadowScale(shadowdistance);
     }
-
-
 
     Raycasthit guideray = m_physics.testRayAgainstCollisionObject("backboard", m_tennisBall->m_position, glm::vec3(-1, 0 ,0));
     if(guideray.m_isHit){
@@ -515,6 +514,7 @@ void playState::processBall(){
     m_tennisBall->update(m_deltaTime * m_currTimeScale);
 
     m_physics.setTransformFromMat("ball",m_tennisBall->m_refBall.m_modelMat);
+
 
     if(m_physics.testCollisionBodies("ball", "racket")){
         m_tennisBall->reflect(m_playerRacket->m_targetPosition - m_playerRacket->m_position);
@@ -528,11 +528,12 @@ void playState::processBall(){
         }
     }
 
+
+
     if(m_physics.testCollisionBodies("ball", "enemyRacket")){
         m_tennisBall->reflect(m_aiRacket->generateRackedDir(), true);
         m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
-
     if(m_physics.testCollisionBodies("ball", "leftboard")){
         m_tennisBall->reflect(WallTypes::LEFT);
         m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
@@ -550,7 +551,7 @@ void playState::processBall(){
         m_soloud->play3d(m_sounds.at(getRandomBounceNoiseName()), m_tennisBall->m_position.x, m_tennisBall->m_position.y, m_tennisBall->m_position.z);
     }
 
-    //debug shit pls delete before game is done much love homie :*
+
     else if(m_physics.testCollisionBodies("ball", "backboard")){
         m_score.addPoints(false);
         playAISound(AISOUNDTYPE::SCORE);
@@ -618,6 +619,7 @@ void playState::processBulletTime(){
                 m_currTimeScale = distance / 2 + 0.1;
                 if(m_currTimeScale > 1) { m_currTimeScale = 1; }
             }
+            //While printf isnt the greatest debugger, its quite handy for certain kind of logic errors
             //printf("%.3f\n", m_currTimeScale);
         }
         //std::printf("%i\n", (int)(m_tennisBall->m_lastWall));
@@ -630,6 +632,7 @@ void playState::processBulletTime(){
 bool playState::shouldRun(){
     return !glfwWindowShouldClose(m_window);
 }
+
 
 void playState::playAISound(AISOUNDTYPE type){
     if(type == AISOUNDTYPE::SCORE || type == AISOUNDTYPE::GOTSCORED){
@@ -717,6 +720,7 @@ nextStateEnum playState::nextState(){
     }
 }
 
+//A code from ye-olden days. While the increasing is still in the game, the decreasement of the difficulty isnt in the game now
 void playState::changeAIDifficulty(bool increase){
     if(increase){
         switch (m_aiRacket->m_difficulty){
@@ -729,7 +733,6 @@ void playState::changeAIDifficulty(bool increase){
                     m_score.reset();
                     return;
                 }
-                // TODO - ADD "DIFFICULTY NOT YET UNLOCKED"
                 return;
 
             case AIDIFFICULTY::MEDIUM:
@@ -741,11 +744,9 @@ void playState::changeAIDifficulty(bool increase){
                     m_score.reset();
                     return;
                 }
-                //above todo
                 return;
             
             case AIDIFFICULTY::HARD:
-                //TODO - ADD "YOURE ALREADY AT THE PEAK OF MY CAPABILITES FUCKBOY"
                 return;
         }
     } 

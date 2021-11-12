@@ -83,23 +83,23 @@ void menuState::initCameraPath(){
 void menuState::initObjects(){
     spdlog::info("Initalizing Game Objects...");
 
-    m_gameObjects.insert({"floor" , GameObject{m_models.at("floor")}});
-    m_gameObjects.insert({"floor2" , GameObject{m_models.at("floor2")}});
-    m_gameObjects.insert({"desk", GameObject{m_models.at("desk")}});
-    m_gameObjects.insert({"wall", GameObject{m_models.at("wall")}});
-    m_gameObjects.insert({"wall2", GameObject{m_models.at("wall2")}});
-    m_gameObjects.insert({"wall3", GameObject{m_models.at("wall3")}});
-    m_gameObjects.insert({"menubox", GameObject{m_models.at("menubox")}});
-    m_gameObjects.insert({"chair", GameObject{m_models.at("chair")}});
-    m_gameObjects.insert({"ad", GameObject{m_models.at("ad")}});
-    m_gameObjects.insert({"door", GameObject{m_models.at("door")}});
-    m_gameObjects.insert({"calendar", GameObject{m_models.at("calendar")}});
+    m_gameObjects.insert({"floor",        GameObject{m_models.at("floor")}});
+    m_gameObjects.insert({"floor2",       GameObject{m_models.at("floor2")}});
+    m_gameObjects.insert({"desk",         GameObject{m_models.at("desk")}});
+    m_gameObjects.insert({"wall",         GameObject{m_models.at("wall")}});
+    m_gameObjects.insert({"wall2",        GameObject{m_models.at("wall2")}});
+    m_gameObjects.insert({"wall3",        GameObject{m_models.at("wall3")}});
+    m_gameObjects.insert({"menubox",      GameObject{m_models.at("menubox")}});
+    m_gameObjects.insert({"chair",        GameObject{m_models.at("chair")}});
+    m_gameObjects.insert({"ad",           GameObject{m_models.at("ad")}});
+    m_gameObjects.insert({"door",         GameObject{m_models.at("door")}});
+    m_gameObjects.insert({"calendar",     GameObject{m_models.at("calendar")}});
     m_gameObjects.insert({"monitorstand", GameObject{m_models.at("monitorstand")}});
-    m_gameObjects.insert({"monitor", GameObject{m_models.at("monitor")}});
-    m_gameObjects.insert({"keyboard", GameObject{m_models.at("keyboard")}});
-    m_gameObjects.insert({"calendar", GameObject{m_models.at("calendar")}});
-    m_gameObjects.insert({"roof", GameObject{m_models.at("roof")}});
-    m_gameObjects.insert({"sky", GameObject{m_models.at("sky")}});
+    m_gameObjects.insert({"monitor",      GameObject{m_models.at("monitor")}});
+    m_gameObjects.insert({"keyboard",     GameObject{m_models.at("keyboard")}});
+    m_gameObjects.insert({"calendar",     GameObject{m_models.at("calendar")}});
+    m_gameObjects.insert({"roof",         GameObject{m_models.at("roof")}});
+    m_gameObjects.insert({"sky",          GameObject{m_models.at("sky")}});
 }
 
 void menuState::initPhysicsObjects(){

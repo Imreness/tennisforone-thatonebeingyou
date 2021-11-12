@@ -16,6 +16,7 @@ void graphicsEngine::initUi(){
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_uiQuad) , &m_uiQuad, GL_STATIC_DRAW);
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)0);
 
@@ -25,16 +26,16 @@ void graphicsEngine::initUi(){
 
 void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
     if(hasGeo){
-        std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
+        std::string vertexName  ("shaders/"); vertexName  .append(shaderName); vertexName  .append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
-        std::string geoName("shaders/"); geoName.append(shaderName); geoName.append(".geo");
+        std::string geoName     ("shaders/"); geoName     .append(shaderName); geoName     .append(".geo");
 
         Shader* shader = new Shader{vertexName, fragmentName, geoName};
 
         m_shaders.insert({std::string(shaderName), shader});
     }
     else{
-        std::string vertexName("shaders/"); vertexName.append(shaderName); vertexName.append(".vert");
+        std::string vertexName  ("shaders/"); vertexName  .append(shaderName); vertexName  .append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
 
         Shader* shader = new Shader{vertexName, fragmentName};

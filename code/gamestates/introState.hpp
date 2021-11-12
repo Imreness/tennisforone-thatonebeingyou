@@ -18,22 +18,21 @@
 class introState : public gameState{
 private:
     graphicsEngine m_graphics;
-    InputManager m_input;
-    FrameBuffer* m_frameBuffer;
+    InputManager   m_input;
+    FrameBuffer*   m_frameBuffer;
 
     float m_brightness = 0.0000000001f;
     //if its false, we're fading in
-    bool m_fadeOut = false;
-    float m_fadeSpeed = 3.f;
+    bool m_fadeOut     = false;
+    float m_fadeSpeed  = 3.f;
 
 
-    float m_exitTimer = 0.35f;
+    float m_exitTimer     = 0.35f;
     bool m_exitTimerStart = false;
-    bool m_exit = false;
+    bool m_exit           = false;
 
     std::vector<Texture*> m_textures;
-    std::unordered_map<std::string, Model*> m_models;
-
+    std::unordered_map<std::string, Model*>     m_models;
     std::unordered_map<std::string, GameObject> m_gameObjects;
 
     RailsCamera* m_gameCam;

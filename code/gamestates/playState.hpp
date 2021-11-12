@@ -36,18 +36,17 @@ private:
     bool m_won = false;
 
     graphicsEngine m_graphics;
-    InputManager m_input;
-    PhysicsEngine m_physics;
-    FrameBuffer* m_frameBuffer;
+    InputManager   m_input;
+    PhysicsEngine  m_physics;
+    FrameBuffer*   m_frameBuffer;
 
     float m_brightness = 0.0000000001f;
     //if its false, we're fading in
     bool m_fadeOut = false;
     float m_fadeSpeed = 3.f;
 
-    std::vector<Texture*> m_textures;
-    std::unordered_map<std::string, Model*> m_models;
-
+    std::vector<Texture*>                       m_textures;
+    std::unordered_map<std::string, Model*>     m_models;
     std::unordered_map<std::string, GameObject> m_gameObjects;
 
     ScoreKeeper m_score;
@@ -57,12 +56,12 @@ private:
     RailsCamera* m_gameCam;
 
     playerRacket* m_playerRacket;
-    aiRacket* m_aiRacket;
-    tennisBall* m_tennisBall;
+    aiRacket*     m_aiRacket;
+    tennisBall*   m_tennisBall;
 
     SoLoud::Soloud* m_soloud;
     std::unordered_map<std::string, SoLoud::Wav> m_sounds;
-    bool m_ballSoundLimiter = false;
+    bool  m_ballSoundLimiter = false;
     float m_ballSoundLimiterTimer = 0.f;
 
     bool m_debugMode = false;

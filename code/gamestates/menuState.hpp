@@ -14,9 +14,9 @@
 class menuState : public gameState{
 private:
     graphicsEngine m_graphics;
-    InputManager m_input;
-    FrameBuffer* m_frameBuffer;
-    PhysicsEngine m_physics;
+    InputManager   m_input;
+    FrameBuffer*   m_frameBuffer;
+    PhysicsEngine  m_physics;
 
     float m_brightness = 0.0000000001f;
     //if its false, we're fading in
@@ -24,8 +24,7 @@ private:
     float m_fadeSpeed = 3.f;
 
     std::vector<Texture*> m_textures;
-    std::unordered_map<std::string, Model*> m_models;
-
+    std::unordered_map<std::string, Model*>     m_models;
     std::unordered_map<std::string, GameObject> m_gameObjects;
 
     RailsCamera* m_gameCam;
@@ -37,7 +36,7 @@ private:
     std::unordered_map<std::string, SoLoud::Wav> m_sounds;
 
     float m_renderAccumulator = 0;
-    float m_renderTick = 1. / 60.;
+    float m_renderTick        = 1. / 60.;
 
     float m_lastTime;
     float m_deltaTime;

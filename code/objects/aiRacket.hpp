@@ -29,6 +29,9 @@ struct aiRacket{
     const float m_speedNormal = (m_minSpeedNormal + m_maxSpeedNormal) / 2;
     const float m_speedHard = (m_minSpeedHard + m_maxSpeedHard) / 2;
 
+    //Side note:
+    //This feature allows the game to be "easier" each time the player loses.
+    //Only downside is that the effect has to be subtle AND the player may not have enough patience to wait for this value to rise.
     float m_difficultyBalance = 1;
     int m_amountOfTimesWon = 0;
 

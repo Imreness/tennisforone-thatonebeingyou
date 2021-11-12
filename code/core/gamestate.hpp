@@ -13,6 +13,10 @@ enum class nextStateEnum{
     OUTRO
 };
 
+//Side note:
+//This base class is a LOT MORE bare bones than it actually needs to be. Universtal stuff like input handling and rendering
+//SHOULD be handeled in the base class as well, to reduce clutter in the states. Power of hindsight i guess
+
 //Base class for other states to build upon
 class gameState{
 protected:

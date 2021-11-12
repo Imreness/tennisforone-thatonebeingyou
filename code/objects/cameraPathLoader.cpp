@@ -2,10 +2,19 @@
 
 #include <fstream>
 #include <string>
-
+#include <filesystem>
+#include <spdlog/spdlog.h>
 
 std::vector<cameraTargetObject>loadCameraPath(const char* filepath){
     std::ifstream file;
+
+    std::filesystem::path fspath(filepath);
+    if(!std::filesystem::exists(fspath)){
+        spdlog::error("Cannot find .path file at: {}", filepath);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        abort();
+    }
+
     file.open(filepath);
 
     std::string fileLine("");

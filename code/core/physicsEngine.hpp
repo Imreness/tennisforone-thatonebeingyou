@@ -62,10 +62,13 @@ public:
 
 	collisionObject* getColObject(std::string name);
 
+	//Shoot a ray from current mouse position
 	Raycasthit testMouseRayAgainstCollisionObject(std::string name, glm::mat4& view, glm::mat4& proj, bool setDebugRayData = false);
+
 	Raycasthit testRayAgainstCollisionObject(std::string name, glm::vec3 position, glm::vec3 direction, bool setDebugRayData = false);
 
 	void createColObject(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
+	
 	void addBoxCollider(std::string, reactphysics3d::Vector3 = reactphysics3d::Vector3{1., 1., 1.}  ,reactphysics3d::Vector3 = reactphysics3d::Vector3{0.,0.,0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 	void addSphereCollider(std::string, float = 1.f, reactphysics3d::Vector3 = reactphysics3d::Vector3{0., 0., 0.}, reactphysics3d::Quaternion = reactphysics3d::Quaternion::identity());
 

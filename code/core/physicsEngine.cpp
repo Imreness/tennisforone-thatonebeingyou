@@ -30,8 +30,11 @@ collisionObject* PhysicsEngine::getColObject(std::string name){
 }
 
 void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shader){
+
+    //Set the rendering mode to wireframe
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    //setup render parameters
     reactphysics3d::DebugRenderer m_debugRenderer = m_world->getDebugRenderer();
     m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true);
     m_debugRenderer.setIsDebugItemDisplayed(reactphysics3d::DebugRenderer::DebugItem::CONTACT_POINT, true);
@@ -40,7 +43,6 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
     m_debugRenderer.computeDebugRenderingPrimitives(*m_world);
 
     std::vector<float> m_linesVertices;
-
 
     int linesAmount = m_world->getDebugRenderer().getNbLines();
     for(int i = 0; i < linesAmount; i++){
@@ -107,6 +109,8 @@ void PhysicsEngine::debugRender(glm::mat4& view , glm::mat4& proj, Shader* shade
 
         glDrawArrays(GL_TRIANGLES, 0, trianglesAmount*3);    
     }
+
+    //Set the rendering mode back to normal
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
