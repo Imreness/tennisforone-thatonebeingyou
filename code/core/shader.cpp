@@ -12,7 +12,6 @@ void Shader::CheckError(unsigned int ID, bool isProgram)
 		{
 			glGetProgramInfoLog(ID, 1024, NULL, infolog);
 			spdlog::error("Couldn't link shader program. {}", infolog);
-			std::this_thread::sleep_for(std::chrono::seconds(2));
 			abort();
 		}
 
@@ -25,7 +24,6 @@ void Shader::CheckError(unsigned int ID, bool isProgram)
 		{
 			glGetShaderInfoLog(ID, 1024, NULL, infolog);
 			spdlog::error("Couldn't compile shader program. {}", infolog);
-			std::this_thread::sleep_for(std::chrono::seconds(2));
 			abort();
 		}
 	}
@@ -61,7 +59,6 @@ Shader::Shader(const std::string_view vertexPath, const std::string_view fragmen
 	catch (std::ifstream::failure& e)
 	{
 		spdlog::error("Failed to load shader. Shaders: {} ; {}", vertexPath.data(), fragmentPath.data());
-		std::this_thread::sleep_for(std::chrono::seconds(2));
 		abort();
 	}
 	const char* vertexCode = vertexString.c_str();
@@ -124,7 +121,6 @@ Shader::Shader(const std::string_view vertexPath, const std::string_view fragmen
 	catch (std::ifstream::failure& e)
 	{
 		spdlog::error("Failed to load shader. Shaders: {} ; {}", vertexPath.data(), fragmentPath.data());
-		std::this_thread::sleep_for(std::chrono::seconds(2));
 		abort();
 	}
 	const char* vertexCode = vertexString.c_str();

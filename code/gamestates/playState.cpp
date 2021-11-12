@@ -782,7 +782,13 @@ playState::~playState(){
     delete m_debugCam;
     delete m_playerRacket;
     delete m_tennisBall;
-    delete m_gameCam;
+    delete m_gameCam; 
+    for(auto& obj : m_textures){
+        delete obj;
+    }
+    for(auto& obj : m_models){
+        delete obj.second;
+    }
 }
 
 std::string playState::getRandomBounceNoiseName(){

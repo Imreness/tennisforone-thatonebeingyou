@@ -11,7 +11,7 @@ void Game::initspdlog(){
 
 	spdlog::set_default_logger(logfile);
 	spdlog::set_level(m_currConfig.debuglevel);
-
+    spdlog::flush_on(spdlog::level::level_enum::err);
 	spdlog::flush_every(std::chrono::seconds(1));
 
 	spdlog::debug("Started game constructor");
@@ -27,7 +27,6 @@ void Game::initGLFW(const char* title){
     //Init GLFW and the window itself
     if(!glfwInit()){
         spdlog::error("Error initalizing GLFW!");
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
 
@@ -49,7 +48,6 @@ void Game::initGLFW(const char* title){
     if(!m_mainWindow){
         glfwTerminate();
         spdlog::error("Error while creating the game window!");
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
     glfwMakeContextCurrent(m_mainWindow);
@@ -59,7 +57,6 @@ void Game::initOpenGL(){
     //Init OpenGL
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         spdlog::error("Error initalizing OpenGL!");
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
 

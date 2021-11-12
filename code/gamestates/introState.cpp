@@ -212,11 +212,17 @@ void introState::update3DAudio(){
 }
 
 introState::~introState(){
-    spdlog::info("Deleting playstate...");
+    spdlog::info("Deleting intro state...");
 
     m_soloud->deinit();
 
     delete m_gameCam;
+    for(auto& obj : m_textures){
+        delete obj;
+    }
+    for(auto& obj : m_models){
+        delete obj.second;
+    }
 }
 
 void introState::initDeltaTime(){

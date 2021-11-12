@@ -1,4 +1,5 @@
 #include <core/framebuffer.hpp>
+#include <spdlog/spdlog.h>
 
 float frameVertices[] = {
     -1.0f,  1.0f,  0.0f, 1.0f,
@@ -13,6 +14,8 @@ float frameVertices[] = {
 FrameBuffer::FrameBuffer(int renderWidth, int renderHeight,int windowWidth, int windowHeight, Shader* shader)
     : m_shader(shader) , m_windowHeight(windowHeight), m_windowWidth(windowWidth), m_renderWidth(renderWidth), m_renderHeight(renderHeight)
 {
+    spdlog::debug("Creating frame buffer...");
+
     glGenFramebuffers(1, &m_id);
     glBindFramebuffer(GL_FRAMEBUFFER, m_id);
 
@@ -36,8 +39,7 @@ FrameBuffer::FrameBuffer(int renderWidth, int renderHeight,int windowWidth, int 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         spdlog::error("Couldn't create framebuffer");
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-        assert(false);
+        abort();
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

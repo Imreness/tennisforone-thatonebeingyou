@@ -3,6 +3,9 @@
 Model::Model(unsigned int texID,VertexData data, glm::mat4 initTransform, VertexLayout layout) :
 	m_texID{texID},m_data{std::move(data)}, m_initTransform{initTransform} 
 {
+	//This debug log is probably useless. But I figured IF i wanted to make sure that the object is FREED up, I should make
+	//sure that the object is also reserved. Bad part is, I cannot specify WHICH model object is being created...
+	spdlog::debug("Creating model object...");
 	glCreateBuffers(1, &m_VBO);
 	glCreateBuffers(1, &m_EBO);
 
@@ -34,6 +37,7 @@ void Model::render()
 }
 
 Model::~Model(){
+	spdlog::debug("Deleting model object...");
 	glDeleteBuffers(1, &m_EBO);
 	glDeleteBuffers(1, &m_VBO);
 

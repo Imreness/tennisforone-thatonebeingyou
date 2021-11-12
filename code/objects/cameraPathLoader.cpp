@@ -11,7 +11,6 @@ std::vector<cameraTargetObject>loadCameraPath(const char* filepath){
     std::filesystem::path fspath(filepath);
     if(!std::filesystem::exists(fspath)){
         spdlog::error("Cannot find .path file at: {}", filepath);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
 

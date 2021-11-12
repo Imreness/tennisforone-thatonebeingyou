@@ -15,7 +15,6 @@ void assetLoader::loadUiPackage(std::unordered_map<std::string, Texture*>& textu
     std::filesystem::path fspath{fullpath.c_str()};
     if(!std::filesystem::exists(fspath)){
         spdlog::error("Missing UI package: {}", fullpath);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
     file.open(fullpath.c_str(), false);
@@ -54,7 +53,6 @@ void assetLoader::loadAssetBundle(std::vector<Texture*>& textures,
     std::filesystem::path fspath{fullpath.c_str()};
     if(!std::filesystem::exists(fspath)){
         spdlog::error("Missing Asset package: {}", fullpath);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         abort();
     }
     file.open(fullpath.c_str(), false);

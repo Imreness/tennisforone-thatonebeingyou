@@ -25,6 +25,7 @@ void graphicsEngine::initUi(){
 }
 
 void graphicsEngine::loadShader(const char* shaderName, bool hasGeo){
+    spdlog::debug("Loading shader called {}", shaderName);
     if(hasGeo){
         std::string vertexName  ("shaders/"); vertexName  .append(shaderName); vertexName  .append(".vert");
         std::string fragmentName("shaders/"); fragmentName.append(shaderName); fragmentName.append(".frag");
@@ -167,7 +168,7 @@ void graphicsEngine::renderEnd(){
 }
 
 graphicsEngine::~graphicsEngine(){
-    spdlog::info("Freeing up graphics engine shaders...");
+    spdlog::info("Deleting graphics engine...");
 
     glDeleteVertexArrays(1, &m_uiVAO);
     glDeleteBuffers(1, &m_uiVBO);

@@ -219,11 +219,18 @@ void menuState::update3DAudio(){
 }
 
 menuState::~menuState(){
-    spdlog::info("Deleting playstate...");
+    spdlog::info("Deleting menustate...");
 
     m_soloud->deinit();
 
     delete m_gameCam;
+    
+    for(auto& obj : m_textures){
+        delete obj;
+    }
+    for(auto& obj : m_models){
+        delete obj.second;
+    }
 }
 
 void menuState::initDeltaTime(){
