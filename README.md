@@ -1,37 +1,23 @@
 # Tennis For One - That One Being You
 - [Tennis For One - That One Being You](#tennis-for-one---that-one-being-you)
-- [TECHSTUFF](#techstuff)
-- [Story](#story)
-- [Gameplay](#gameplay)
-  - [Matches](#matches)
-    - [Controls](#controls)
-    - [Shot direction](#shot-direction)
-    - [Tactics](#tactics)
-- [Specific engine parts](#specific-engine-parts)
-  - [Cinematic](#cinematic)
+- [Overview](#overview)
+- [Engine Design](#engine-design)
+- [Development flow](#development-flow)
+- [Lessons Learned](#lessons-learned)
 
-# TECHSTUFF
-For audio on arch, install pulseaudio-alsa
+# Overview
 
-# Story
-You are the last person on earth. A nuclear fallout has killed every single living being on the planet. While seeking shelter, you come across a rec facility, with a top of the line Zer 0-G Tennis court, with a built in AI. With a decent chunk of supplies left, you make camp in the facility, hoping to survive for a long while.
+The Game was made as a *programming* exercise, which is the the primary reason for the lacking asset and game design quality. Even though the artstyle is supposed to mimmick late 90's early 3D games, It doesnt really come through.
 
-After finishing the game and beating the 3 AI levels, the AI terminates the player. A cinematic will play, revealign that the AI caused the fallout, because a supreme leader beat it at tennis.
+# Engine Design
+The engine is a finite-state machine. Each game state has its own variable, which are cleared upon state-switching. Within these variables, the game handles internal logic, Rendering, Physics, Audio, etc.
 
+Internal logic are in object's process functions OR in the state's process functions.
 
-# Gameplay
-## Matches
-Matches are simple Tennis matches with a differen scoring system. After 3 scores, the next 2 score can be lost if the opposition scores. Making comebacks possible
+# Development flow
+Assets and levels are created in an external 3D modelling tool, from which a .DAE file is exported. The asset packer loads these .DAE files then packs it into .assetbundle files, which are loaded by the game by itself.
 
-### Controls
-The tennis racket will follow the cursor with a slight delay, so that it isn't too easy.
+Game Logic, since there isn't a dedicated editor, is written into the engine itself via c++.
 
-### Shot direction
-The ball will bounce in the direction of the racket's momentum. For example; if the racket is going from the bottom left to the top right while it hit the ball, the ball will bounce generally into the top right direction.
-
-### Tactics
-Its adviseable to simply play safely until the ball speeds up, then make some moves
-
-# Specific engine parts
-## Cinematic
-A set of camera positions are saved into the level file. Apart from the .blend file, the asset packer packs an intro.cin(ematic) and an outr.cin file aswell. these texts files determine which camera position is shown and for how long.
+# Lessons Learned
+An editor is a must. Even in this simple game an editor would've saved a ton of time. (All the while, the actual development of the editor would eat a lof ot time too, editor only needs to be written once... probably once.)
